@@ -1,0 +1,197 @@
+/*Reset*/ 
+body,div,span,dt,dd,h1,h2,h3,h4,h5,h6,form,fieldset,label,input,textarea,p,th,td {margin:0;padding:0;}
+
+/*General Layout*/ 
+#navContainer {background:#000 url(../Images/background-x.png) repeat-x 0px 0px fixed; border-bottom:solid 1px #000; z-index:1000; position:fixed; height:60px; width:100%; display:block; margin:0px; top:0px; -webkit-box-shadow:2px 2px 10px 2px #000; -moz-box-shadow:2px 2px 10px 2px #000; box-shadow:2px 2px 10px 2px #000;}
+#topNav {width:660px; margin:0px auto; padding:0px 20px; list-style:none;}
+#topNav li {float:left;}
+#topNav li a {padding:8px 14px; margin:12px 1px 0px 11px; display:block; font-size:14px; color:#CCC; font-weight:normal; text-shadow:#000 -1px -1px 1px; text-decoration:none; text-align:center;}
+#topNav li a:hover, #topNav li .active, #topNav li .active:hover {background:#111; border:1px solid; border-color:#000 #444 #444 #000; margin:11px 0px 0px 10px; -webkit-border-radius:4px; -moz-border-radius:4px; border-radius:4px;}
+#topNav #logo {border-left:0px; margin:0px; background:url(../Images/background-x.png) no-repeat 0px -522px; height:60px; width:80px; padding:0px; border:none;}
+#navrow1 {margin-top:-10px;}
+
+/*General Typography*/ 
+body {font-size:14px; line-height:21px; font-family:Verdana, Geneva, Tahoma, sans-serif; background:#000 url(../Images/background.png) repeat-x -74px 0px fixed; padding-top:70px;}
+h1, h2, h3, h4, h5, h6 {color:#FFF; text-shadow:-1px -1px 1px #000;}
+h1, h2, h3, h4, h5, h6, p, blockquote, pre {line-height:21px; margin-bottom:21px;}
+h1, h2, h3, h4, h5, h6 {font-family:Georgia, Times, "Times New Roman", serif;}
+h1 {font-size:24px; line-height:42px; margin-bottom:21px;}
+h2 {font-size:21px;}
+h3 {font-size:18px;}
+h4 {font-size:16px;}
+h5 {font-size:14px;}
+h6 {font-size:12px;}
+p {}
+ul {list-style-position:inside;}
+ol {list-style-position:inside;}
+li {}
+blockquote {border-left:4px solid #CCC; padding:20px; background:#FFFFFE;}
+pre {width:620px; overflow:auto; background:#fbf8f1; color:#000; border:solid 1px; border-color:#999 #FFF #FFF #999; padding:20px; -webkit-border-radius:6px; -moz-border-radius:6px; border-radius:6px;}
+legend {font-weight:bold;}
+fieldset {padding:20px; margin-bottom:21px; -moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px;}
+#copyright {color:#666; font-size:10px;}
+#main ol, #main ul, #main dl {margin:0px 0px 21px 21px;}
+ 
+/*Links*/ 
+a {color:#09C; font-weight:bold;}
+a:hover {color:#777;}
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {text-decoration:none; color:#FFF; text-shadow:-1px -1px 1px #000;}
+h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {text-decoration:underline;}
+
+/*Content*/
+#largeLogo {background:url(../Images/large-logo.png); height:453px; width:457px; display:block; margin:100px auto;}
+.content {background:#111 url(../Images/background-x.png) repeat-x 0px -600px; margin:25px auto; width:660px; padding:20px; color:#FFF; overflow:auto; border:1px solid; border-color:#666 #000 #000 #666; -webkit-border-radius:6px; -moz-border-radius:6px; border-radius:6px; -webkit-box-shadow:2px 2px 10px 2px #000; -moz-box-shadow:2px 2px 10px 2px #000; box-shadow:2px 2px 10px 2px #000;}
+.tabContent {background:#111 url(../Images/background-x.png) repeat-x 0px -640px; margin:0px auto 25px; width:660px; padding:20px; clear:both; color:#FFF; overflow:auto; border:1px solid; border-color:#666 #000 #000 #666; -webkit-border-radius: 0px 6px 6px 6px; -moz-border-radius:6px; border-radius: 0px 6px 6px 6px; -moz-border-radius-topleft: 0px; -webkit-box-shadow:2px 2px 10px 2px #000; -moz-box-shadow:2px 2px 10px 2px #000; box-shadow:2px 2px 10px 2px #000;}
+#doc-content h2 {color:#000; text-shadow:0px 0px 0px;}
+#about p {clear:none;}
+.medLogo {float:right; margin:0px 0px 20px 20px;}
+.copyright {margin:-40px auto 0px; width:660px; padding:20px; color:#999; text-align:center; font-size:10px;}
+.column {float:left; clear:none; width:47%; padding-left:3%;}
+
+/*Tab Menu*/
+.tabMenu {width:700px; margin:0px auto; padding:0px; list-style:none; position:relative; left:-1px;}
+.firstTabMenu {margin:14px auto 0px;}
+.tabMenu li {float:left;}
+.firstTab {height:40px; line-height:40px; padding:0px 30px; font-weight:normal; outline:none; text-shadow:-1px -1px 1px #000; background:#222 url(../Images/background-x.png) repeat-x 0px -680px;; display:block; bottom:-1px; position:relative; text-decoration:none; color:#FFF; border:1px solid; border-color:#666 #000 #000 #666; -webkit-border-radius: 6px 0px 0px 0px; border-radius: 6px 0px 0px 0px; -moz-border-radius-topleft:6px; box-shadow:6px 0px 3px -3px #010101;}
+.tab {height:40px; line-height:40px; padding:0px 30px; font-weight:normal; outline:none; text-shadow:-1px -1px 1px #000; background:#222 url(../Images/background-x.png) repeat-x 0px -680px; display:block; bottom:-1px; position:relative; text-decoration:none; color:#FFF; border:1px solid; border-color:#666 #000 #000 #666;}
+.firstTab.active, firstTab.active:hover, .tab.active, .tab.active:hover {height:42px; line-height:41px; background-position:0px -600px; z-index:100; border-bottom:none; border-left:1px solid #666; border-top:1px solid #666;}
+.tab.active {-webkit-box-shadow:3px -3px 3px #010101, -2px -3px 2px #010101; box-shadow:6px 0px 3px -3px #010101, -6px 0px 3px -3px #010101;}
+
+/*Forms*/
+.content form {overflow:auto;}
+.content input, .content select, .content label, .content textarea, .content form p, .tabContent input, .tabContent select, .tabContent label, .tabContent textarea, .tabContent form p {float:left; clear:left;}
+.content label, .tabContent label  {font-weight:bold; line-height:21px; margin-top:21px;}
+.content form p, .tabContent form p, .tabContent p {margin-top:21px; line-height:21px; clear:both;}
+.content input[type=text], .content textarea, .content select, .tabContent input[type=text], .tabContent textarea, .tabContent select {width:400px; height:22px; margin-top:7px; outline:none; background:#222; border:1px solid; border-color:#000 #444 #444 #000; -webkit-border-radius:4px; -moz-border-radius:4px; border-radius:4px; color:#FFF; text-indent:5px;}
+.content input[type=text], .content textarea, .tabContent input[type=text], .tabContent textarea {box-shadow:inset 2px 2px 2px #111;}
+.content textarea, .tabContent textarea {height:200px; overflow:hidden;}
+.content select, .tabContent select {width:400px; text-indent:0px;}
+.content input.submit, .tabContent input.submit {height:30px; line-height:26px; width:auto; padding:0px 10px; text-indent:0px; font-weight:bold; margin:21px 0px; border:1px solid; border-color:#08D #036 #036 #08D; -webkit-border-radius:4px; -moz-border-radius:4px; border-radius:4px; background:#09F url(../Images/background-x.png) repeat-x 0px -405px; color:#FFF; text-shadow:-1px -1px 1px #036;  box-shadow:1px 1px 2px #010101;}
+.content input.submit:hover, .tabContent input.submit:hover {background-position:0px -435px; cursor:pointer; box-shadow:1px 1px 1px #111;}
+.checked, .unchecked {height:12px; width:12px; display:block; border:1px solid; border-color:#000 #333 #333 #000; border-radius:4px; margin-top:4px; background:#121212}
+.checked:after {color:#09F; content:'\2714'; bottom:5px; font-size:18px; position:relative; text-shadow:1px 1px 1px #000;}
+.checked.activeCheck, .unchecked.activeCheck {outline:dotted 1px #999;}
+
+/*Test Form*/
+#testForm {overflow:none;}
+.content .selectMulti, .tabContent .selectMulti {float:left; clear:none; margin-left:6px; margin-top:8px;}
+.monitor, .selectaTrigger {width:auto; height:28px; line-height:26px; padding:0px 30px 0px 10px; border:1px solid; border-color:#444 #000 #000 #444; background:#222 url(../Images/background-x.png) repeat-x 0px -20px; -webkit-border-radius:4px; -moz-border-radius:4px; border-radius:4px; position:relative; text-shadow:-1px -1px 1px #000; -webkit-box-shadow:1px 1px 2px #323232, -1px -1px 2px #010101; -moz-box-shadow:1px 1px 2px #323232, -1px -1px 2px #010101; box-shadow:1px 1px 2px -1px #323232, -1px -1px 2px -1px #010101;}
+#testForm .selectaTrigger {cursor:pointer; float:left; clear:left; margin-top:8px; padding:0px 30px 0px 10px; height:28px; width:60px; border:1px solid; border-color:#444 #000 #000 #444; position:relative;}
+.monitor:hover, #testForm .selectaTrigger:hover {background-position:0px 0px; cursor:pointer;}
+.monitor.active, .selectaTrigger.active {-moz-border-radius-bottomright:0px; -moz-border-radius-bottomleft:0px; -webkit-border-radius:4px 4px 0px 0px; border-radius:4px 4px 0px 0px;}
+.monitor:after, .selectaTrigger:after {content:' '; width:19px; height:14px; display:block; background:url(../Images/background-x.png) no-repeat -48px -481px; top:9px; right:5px; position:absolute;}
+.monitor.active:after, .selectaTrigger.active:after {background-position:-75px -481px;}
+ul.selectList, .selectaWrapper  {list-style:none; margin:0px; padding:2px 10px 10px; background:#222; border:1px solid; border-color:#444 #000 #000 #444; width:300px; display:block; overflow:auto; -moz-border-radius-topleft: 0px; -moz-border-radius-topright:4px; -moz-border-radius-bottomright:4px; -moz-border-radius-bottomleft:4px; -webkit-border-radius:0px 4px 4px 4px; border-radius:0px 4px 4px 4px;}
+.selectList li {float:left; clear:left; position:relative; margin-top:8px;} 
+.selectList input {float:left; clear:left;}
+.content .selectList li label, .tabContent .selectList li label {float:left; clear:none; min-width:250px; width:auto; position:absolute; top:-26px; left:20px; font-weight:normal;}
+.tabContent input.launchButton {clear:none; margin:8px 0px 0px 6px;}
+.root {display:none; z-index:1000; width:auto;}
+.root.expanded {display:block; list-style:none; border:1px solid; position:absolute; border:none; top:0px; left:8px; padding:0px; margin:0px;}
+.root.expanded li {width:100%; height:26px; line-height:26px; display:block; padding:0px 8px; background:#222;}
+.root.expanded li:hover {background:#111; cursor:pointer;}
+.selectaTrigger a {color:#FFF; font-weight:normal; text-decoration:none; text-shadow:-1px -1px 1px #000; width:auto; white-space:nowrap;}
+
+/*Tables*/
+table {box-shadow:1px 1px 2px -1px #323232, -1px -1px 2px -1px #010101; margin-bottom:21px;}
+
+/*Errors*/
+.errorList {float:left; color:#F00; margin:21px 0px 0px; padding:0px;}
+.notification {width:100%; height:30px; line-height:30px; text-align:center; font-weight:bold; display:block; position:fixed; background:url(../Images/background-x.png) repeat-x 0px -345px; margin-top:-9px; border-top:#FC6 1px solid; border-bottom:#F93 1px solid; z-index:1000; text-shadow:1px 1px 1px #FC6; box-shadow:2px 2px 10px 2px #000;}
+
+/*Tips*/
+.tipContainer {background:#000; padding:10px; z-index:1000; color:#FFF; overflow:auto; border:1px solid; border-color:#666 #000 #000 #666; -webkit-border-radius:6px; -moz-border-radius:6px; border-radius:6px; box-shadow:2px 2px 10px 2px #000; opacity:0.9; filter:alpha(opacity=90); max-width:350px;}
+
+/*Highlighter*/
+.copyContainer {float:right; position:relative; width:200px;}
+.clipboard {position:absolute; color:#666; top:1px; right:1px; padding:3px 5px; background:#EEE; border-radius:0px 6px 0px 6px; cursor:pointer;}
+
+/*Docs*/
+#api .title {width:auto;}
+.noValue {color:#999;}
+#api .methodParam {padding:8px; line-height:18px; display:block; text-indent:0px;}
+.divider {margin:42px 0px 42px; height:1px; width:100%; display:block; background:#000; border-bottom:1px solid #333;}
+.scrollPoint {position:relative; top:-20px;}
+#api .standardline {text-indent:-30px;}
+.note, .security {width:94%; padding:3%; background:#222; border-radius:6px; border:1px solid; border-color:#000 #444 #444 #000; margin-bottom:21px;}
+.note strong {color:#FC6;}
+.security strong {color:#F33;} 
+
+/**
+ * CSS for the VM Framework Test Suite
+ */
+ 
+/*Layout*/
+.titleContainer {width:100%; overflow:auto;}
+.infoContainer {width:200px; float:left; font-size:12px;}
+.resultsTableContainer {width:425px; float:right; font-size:12px;}
+.coverageContainer, .historyContainer, .codeContainer {clear:both; padding-top:21px;}
+.title {float:left; clear:left; width:100%;}
+.topLink {float:right; margin-right:5px; background:url(../Images/background-x.png) repeat-x -6px -472px; display:block; height:23px; width:34px; clear:none;}
+
+/*Selection Form*/
+.tabContent .includeSelect, .tabContent #reports {width:100px; height:30px;  color:#FFF; border:1px solid; border-color:#333 #000 #000 #333; -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px;}
+.tabContent #reports {width:auto;}
+#testForm .selectaTrigger {cursor:pointer; width:auto; float:left; clear:left; margin-top:8px; padding:0px 30px 0px 10px; height:28px; border:1px solid; border-color:#444 #000 #000 #444; position:relative;}
+.reports {margin-bottom:8px;}
+.monitor:hover, #testForm .selectaTrigger.includeSelect:hover {background:#111 url(../Images/background-x.png) repeat-x 0px 0px; cursor:pointer;}
+.multiSelect {float:left; clear:left; margin-top:20px}
+.checkContainer {float:left; clear:left; height:20px; position:relative;}
+.tabContent .multiSelect label, .tabContent .multiSelect input {float:left; clear:none;}
+.tabContent .multiSelect input, #coverage, #metrics, #saveResults {height:20px; margin:0px; width:auto;}
+.tabContent .multiSelect label, #coverageLabel, #metricsLabel, #saveResultsLabel {position:absolute; top:-23px; left:20px; font-weight:normal; width:300px;}
+
+/*Meters*/
+.meterContainer {width:198px; height:30px; line-height:30px; text-align:center; color:#999; display:block; background:#000 url(../Images/background-x.png) repeat-x 0px -254px; border:1px solid; border-color:#000 #333 #333 #000; -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px;}
+.meterContainer .pass {height:28px; background:#000 url(../Images/background-x.png) repeat-x 0px -284px; display:block; border:1px solid; border-color:#396 #363 #363 #396; -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px;}
+.meterContainer .fail {height:28px; background:#000 url(../Images/background-x.png) repeat-x 0px -315px; display:block; border:1px solid; border-color:#F66 #F33 #F33 #F66; -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px;}
+.meterContainer .warning {height:28px; background:#000 url(../Images/background-x.png) repeat-x 0px -345px; display:block; border:1px solid; border-color:#FC9 #F93 #F93 #FC9; -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px;}
+.infoContainer .meterCaption {margin-bottom:20px; display:block;}
+.infoContainer .suite {font-size:10px;}
+td .meterContainer {width:98%; height:20px; line-height:22px; font-size:10px;}
+td .meterContainer .pass, td .meterContainer .fail, td .meterContainer .warning {height:18px; margin:0px; float:none;}
+
+/*InfoContainer*/
+.infoContainer ul {margin:20px 0px; padding:0; list-style:none;}
+.infoContainer ul ul {margin:10px 0px 10px 5px;}
+.resultsContainer .coverageBar {float:left; clear:none; margin-bottom:20px;}
+.resultsContainer .functionalCoverage {margin-right:25px;}
+.resultsContainer table {width:425px; border-collapse:collapse;}
+
+/*Tables*/
+.resultsContainer .testsTable {clear:both; width:100%;}
+.tableTitle {clear:both; float:right; width:100%; display:block; margin-top:20px;}
+td, th {background: #232323; background: -moz-linear-gradient(top,  #232323 0%, #111111 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#232323), color-stop(100%,#111111)); background: -webkit-linear-gradient(top,  #232323 0%,#111111 100%); background: -o-linear-gradient(top,  #232323 0%,#111111 100%); background: -ms-linear-gradient(top,  #232323 0%,#111111 100%); background: linear-gradient(top,  #232323 0%,#111111 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#232323', endColorstr='#111111',GradientType=0 ); margin:0px; text-align:left; text-shadow:-1px -1px 1px #000; border:1px solid; border-color:#333 #000 #000 #333; padding:0px 5px; text-indent:5px; line-height:30px; height:30px;}
+th, thead td {background:#000 url(../Images/background-x.png) repeat-x 0px -376px; font-weight:bold; border-color:#444 #000 #000 #444; line-height:29px; height:29px;}
+.tabContent td.warning {background:#F93 url(../Images/background-x.png) repeat-x 0px -345px; margin:0px; color:#000; text-shadow:1px 1px 1px #FC9; border:1px solid; border-color:#FC9 #F93 #F93 #FC9;}
+.tabContent td.fail {background:#F33 url(../Images/background-x.png) repeat-x 0px -315px; margin:0px; color:#000; text-shadow:1px 1px 1px #F99; border:1px solid; border-color:#F99 #F22 #F22 #F99;}
+td .pass, td .fail, td .notRun, td .warning {height:10px; width:10px; display:block; border:1px solid; -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px; background:url(../Images/background-x.png) repeat-x 0px -284px; float:left; margin:9px 5px;}
+td .pass {border-color:#000 #333 #333 #000;}
+td .fail {background-position:0px -320px; border-color:#000 #333 #333 #000;}
+td .notRun {background:#999; border-color:#000 #333 #333 #000;}
+td .warning {background-position:0px -345px; border-color:#000 #333 #333 #000;}
+td .complexity.pass, td .complexity.fail, td .complexity.warning {background:none; font-size:14px; border:none; line-height:30px; margin:0px; float:none; height:auto; width:auto;}
+p.fail {color:#F33;}
+.testFail {color:#F33; width:100%; display:block;}
+.testNotRun {color:#CCC; width:100%; display:block;}
+.classLink {color:#FFF; font-weight:normal; text-decoration:none;}
+
+/*Code Coverage*/
+.codeCoverage {margin:0px; padding:0px; clear:both; color:#000; background:#EEE; list-style:none; border:1px solid; border-color:#666 #FFF #FFF #666; overflow:auto; max-height:600px;}
+.codeCoverage li {width:auto; height:21px; display:block;}
+.lineNumber, .execute {width:40px; height:21px; display:block; background:#CCC; float:left; clear:left; text-indent:5px;}
+.execute {width:30px; clear:none;}
+.codeCoverage .pass .execute {width:30px; height:21px; display:block; float:left; clear:none; background:url(../Images/background-x.png) repeat-x 0px -284px; color:#FFF; text-indent:5px;}
+.codeCoverage .fail .execute {width:30px; height:21px; display:block; float:left; clear:none; background:url(../Images/background-x.png) repeat-x 0px -320px; text-indent:5px;}
+.code, .comment {width:auto; height:21px; display:block; white-space:nowrap; text-indent:5px;}
+.pass .code {color:#390;}
+.fail .code {color:#F33;}
+.comment {color:#999;}
+
+/*Metrics*/
+.complexity {background:#000 url(../Images/background-x.png) repeat-x 0px -20px; width:100%; height:30px; display:block; text-align:center; font-size:20px; font-weight:bold; line-height:30px; border:1px solid; border-color:#000 #333 #333 #000; text-shadow:-1px -1px 1px #000;}
+.complexity.pass, .tipContainer .pass {color:#338C59;}
+.complexity.warning, .tipContainer .warning {color:#F93;}
+.complexity.fail, .tipContainer .fail {color:#F33;}
+.locChart {margin-bottom:20px;}
+.locHolder canvas {margin-bottom:20px;}
