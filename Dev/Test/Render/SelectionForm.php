@@ -4,7 +4,7 @@
 * @license: MIT License
 * Description: Renders the report selection form
 */
-class Tests_Test_Render_SelectionForm {
+class Test_Render_SelectionForm {
 	
 	protected $authors = array();
 	protected $authorsData = array();
@@ -21,7 +21,7 @@ class Tests_Test_Render_SelectionForm {
 	protected $testSuite;
 	protected $xml;
 	
-	function __construct(Tests_Test_Suite $testSuite){
+	function __construct(Test_Suite $testSuite){
 		$this->testSuite = $testSuite;
 		$this->xml = new Vm_Xml();
 		$this->isNewReport = ((!isset($_POST['saveResults']))&&((!isset($_POST['reports']))||(isset($_POST['reports']))&&($_POST['reports'] == 'new'))) ? TRUE : FALSE; 

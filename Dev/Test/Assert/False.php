@@ -4,7 +4,7 @@
 * @license: MIT License
 * Description: A unit test that tests if x is FALSE, fails if it is not.
 */
-class Tests_Test_Assert_False extends Tests_Test_Assert {
+class Test_Assert_False extends Test_Assert {
 	
 	/**
 	 * Tests if x is FALSE, fails if it is not

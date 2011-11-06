@@ -4,7 +4,7 @@
 * @license: MIT License
 * @description: Renders the results of an individual unit test case
 */
-class Tests_Test_Render_Test {
+class Test_Render_Test {
 	
 	protected $allData = array();
 	protected $coverage;
@@ -64,17 +64,17 @@ class Tests_Test_Render_Test {
 	 * Compiles the test results, coverage, metrics and history
 	 */
 	protected function compileTestData(){
-		$this->results = new Tests_Test_Render_Results($this->testedClassName, $this->testData, $this->testResults);
-		$this->coverage = new Tests_Test_Render_Coverage($this->testedClassName, $this->file, $this->includeCoverage, $this->coverageResults);
-		$this->metrics = new Tests_Test_Render_Metrics($this->testedClassName, $this->file, $this->coverage->getCoveredMethods());
+		$this->results = new Test_Render_Results($this->testedClassName, $this->testData, $this->testResults);
+		$this->coverage = new Test_Render_Coverage($this->testedClassName, $this->file, $this->includeCoverage, $this->coverageResults);
+		$this->metrics = new Test_Render_Metrics($this->testedClassName, $this->file, $this->coverage->getCoveredMethods());
 
 		$this->allData = array_merge($this->testData, $this->results->getResults(), $this->coverage->getCoverage(), $this->metrics->getClassMetrics());
 		
 		if ($this->saveResults){
-			$save = new Tests_Test_Save_Test($this->testedClassName, $this->file, $this->allData, $this->includeCoverage, $this->includeMetrics);
+			$save = new Test_Save_Test($this->testedClassName, $this->file, $this->allData, $this->includeCoverage, $this->includeMetrics);
 		}
 		
-		$this->history = new Tests_Test_Render_History($this->testedClassName);
+		$this->history = new Test_Render_History($this->testedClassName);
 	}
 
 	/**

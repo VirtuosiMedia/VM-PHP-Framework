@@ -4,7 +4,7 @@
 * @license: MIT License
 * Description: A unit test that tests if x is equal to y, fails if they are not equal.
 */
-class Tests_Test_Assert_Equal extends Tests_Test_Assert {
+class Test_Assert_Equal extends Test_Assert {
 	
 	/**
 	 * Tests if x is equal to y, fails if they are not equal

@@ -4,7 +4,7 @@
 * @license: MIT License
 * Description: A unit test that tests if x is less than or equal to y, fails if x is greater than y.
 */
-class Tests_Test_Assert_LessThanOrEqual extends Tests_Test_Assert {
+class Test_Assert_LessThanOrEqual extends Test_Assert {
 	
 	/**
 	 * Tests if x is less than or equal to y, fails if x is greater than y

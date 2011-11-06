@@ -4,7 +4,7 @@
 * @license: MIT License
 * @description: Builds a unit testing suite by scanning a given directory
 */
-class Tests_Test_Suite {
+class Test_Suite {
 	
 	protected $authors = array();
 	protected $coverage = array();
@@ -283,7 +283,7 @@ class Tests_Test_Suite {
 	 */
 	protected function compileResults(){
 		foreach ($this->testResults as $name=>$results){
-			$test = new Tests_Test_Render_Test($this->testedClasses[$name]['name'], $this->testData[$name], $results, $this->includeCoverage, $this->coverage[$name], $this->saveResults);
+			$test = new Test_Render_Test($this->testedClasses[$name]['name'], $this->testData[$name], $results, $this->includeCoverage, $this->coverage[$name], $this->saveResults);
 			$test->includeMetrics($this->includeMetrics);			
 			$this->results[$this->testedClasses[$name]['name']] = $test->getResults();
 			$this->renderedTests[] = $test->render();			

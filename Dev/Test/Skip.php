@@ -4,7 +4,7 @@
 * @license: MIT License
 * @description: Skips a unit test.
 */
-class Tests_Test_Skip extends Tests_Test_Assert {
+class Test_Skip extends Test_Assert {
 	
 	/**
 	 * @param string $reason - The reason why the test was skipped

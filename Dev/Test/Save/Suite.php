@@ -4,7 +4,7 @@
 * @license: MIT License
 * Description: Renders the history of a filtered test suite
 */
-class Tests_Test_Save_Suite {
+class Test_Save_Suite {
 
 	protected $authors = array();
 	protected $excludedAuthors = array();

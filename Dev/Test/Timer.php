@@ -7,7 +7,7 @@
 
 declare(ticks=1);
 
-class Tests_Test_Timer {
+class Test_Timer {
 
 	private static $startTime;
 	private static $timeLimit;

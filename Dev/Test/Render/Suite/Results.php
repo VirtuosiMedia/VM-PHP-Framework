@@ -4,7 +4,7 @@
 * @license: MIT License
 * @description: Renders the unit test results for the test suite
 */
-class Tests_Test_Render_Suite_Results {
+class Test_Render_Suite_Results {
 
 	protected $avgNumUnitTests = 0;
 	protected $avgTestTime = 0;

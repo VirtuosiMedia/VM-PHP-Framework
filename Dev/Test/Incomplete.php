@@ -4,7 +4,7 @@
 * @license: MIT License
 * @description: Signals an incomplete unit test.
 */
-class Tests_Test_Incomplete extends Tests_Test_Assert {
+class Test_Incomplete extends Test_Assert {
 	
 	function __construct(){
 		$this->result = 'Incomplete';

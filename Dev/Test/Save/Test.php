@@ -4,7 +4,7 @@
 * @license: MIT License
 * Description: Renders the history of an individual unit test case
 */
-class Tests_Test_Save_Test {
+class Test_Save_Test {
 	
 	protected $file;
 	protected $includeCoverage;

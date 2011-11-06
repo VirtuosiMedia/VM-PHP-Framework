@@ -4,7 +4,7 @@
 * @license: MIT License
 * Description: Renders the unit test results for the test suite
 */
-class Tests_Test_Render_Suite_History {
+class Test_Render_Suite_History {
 
 	protected $historyExists = FALSE;
 	protected $logFileName;

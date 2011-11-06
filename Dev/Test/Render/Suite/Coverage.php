@@ -4,7 +4,7 @@
 * @license: MIT License
 * @description: Renders the test coverage results for the test suite
 */
-class Tests_Test_Render_Suite_Coverage {
+class Test_Render_Suite_Coverage {
 
 	protected $results;
 	protected $testData = array();

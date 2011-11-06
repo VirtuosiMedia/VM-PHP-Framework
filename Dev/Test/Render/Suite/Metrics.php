@@ -4,7 +4,7 @@
 * @license: MIT License
 * @description: Renders the unit test results for the test suite
 */
-class Tests_Test_Render_Suite_Metrics {
+class Test_Render_Suite_Metrics {
 
 	protected $results;
 	protected $testData = array();

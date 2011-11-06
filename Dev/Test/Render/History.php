@@ -4,7 +4,7 @@
 * @license: MIT License
 * @description: Renders the history of an individual unit test case
 */
-class Tests_Test_Render_History {
+class Test_Render_History {
 	
 	protected $historyData = array();
 	protected $historyExists;

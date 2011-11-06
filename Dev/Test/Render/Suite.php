@@ -4,7 +4,7 @@
 * @license: MIT License
 * Description: Renders the test suite
 */
-class Tests_Test_Render_Suite {
+class Test_Render_Suite {
 
 	protected $coverage;
 	protected $filterData = array();
@@ -29,7 +29,7 @@ class Tests_Test_Render_Suite {
 		
 		$saveResults = (isset($_POST['saveResults'])) ? TRUE : FALSE;
 
-		$this->testSuite = new Tests_Test_Suite('Vm', 'Tests/Vm', $this->includeCoverage, $this->includeMetrics, $saveResults);		
+		$this->testSuite = new Test_Suite('Vm', 'Tests/Vm', $this->includeCoverage, $this->includeMetrics, $saveResults);		
 	}
 
 	protected function loadReport(){
@@ -98,7 +98,7 @@ class Tests_Test_Render_Suite {
 
 	protected function saveResults(){
 		$results = array_merge($this->results->getResults(), $this->coverage->getResults(), $this->metrics->getResults());	
-		$saveResults = new Tests_Test_Save_Suite($results, $this->includeCoverage, $this->includeMetrics);
+		$saveResults = new Test_Save_Suite($results, $this->includeCoverage, $this->includeMetrics);
 		$saveResults->setAuthors($this->testSuite->getAuthors());
 		$saveResults->setExcludedAuthors($this->testSuite->getExcludedAuthors());
 		$saveResults->setGroups($this->testSuite->getGroups());
@@ -117,10 +117,10 @@ class Tests_Test_Render_Suite {
 			$this->testSuite->runAllTests();
 			$testResults = $this->testSuite->getResults();
 			
-			$this->results = new Tests_Test_Render_Suite_Results($testResults);
-			$this->coverage = new Tests_Test_Render_Suite_Coverage($testResults);
-			$this->metrics = new Tests_Test_Render_Suite_Metrics($testResults);
-			$this->history = new Tests_Test_Render_Suite_History($testResults);				
+			$this->results = new Test_Render_Suite_Results($testResults);
+			$this->coverage = new Test_Render_Suite_Coverage($testResults);
+			$this->metrics = new Test_Render_Suite_Metrics($testResults);
+			$this->history = new Test_Render_Suite_History($testResults);				
 			
 			if (isset($_POST['saveResults'])){			
 				$this->saveResults();
@@ -138,7 +138,7 @@ class Tests_Test_Render_Suite {
 	 * @return string - The rendered test suite and results
 	 */
 	public function render(){
-		$this->form = new Tests_Test_Render_SelectionForm($this->testSuite);
+		$this->form = new Test_Render_SelectionForm($this->testSuite);
 		
 		$view = '<ul id="suiteControls" class="tabMenu firstTabMenu">';
 			$view .= '<li><a class="suiteControlsTab firstTab active" href="#reportGenerator">Reports</a></li>';

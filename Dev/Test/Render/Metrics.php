@@ -4,7 +4,7 @@
 * @license: MIT License
 * @description: Renders the code metrics for a class
 */
-class Tests_Test_Render_Metrics {
+class Test_Render_Metrics {
 	
 	protected $classMetrics;
 	protected $commentsLoc;

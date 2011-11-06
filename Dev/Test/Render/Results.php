@@ -4,7 +4,7 @@
 * @license: MIT License
 * @description: Renders the unit test results of an individual unit test case
 */
-class Tests_Test_Render_Results {
+class Test_Render_Results {
 
 	protected $results = array();
 	protected $testData;

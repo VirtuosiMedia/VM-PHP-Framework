@@ -4,7 +4,7 @@
 * @license: MIT License
 * Description: A unit test that tests if a file or directory exists, fails if it does not exist.
 */
-class Tests_Test_Assert_ResourceExists extends Tests_Test_Assert {
+class Test_Assert_ResourceExists extends Test_Assert {
 	
 	/**
 	 * Tests if a file or directory exists, fails if it does not exist.

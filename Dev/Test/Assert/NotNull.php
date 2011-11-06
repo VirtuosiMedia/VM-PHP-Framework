@@ -4,7 +4,7 @@
 * @license: MIT License
 * Description: A unit test that tests if x is not NULL, fails if it is.
 */
-class Tests_Test_Assert_NotNull extends Tests_Test_Assert {
+class Test_Assert_NotNull extends Test_Assert {
 	
 	/**
 	 * Tests if x is not NULL, fails if it is

@@ -5,5 +5,5 @@
 * Description: An exception handler that extends PHP's base Exception class
 * Requirements: PHP 5.2 or higher
 */
-class Tests_Test_Exception extends Exception {}
+class Test_Exception extends Exception {}
 ?>
