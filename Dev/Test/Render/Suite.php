@@ -139,24 +139,7 @@ class Test_Render_Suite {
 	 */
 	public function render(){
 		$this->form = new Test_Render_SelectionForm($this->testSuite);
-		
-		$view = '<ul id="suiteControls" class="tabMenu firstTabMenu">';
-			$view .= '<li><a class="suiteControlsTab firstTab active" href="#reportGenerator">Reports</a></li>';
-			$view .= '<li><a class="suiteControlsTab tab" href="#help">Help</a></li>';
-		$view .= '</ul>';
-		$view .= '<div class="tabContent">';
-			$view .= $this->form->render();
-			$view .= '<div id="help">';
-				$view .= '<h3 class="title">Test Suite Help</h3>';
-				$view .= '<p>VM PHP Framework allows you to run reports for your unit tests. It also provides test coverage analysis and code metrics statistics. ';
-				$view .= 'By default, the testing suite tests VM PHP Framework files, but once you install the framework, you can also use it to begin testing your own code.</p>';
-				$view .= '<p>Please read the following tutorials to learn how to best use the testing suite:</p>';
-				$view .= '<ul>';
-					$view .= '<li><a href="#">How to use the testing suite</a></li>';
-					$view .= '<li><a href="testdocs.php">How to write unit tests for your own code</a></li>';
-				$view .= '</ul>';						
-			$view .= '</div>';		
-		$view .= '</div>';
+		$view = $this->form->render();
 		$view .= $this->getResults();
 		return $view;
 	}

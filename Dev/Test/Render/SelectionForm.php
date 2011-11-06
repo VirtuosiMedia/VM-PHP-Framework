@@ -354,13 +354,6 @@ class Test_Render_SelectionForm {
 	 * @return string - The rendered form and content area
 	 */
 	public function render(){
-		if (file_exists('includes/Version.php')){ 
-			$version = new Version();
-			$title = $version->get('name').' Test Suite';	
-		} else {
-			$title = 'VM PHP Framework Test Suite';
-		}		
-		
-		return $this->xml->div($this->xml->h3($title, array('class'=>'title')).$this->form->render(), array('id'=>'reportGenerator'));		
+		return $this->form->render();		
 	}
 }
