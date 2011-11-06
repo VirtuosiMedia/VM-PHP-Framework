@@ -34,7 +34,7 @@ class Test_Suite {
 	 * @param boolean $includeMetrics - optional - Whether or not to include code analysis metrics, defaults FALSE
 	 * @param boolean $saveResults - optional - Whether or not to save the test results to track over time, defaults FALSE
 	 */
-	function __construct($rootDir = 'Vm', $testDir = 'Tests/Vm', $includeCoverage = FALSE, $includeMetrics = FALSE, $saveResults = FALSE){
+	function __construct($rootDir = '../Includes/Vm', $testDir = 'Tests/Vm', $includeCoverage = FALSE, $includeMetrics = FALSE, $saveResults = FALSE){
 		$this->includeCoverage = $includeCoverage;
 		$this->includeMetrics = $includeMetrics;
 		$this->saveResults = $saveResults;

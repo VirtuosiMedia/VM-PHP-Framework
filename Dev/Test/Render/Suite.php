@@ -29,7 +29,7 @@ class Test_Render_Suite {
 		
 		$saveResults = (isset($_POST['saveResults'])) ? TRUE : FALSE;
 
-		$this->testSuite = new Test_Suite('Vm', 'Tests/Vm', $this->includeCoverage, $this->includeMetrics, $saveResults);		
+		$this->testSuite = new Test_Suite('../Includes/Vm', 'Tests/Vm', $this->includeCoverage, $this->includeMetrics, $saveResults);		
 	}
 
 	protected function loadReport(){

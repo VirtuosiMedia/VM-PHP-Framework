@@ -93,10 +93,10 @@ class Test_Render_SelectionForm {
 	 */
 	protected function getReports(){
 		$reports = array();
-		$files = scandir('Tests/Test/Reports/Suite');
+		$files = scandir('Test/Reports/Suite');
 		foreach ($files as $file){
 			if (substr(strrchr($file, '.'), 1) == 'json'){
-				$data = file('Tests/Test/Reports/Suite/'.$file, FILE_IGNORE_NEW_LINES);
+				$data = file('Test/Reports/Suite/'.$file, FILE_IGNORE_NEW_LINES);
 				$record = json_decode($data[0], TRUE);
 				$reports[$record['filename']] = $record['reportName'];			
 			}
