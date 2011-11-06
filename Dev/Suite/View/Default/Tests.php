@@ -3,7 +3,7 @@
 		<li><a class="suiteControlsTab firstTab tab active" href="#reportGenerator">Reports</a></li>
 		<li><a class="suiteControlsTab tab" href="#help">Help</a></li>
 	</ul>
-	<div class="tabContent">
+	<div class="testContent">
 		<div id="reportGenerator">
 			<h3 class="title">VM PHP Framework Test Suite</h3>
 			<?php echo $this->testSuite;?>
