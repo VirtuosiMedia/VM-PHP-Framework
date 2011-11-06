@@ -25,12 +25,7 @@ window.addEvent('domready', function(){
 		myMultiSelect[index] = new MultiSelect('#'+item.get('id'), 'testForm', {initialText:'all '+selectTitle, monitorText:selectTitle}); 
 	});
 	
-	$$('select').each(function(item){
-		var SS = new StyleSelect({
-	        element: item,
-	        cssClass: 'selectaTrigger'
-	    });		
-	});
+	var replaceSelect = new FormReplaceSelect('select');
 	
 	$('reports').addEvent('change', function(){
 		if (this.getSelected()[0].get('value') == 'new'){
