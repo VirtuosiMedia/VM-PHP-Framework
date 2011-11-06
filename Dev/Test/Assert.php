@@ -4,7 +4,7 @@
 * @license: MIT License
 * Description: A base class for test assertions, meant to be extended by individual assertion classes
 */
-class Test_Assert {
+abstract class Test_Assert {
 
 	protected $error;
 	protected $result;
