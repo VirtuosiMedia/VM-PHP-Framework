@@ -25,7 +25,7 @@ window.addEvent('domready', function(){
 		myMultiSelect[index] = new MultiSelect('#'+item.get('id'), 'testForm', {initialText:'all '+selectTitle, monitorText:selectTitle}); 
 	});
 	
-	var replaceSelect = new FormReplaceSelect('select');
+	var replaceSelect = new FormReplaceSelect('select', {triggerActiveHtml:'', triggerInactiveHtml:''});
 	
 	$('reports').addEvent('change', function(){
 		if (this.getSelected()[0].get('value') == 'new'){
