@@ -22,7 +22,15 @@ window.addEvent('domready', function(){
 	$$('.multiSelect').each(function(item, index){
 		var selectTitle = item.getElement('h3').get('text').toLowerCase();
 		item.getElement('h3').dispose();
-		myMultiSelect[index] = new MultiSelect('#'+item.get('id'), 'testForm', {initialText:'all '+selectTitle, monitorText:selectTitle}); 
+		var options = {
+			defaultDisplayText:['all '+selectTitle],
+			singleDisplayText:[selectTitle.substring(0, selectTitle.length-1)],
+			multipleDisplayText:[selectTitle],
+			triggerActiveHtml:'',
+			triggerInactiveHtml:''
+		};
+		
+		myMultiSelect[index] = new CheckboxGroup('#'+item.get('id'), options); 
 	});
 	
 	var replaceSelect = new FormReplaceSelect('select', {triggerActiveHtml:'', triggerInactiveHtml:''});
@@ -54,6 +62,7 @@ window.addEvent('domready', function(){
 		var itemClasses = item.get('class').split(' ');
 		var itemVisible = (item.getStyle('display') != 'none') ? true : false;
 		var itemParentId = item.getParent().get('id');
+		console.log(item.getElement('input'));
 		var itemChecked = item.getElement('input').get('checked');
 		var totalChecked = [0,0,0];
 		var numLists = lists.length;
@@ -103,15 +112,15 @@ window.addEvent('domready', function(){
 		return (containsClasses.contains(false)) ? false : true;
 	};
 	
-	$$('.selectList input').addEvent('click', function(e){
-		e.stop();
+	$$('.selectList input').addEvent('change', function(e){
+//		e.stop();
 		var checked = false;
 		var currentListId = this.getParent('ul').get('id');
 		
 		if (this.get('checked')){
-			this.set('checked', false);
+//			this.set('checked', false);
 		} else {
-			this.set('checked', 'checked');
+	//		this.set('checked', 'checked');
 			checked = true;
 		}
 		
