@@ -45,7 +45,7 @@ var CheckboxGroup = new Class({
 			this.createTrigger(select, index);
 			this.createList(index);
 			this.addNavigation(index);
-			select.setStyle('display', 'none');
+			select.dispose();
 		}.bind(this));
 	},
 	
