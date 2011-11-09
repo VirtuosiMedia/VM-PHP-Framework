@@ -32,7 +32,7 @@ class Suite_Controller_Tests extends Vm_Controller {
 			'Assets/JavaScript/mootools-more.js', 
 			'Assets/JavaScript/Classes/SimpleTabs.js',
 			'Assets/JavaScript/Classes/InputMask.js',
-			'Assets/JavaScript/Classes/MultiSelect.js',
+			'Assets/JavaScript/Classes/CheckboxGroup.js',
 			'Assets/JavaScript/Classes/MilkChart.js',
 			'Assets/JavaScript/Classes/Checkbox.js',
 			'Assets/JavaScript/Classes/Select.js', 
