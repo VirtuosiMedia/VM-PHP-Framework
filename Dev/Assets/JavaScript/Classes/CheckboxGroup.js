@@ -96,7 +96,6 @@ var CheckboxGroup = new Class({
 		}).inject(this.triggers[index], 'after');
 		
 		this.createListOptions(index);
-		this.triggers[index].getElement('.'+this.options.displayClass).setStyle('min-width', this.lists[index].getCoordinates().width);
 		this.lists[index].setStyle('display', 'none');
 		this.updateCheckedCount(index);
 		
