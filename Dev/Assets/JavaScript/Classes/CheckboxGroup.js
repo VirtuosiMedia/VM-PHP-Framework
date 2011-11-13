@@ -21,6 +21,7 @@ var CheckboxGroup = new Class({
 		displayClass: 'display',
 		liClass: 'checkSelectLi',
 		listClass: 'checkSelectList',
+		listId: null,
 		multipleDisplayText: [],
 		triggerActiveHtml: '&#9650;',
 		triggerClass: 'trigger',
@@ -86,6 +87,7 @@ var CheckboxGroup = new Class({
 		
 		this.lists[index] = new Element('ul', {
 			'class': self.options.listClass,
+			'id': self.options.listId,
 			styles: {
 				'max-height': 300,
 				'overflow': 'auto',
