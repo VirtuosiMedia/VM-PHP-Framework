@@ -19,10 +19,9 @@ var CheckboxGroup = new Class({
 		containerClass: 'checkboxGroupContainer',
 		defaultDisplayText: [], 				//An array of the text to display by default
 		displayClass: 'display',
-		liClass: 'selectLi',
-		listClass: 'selectList',
+		liClass: 'checkSelectLi',
+		listClass: 'checkSelectList',
 		multipleDisplayText: [],
-		triggerClass: 'inputSelectTrigger',
 		triggerActiveHtml: '&#9650;',
 		triggerClass: 'trigger',
 		triggerInactiveHtml: '&#9660;',
