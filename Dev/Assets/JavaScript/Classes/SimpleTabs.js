@@ -40,7 +40,7 @@ var SimpleTabs = new Class({
 		this.tabs.each(function(item){
 			var hash = item.get('href').split('#')[1];
 			if (this.options.startClosed){
-				$(hash).setStyle('display', 'none');				
+				$(hash).setStyles({'display':'none', 'height':'0px'});				
 			} else if ((item.hasClass(this.options.activeClass))||(window.location.hash.substring(1) == hash)) {
 				this.setTabs(item, hash);
 			} 
@@ -49,9 +49,9 @@ var SimpleTabs = new Class({
 	
 	setTabs: function(currentTab, hash){
 		this.tabs.removeClass(this.options.activeClass).each(function(item){
-			$(item.get('href').split('#')[1]).setStyle('display', 'none');
+			$(item.get('href').split('#')[1]).setStyles({'display':'none', 'height':'0px'});
 		});
-		$(hash).setStyle('display', 'block');
+		$(hash).setStyles({'display':'block', 'height':'100%'});
 		currentTab.addClass(this.options.activeClass);		
 	},
 	
