@@ -34,8 +34,8 @@ class Test_Render_Suite {
 
 	protected function loadReport(){
 		if ((isset($_POST['reports']))&&(preg_match('/^[a-zA-Z0-9-.]*$/', $_POST['reports']))){
-			if (file_exists('Tests/Test/Reports/Suite/'.$_POST['reports'])){
-				$report = file('Tests/Test/Reports/Suite/'.$_POST['reports'], FILE_IGNORE_NEW_LINES);
+			if (file_exists('Test/Reports/Suite/'.$_POST['reports'])){
+				$report = file('Test/Reports/Suite/'.$_POST['reports'], FILE_IGNORE_NEW_LINES);
 				$this->filterData = json_decode($report[0], TRUE);
 				$this->includeCoverage = $this->filterData['includeCoverage'];
 				$this->includeMetrics = $this->filterData['includeMetrics'];
