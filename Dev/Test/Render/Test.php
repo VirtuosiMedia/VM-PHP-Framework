@@ -49,7 +49,7 @@ class Test_Render_Test {
 	}
 
 	protected function getFile(){
-		$fileName = str_replace('_', '/', $this->testedClassName).'.php';
+		$fileName = '../Includes/'.str_replace('_', '/', $this->testedClassName).'.php';
 		if (file_exists($fileName)){
 			$this->file = file($fileName, FILE_IGNORE_NEW_LINES);
 			$this->fileExists = TRUE;
