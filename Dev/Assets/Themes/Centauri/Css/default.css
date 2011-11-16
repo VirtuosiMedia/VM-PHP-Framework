@@ -415,25 +415,28 @@ form p {margin-top:13px;}
 .selectContainer.expanded.down {border-radius:4px 4px 0px 0px;}
 .selectContainer.expanded.up {border-radius:0px 0px 4px 4px;}
 .expanded .trigger {background-position:-93px -43px;}
-.selectList {
-	background:#FEFEFE;
+.selectList, .checkSelectList {
+	background:#EEE;
 	border:1px solid;
 	border-color:#FFF #CCC #CCC #FFF;
 	list-style:none;
 	margin-left:1px;
 	z-index:100;
 }
-.selectList.up {border-radius:4px 4px 0px 0px;}
-.selectList.down {border-radius:0px 0px 4px 4px;}
-.selectList li {
+.checkSelectList {margin-left:-1px;}
+.selectList.up, .checkSelectList.up {border-radius:4px 4px 0px 0px;}
+.selectList.down, .checkSelectList.down {border-radius:0px 0px 4px 4px;}
+.selectList li, .checkSelectList li {
 	cursor:pointer;
 	height:30px;
 	line-height:30px;
-	text-indent:10px;	
+	text-indent:10px;
+	text-shadow:1px 1px 1px #FFF;	
 }
-.selectList li:hover, .activeLi {
+.selectList li:hover, li.activeLi, .checkSelectList li:hover, .checkSelectList li:hover label {
 	background:#09F;
 	color:#FFF;
+	text-shadow:none;
 }
 .checkContainer {
 	display:block;
@@ -562,4 +565,12 @@ form p {margin-top:13px;}
 #saveResultsReplace.unchecked {margin-bottom:13px;}
 #saveResultsReplace.checked {margin-bottom:8px;}
 .checkboxGroupContainer .display {margin-right:8px;}
-.selectList {}
+#reportGenerator .checkSelectList .checkContainer {margin:0px;}
+#reportGenerator .checkSelectList .checkContainer a {
+	left:8px;
+	top:4px;
+}
+.checkSelectList .checked:after {
+	bottom:-6px;
+	left:-8px; 
+}
