@@ -17,7 +17,7 @@ class Vm_Version extends Vm_Klass {
 			'copyright' => 'Copyright &copy; 2011, Virtuosi Media Inc.',
 			'license' => 'MIT license',
 			'licenseUrl' => 'http://www.opensource.org/licenses/mit-license.php',
-			'version' => '1.0',
+			'version' => '0.9.0',
 			'package' => 'VM Framework',
 			'packageUrl' => 'http://www.virtuosimedia.com/vmframework',
 			'requirements' => 'PHP 5.2.7 or higher',
