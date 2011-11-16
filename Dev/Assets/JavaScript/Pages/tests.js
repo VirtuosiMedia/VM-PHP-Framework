@@ -4,7 +4,8 @@
 window.addEvent('domready', function(){
 	var myTips = new Tips('.tips', {text:'rel', 'className':'tipContainer'});
 	var mySmoothScroll = new Fx.SmoothScroll({links:'.topLink, .classLink', offset:{'x':0, 'y':-80}});
-	var myMultiSelect = [];
+	
+	//Form UI
 	inputMask('mask', false);
 	
 	$('saveResultsName').setStyle('display', 'none');
@@ -18,13 +19,14 @@ window.addEvent('domready', function(){
 		}
 	});
 	
-	//Take care of the form filtering and UI
+	var myMultiSelect = [];
 	$$('.multiSelect').each(function(item, index){
 		var selectTitle = item.getElement('h3').get('text').toLowerCase();
 		item.getElement('h3').dispose();
 		var options = {
 			defaultDisplayText:['all '+selectTitle],
 			singleDisplayText:[selectTitle.substring(0, selectTitle.length-1)],
+			listId:item.get('id')+'List',
 			multipleDisplayText:[selectTitle],
 			triggerActiveHtml:'',
 			triggerInactiveHtml:''
@@ -57,86 +59,76 @@ window.addEvent('domready', function(){
 	
 	$('launch').addClass('launchButton');
 
-	var hasClasses = function(item, currentListId, lists){
-		var listIds = [];
-		var itemClasses = item.get('class').split(' ');
-		var itemVisible = (item.getStyle('display') != 'none') ? true : false;
-		var itemParentId = item.getParent().get('id');
-		console.log(item.getElement('input'));
-		var itemChecked = item.getElement('input').get('checked');
-		var totalChecked = [0,0,0];
-		var numLists = lists.length;
-		var containsClasses = [];
-		
-		for (i=0; i<numLists; i++){
-			if ($(lists[i])){
-				if (currentListId == itemParentId){ 
-					containsClasses[i] = (itemVisible||itemChecked) ? true : false;
-				} else if (lists[i] == itemParentId){
-					containsClasses[i] = true;
-				} else {
-					containsClasses[i] = (itemChecked) ? true : false;
-				}
-				
-				listIds[i] = [];
-				$$('#'+lists[i]+' input').each(function(box, j){
-					if (box.get('checked')){
-						listIds[i][j] = box.get('id');
-						totalChecked[i] += 1;
-					}
-				});
-				
-				if (totalChecked[i] == 0){
-					containsClasses[i] = true;
-				}
-			}
-		}
+	
+	//Form Filtering
+	var displayItem = function(item, currentListId, clickedItem){
+		var lists = ['groupsList', 'subgroupsList', 'authorsList'];
+		var clickedItemId = clickedItem.get('id');
+		var itemParentId = item.getParent('ul').get('id');
+		var itemFilters = item.get('rel').split(' ');
+		var itemVisible = (item.getParent('li').getStyle('display') != 'none') ? true : false;
+		var filters = [];
+		var display = [];
 
-		for (i=0; i<numLists; i++){
-			listIds[i].each(function(listId){
-				containsClasses[i] = (itemClasses.contains(listId)) ? true : containsClasses[i];
+		//Return early if it's the clicked item and it's checked
+		if ((clickedItemId == item.getElement('a').get('id').replace('Replace', ''))&&(clickedItem.checked)){
+			return true;
+		}
+		
+		//Populate the filters for each list
+		Array.each(lists, function(list, index){
+			filters[index] = [];
+			display[index] = true;
+			$$('#'+list+' a').each(function(checkbox){
+				var checkboxId = checkbox.get('id').replace('Replace', '');
+				var clickedChecked = ((checkboxId == clickedItemId)&&(clickedItem.checked)) ? true : false; 
+				if (((checkbox.hasClass('checked'))&&(checkboxId != clickedItemId))||(clickedChecked)){
+					filters[index].push(checkboxId);
+				}
 			});
-		}
-
-		//Check if the other lists are empty
-		var index = listIds.indexOf(itemParentId);
-		var othersEmpty = true;
-		for (i=0; i<numLists; i++){
-			if (i != index){
-				othersEmpty = (totalChecked[i] == 0) ? othersEmpty : false;
-				containsClasses[i] = (othersEmpty) ? true : containsClasses[i];
-			}
-		}
-		containsClasses[index] = (othersEmpty) ? true : containsClasses[index];
+		});
 		
-		return (containsClasses.contains(false)) ? false : true;
+		//Return early if all there are no checked filters
+		if (filters.flatten().length == 0){
+			return true;
+		}
+		
+		//Make sure the item matches the necessary filters
+		Array.each(lists, function(list, index){
+			if (itemParentId != list){
+				if ((itemVisible)&&((filters[index].length == 0)||(currentListId == itemParentId)||(item.getElement('a').hasClass('checked')))){
+					display[index] = true;
+				} else if (filters[index].length == 0){
+					display[index] = true;
+				} else {
+					display[index] = filters[index].some(function(filter){
+						return itemFilters.contains(filter);
+					});			
+				}
+			} else {
+				display[index] = true;
+			}
+		});
+				
+		return (display.contains(false)) ? false : true;
 	};
 	
-	$$('.selectList input').addEvent('change', function(e){
-//		e.stop();
-		var checked = false;
+	//Update the available filters when a filter is clicked 
+	$$('.checkSelectList input').addEvent('change', function(e){
 		var currentListId = this.getParent('ul').get('id');
-		
-		if (this.get('checked')){
-//			this.set('checked', false);
-		} else {
-	//		this.set('checked', 'checked');
-			checked = true;
-		}
-		
-		allUnchecked = true;
-		
-		$$('.selectList input').each(function(checkbox){
-			allUnchecked = (checkbox.get('checked')) ? false : allUnchecked;
+		var allUnchecked = (this.checked) ? false : true; //Inverted because the event is fired before the change
+				
+		$$('.checkSelectList a').each(function(checkbox){
+			allUnchecked = (checkbox.hasClass('checked')) ? false : allUnchecked;
 		});
-		
-		$$('.selectList li').each(function(listItem){
-			if ((allUnchecked)||(hasClasses(listItem, currentListId, ['groupsList', 'subgroupsList', 'authorsList']))){
-				listItem.setStyle('display', 'block');
+				
+		$$('.checkSelectList li .checkContainer').each(function(listItem){
+			if ((allUnchecked)||(displayItem(listItem, currentListId, this))){
+				listItem.getParent('li').setStyle('display', 'block');
 			} else {
-				listItem.setStyle('display', 'none');
+				listItem.getParent('li').setStyle('display', 'none');
 			}
-		});
+		}, this);
 	});
 
 	var replace = new CheckboxReplace('input[type="checkbox"]', {cloneClasses:true, activeClass:'activeCheck'});
