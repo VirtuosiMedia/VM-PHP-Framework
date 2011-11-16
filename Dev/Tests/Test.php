@@ -36,7 +36,7 @@ class Tests_Test {
 	 * @return boolean - TRUE if the test passes, FALSE otherwise
 	 */
 	function __call($className, $params) {
-		$className = (strstr($className, 'assert')) ? str_replace('assert', 'Tests_Test_Assert_', $className) : 'Tests_Test_'.$className;
+		$className = (strstr($className, 'assert')) ? str_replace('assert', 'Test_Assert_', $className) : 'Test_'.$className;
 		$reflect = new ReflectionMethod($className, '__construct');
 		$numParams = sizeof($reflect->getParameters());
 
@@ -89,7 +89,7 @@ class Tests_Test {
 	protected function loadTestedClass(){
 		$this->testedClassName = preg_replace('#(Test)$#', '', $this->className);
 		$this->testedClassName = str_replace('Tests_', '', $this->testedClassName);
-		$className = str_replace('_', '/', $this->testedClassName);
+		$className = '../Includes/'.str_replace('_', '/', $this->testedClassName);
 		require_once($className.'.php');
 	}
 
@@ -171,7 +171,7 @@ class Tests_Test {
 				
 			} catch (Exception $e){
 				$exception = $e->getMessage();
-				$status = new Tests_Test_Assert();
+				$status = new Test_Assert();
 				$status->setResult(FALSE);
 				$status->setError($exception);
 			} 
