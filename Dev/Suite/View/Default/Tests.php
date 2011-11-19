@@ -6,13 +6,13 @@
 	<div class="testContent">
 		<div id="reportGenerator">
 			<h3 class="title">VM PHP Framework Test Suite</h3>
-			<?php echo $this->testSuite;?>
+			<?php echo $this->testForm;?>
 		</div>
 		<div id="help">
 			<h3 class="title">VM PHP Framework Test Suite Help</h3>
-			<p>VM PHP Framework allows you to run reports for your unit tests. It also provides test coverage analysis and code metrics statistics. 
-				By default, the testing suite tests VM PHP Framework files, but once you install the framework, you can also use it to begin testing 
-				your own code.</p>
+			<p>VM PHP Framework allows you to run reports for your unit tests. It also provides test coverage analysis 
+				and code metrics statistics. By default, the testing suite tests VM PHP Framework files, but once you 
+				install the framework, you can also use it to begin testing your own code.</p>
 			<p>Please read the following tutorials to learn how to best use the testing suite:</p>
 			<ul>
 				<li><a href="#">How to use the testing suite</a></li>
@@ -21,4 +21,3 @@
 		</div>		
 	</div>
 </div>
-<p class="copyright">Version <?php echo $this->version; ?> - <?php echo $this->copyright; ?></p>

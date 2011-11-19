@@ -4,4 +4,3 @@
 		<p>Sorry, an error has occured due to a missing page, a bad link, or an unexpected URL. Please use the menu above to navigate to your desired page.</p>
 	</div>
 </div>
-<p class="copyright">Version <?php echo $this->version; ?> - <?php echo $this->copyright; ?></p>

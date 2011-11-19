@@ -1,7 +1,9 @@
 <div class="contentContainer firstContentContainer">
 	<ul id="docsTab" class="tabMenu firstTabMenu">
 		<?php foreach ($this->tabs as $tab):?>
-			<li><a class="<?php echo $tab['class']; ?>" href="<?php echo $tab['hash']; ?>"><?php echo $tab['name']?></a></li>
+			<li>
+				<a class="<?php echo $tab['class']; ?>" href="<?php echo $tab['hash']; ?>"><?php echo $tab['name']?></a>
+			</li>
 		<?php endforeach;?>
 	</ul>
 	<div class="tabContent">
@@ -28,7 +30,10 @@
 							<?php foreach($this->classDocs as $property=>$values):?>
 								<?php if (!in_array($property, array('Description', 'Example', 'Note'))):?>
 									<?php foreach($values as $index=>$value):?>
-										<tr><td><?php if ($index == 0) echo $property;?></td><td><?php echo $value;?></td></tr>
+										<tr>
+											<td><?php if ($index == 0) echo $property;?></td>
+											<td><?php echo $value;?></td>
+										</tr>
 									<?php endforeach;?>
 								<?php endif;?>
 							<?php endforeach;?>					
@@ -53,7 +58,10 @@
 						</thead>
 						<tbody>			
 							<?php foreach($this->publicMethods as $method=>$params):?>
-								<tr><td><a class="scroll" href="#<?php echo $method;?>"><?php echo $method;?></td><td><?php echo $params;?></td></tr>
+								<tr>
+									<td><a class="scroll" href="#<?php echo $method;?>"><?php echo $method;?></td>
+									<td><?php echo $params;?></td>
+								</tr>
 							<?php endforeach;?>
 						</tbody>
 					</table>					
@@ -68,7 +76,10 @@
 						</thead>
 						<tbody>			
 							<?php foreach($this->protectedMethods as $method=>$params):?>
-								<tr><td><a class="scroll" href="#<?php echo $method;?>"><?php echo $method;?></a></td><td><?php echo $params;?></td></tr>
+								<tr>
+									<td><a class="scroll" href="#<?php echo $method;?>"><?php echo $method;?></a></td>
+									<td><?php echo $params;?></td>
+								</tr>
 							<?php endforeach;?>
 						</tbody>
 					</table>					
@@ -92,7 +103,10 @@
 							<?php foreach($method['Data'] as $property=>$values):?>
 								<?php if (!in_array($property, array('Description', 'Example', 'Note', 'Security'))):?>
 									<?php foreach($values as $index=>$value):?>
-										<tr><td><?php if ($index == 0) echo $property;?></td><td><?php echo $value;?></td></tr>
+										<tr>
+											<td><?php if ($index == 0) echo $property;?></td>
+											<td><?php echo $value;?></td>
+										</tr>
 									<?php endforeach;?>
 								<?php endif;?>
 							<?php endforeach;?>					
@@ -147,4 +161,3 @@
 		<?php endif;?>			
 	</div>
 </div>
-<p class="copyright">Version <?php echo $this->version; ?> - <?php echo $this->copyright; ?></p>

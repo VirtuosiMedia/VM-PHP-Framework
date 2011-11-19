@@ -4,8 +4,8 @@
 			<?php echo $this->tutorial; ?>
 		<?php else:?>
 			<h3 class="title">Tutorial Not Found</h3>
-			<p>This tutorial could not be found. Please check that your URL is correct or return to the <i>Docs</i> page.</p>
+			<p>This tutorial could not be found. Please check that your URL is correct or return to the <i>Docs</i> 
+			page.</p>
 		<?php endif;?>
 	</div>
 </div>
-<p class="copyright">Version <?php echo $this->version; ?> - <?php echo $this->copyright; ?></p>
