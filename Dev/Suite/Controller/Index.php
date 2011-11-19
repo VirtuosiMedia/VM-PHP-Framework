@@ -36,7 +36,6 @@ class Suite_Controller_Index extends Vm_Controller {
 		
 		$view->setViewspace('Body');
 		$view->loadTemplate('Index.php');
-		$view->loadTemplate('Footer.php');
 
 		$this->setView($view->render(array('Header', 'TopNav', 'Body')));
 	}
