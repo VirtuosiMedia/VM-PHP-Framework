@@ -375,7 +375,7 @@ class Vm_View {
 		if (is_array($name)){
 			$compiledView = '';
 			foreach ($name as $viewName){
-				$compiledView .= (array_key_exists($viewName, $this->view)) ? $this->view[$viewName] : $compiledView;
+				$compiledView .= (array_key_exists($viewName, $this->view)) ? $this->view[$viewName] : '';
 			}
 		} else {
 			$compiledView = (array_key_exists($viewName, $this->view)) ? $this->view[$viewName] : FALSE;
