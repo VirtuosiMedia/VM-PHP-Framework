@@ -56,7 +56,7 @@ abstract class Vm_Mixer {
 				}
 			} 
 		}
-		throw new Vm_Mixer_Exception("$methodName is not a method. Your current mixins are: ".
-			implode(', ', array_keys($this->methods)));
+		$mixins = (sizeof($this->methods) > 0) ? implode(', ', array_keys($this->methods)) : 'No mixins are listed.';
+		throw new Vm_Mixer_Exception("$methodName is not a method. Your current mixins are: $mixins");
 	}
 }
