@@ -14,6 +14,9 @@ abstract class Vm_Mixer {
 	/**
 	 * @description By adding a mixin, the class will automatically adopt all of a mixin's methods.
 	 * @param object $mixin - The instantiated object that's methods should be adopted by the extending class.
+	 * @security You are expected to know if there will be a conflict in which two mixins share the same method name. If 
+	 * 		this conflict occurs, use the <a href="#setPriorities">setPriorities()</a> method to specify which method 
+	 * 		should take precedence.	Vm_Mixer will not handle the conflict automatically on its own. 
 	 */
 	public function addMixin($mixin){
 		$name = get_class($mixin);
@@ -24,7 +27,7 @@ abstract class Vm_Mixer {
 	
 	/**
 	 * @description Gets the class's current mixins by name
-	 * @return An array of mixin names
+	 * @return An array of mixin class names.
 	 */
 	public function getMixins(){
 		return array_keys($this->methods);
@@ -39,7 +42,7 @@ abstract class Vm_Mixer {
 	}
 	
 	/**
-	 * @description Magic method that calls the mixin methods automatically
+	 * @description A magic method that calls the mixin methods automatically. This method should not be called directly.
 	 * @param string $methodName - The name of the mixin method
 	 * @param array $arguments - The arguments for the method
 	 */
@@ -47,13 +50,13 @@ abstract class Vm_Mixer {
 		foreach ($this->methods as $className=>$methods){
 			if (in_array($methodName, $methods)){
 				if ((in_array($methodName, array_keys($this->priorities)))&&($className == $this->priorities[$methodName])){
-					call_user_func_array(array($className, $methodName), $arguments);
-					break;
+					return call_user_func_array(array($className, $methodName), $arguments);
 				} else if (!in_array($methodName, array_keys($this->priorities))){
-					call_user_func_array(array($className, $methodName), $arguments);
-					break;					
+					return call_user_func_array(array($className, $methodName), $arguments);
 				}
 			} 
 		}
+		throw new Vm_Mixer_Exception("$methodName is not a method. Your current mixins are: ".
+			implode(', ', array_keys($this->methods)));
 	}
 }
