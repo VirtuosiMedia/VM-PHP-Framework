@@ -19,6 +19,10 @@ abstract class Vm_Mixer {
 	 * 		should take precedence.	Vm_Mixer will not handle the conflict automatically on its own. 
 	 */
 	public function addMixin($mixin){
+		if (!is_object($mixin)){
+			throw new Vm_Mixer_Exception("The mixin is not valid because it is not an object.");
+		}
+		
 		$name = get_class($mixin);
 		$this->mixins[$name] = $mixin;
 		$methods = get_class_methods($name);
@@ -35,21 +39,45 @@ abstract class Vm_Mixer {
 
 	/**
 	 * @description Manages conflicts for the mixins.
-	 * @param array $priorities - The method name as the key, the class name that has priority in a conflict as the value.
+	 * @param array $priorities - The method name as the key, the class name that has priority in a conflict as 
+	 * 		the value.
+	 * @note Once a method has been assigned to a class, it cannot be reassigned to a different class at a later point. 
+	 * 		This is done to minimize potential bugs due to dynamic prioritization.
 	 */
 	public function setPriorities(array $priorities){
+		$classNames = array_keys($this->methods);
+		$setPriorities = array_keys($this->priorities);
+		foreach ($priorities as $method=>$class){
+			if (!in_array($class, $classNames)){
+				throw new Vm_Mixer_Exception("$class is not a valid mixin. To make $class a mixin, use the addMixin 
+					method.");
+			}
+			if (!in_array($method, $this->methods[$class])){
+				throw new Vm_Mixer_Exception("$class does not have a method named '$method'.");
+			}
+			if (in_array($method, $setPriorities)){
+				$assigned = $this->priorities[$method];
+				throw new Vm_Mixer_Exception("$method has already been assigned to $assigned and cannot be 
+					reassigned.");
+			}
+		}
 		$this->priorities = $priorities;
 	}
 	
 	/**
-	 * @description A magic method that calls the mixin methods automatically. This method should not be called directly.
+	 * @description A magic method that calls the mixin methods automatically. This method should not be 
+	 * 		called directly.
 	 * @param string $methodName - The name of the mixin method
 	 * @param array $arguments - The arguments for the method
+	 * @return The return value will vary depending on the function called.
 	 */
-	public function __call($methodName, $arguments){
+	public function __call($methodName, array $arguments){
 		foreach ($this->methods as $className=>$methods){
 			if (in_array($methodName, $methods)){
-				if ((in_array($methodName, array_keys($this->priorities)))&&($className == $this->priorities[$methodName])){
+				if (
+					(in_array($methodName, array_keys($this->priorities))) &&
+					($className == $this->priorities[$methodName])
+				){
 					return call_user_func_array(array($className, $methodName), $arguments);
 				} else if (!in_array($methodName, array_keys($this->priorities))){
 					return call_user_func_array(array($className, $methodName), $arguments);
