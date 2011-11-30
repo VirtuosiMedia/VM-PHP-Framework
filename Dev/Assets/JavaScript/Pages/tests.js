@@ -143,10 +143,10 @@ window.addEvent('domready', function(){
 				background:"rgba(255, 255, 255, 0)", 
 				border:false, 
 				strokeColor:"rgba(255, 255, 255, 0)",
-				fontColor:'#FFF',
+				fontColor:'#000',
 				fontSize:11,
-				titleColor:'#FFF',
-				chartTextColor:'#FFF'
+				titleColor:'#000',
+				chartTextColor:'#000'
 			});
 		}
 		
