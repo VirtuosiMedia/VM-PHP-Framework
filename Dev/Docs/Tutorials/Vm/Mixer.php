@@ -1,9 +1,12 @@
 <h1>Vm_Mixer Tutorial</h1>
 <p>Vm_Mixer simulates multiple inheritance using mixins. It allows you to extend the functionality of multiple classes 
 and manage any conflicts between them, should they arise.</p>
-<h1>Example</h1>
-<p>Here is a quick example of how this could be used.</p>
-<h2>Mixin 1</h2>
+<h2>Example</h2>
+<p>Here is a quick example of how this could be used. Suppose that you're creating a game and you have multiple
+creatures that all have some forms of weapons and defense. With mixins, you can create separate classes for both weapons
+and defense and add them both to your creature classes, along with any other classes you might want to add. The creature
+will then mix in all public methods of both classes without directly extending either.</p>
+<h3>Mixin 1</h3>
 <pre class="php">class Weapons {
 
     public function laser(){
@@ -23,7 +26,7 @@ and manage any conflicts between them, should they arise.</p>
     }
 }
 </pre>
-<h2>Mixin 2</h2>
+<h3>Mixin 2</h3>
 <pre class="php">
 class Defense {
 
@@ -44,7 +47,9 @@ class Defense {
     }
 }
 </pre>
-<h2>Robot Class!</h2>
+<h3>Robot Class!</h3>
+<p>Finally, we come to our creature class, in this case, a robot. The robot will make use of both mixins and all of the
+public mixin methods will be available from any robot object that we instantiate.</p>
 <pre class="php">
 class Robot extends Vm_Mixer {
 
@@ -65,7 +70,12 @@ class Robot extends Vm_Mixer {
     }
 }
 </pre>
-<h2>Usage</h2>
+<p>Notice that both the weapons and defense classes have an explode method, so we must explicitly state which class'
+explode method should be used through the setPriorities method. You can only set a method/class priority once. If two 
+classes share a method and no priority is set, the first class passed in as a mixin will be given precedence.</p>
+<h3>Usage</h3>
+<p>Using our robot class is now incredibly simple. We have access to all of the public mixin methods as if they were 
+native methods of the robot class.</p>
 <pre class="php">
 $robot = new Robot('Robby');
 $robot-&gt;greet();
