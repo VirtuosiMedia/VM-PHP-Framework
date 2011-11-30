@@ -146,7 +146,7 @@ window.addEvent('domready', function(){
 				fontColor:'#000',
 				fontSize:11,
 				titleColor:'#000',
-				chartTextColor:'#000'
+				chartTextColor:'#FFF'
 			});
 		}
 		

@@ -40,7 +40,7 @@ Array.prototype.sum = function(){
 // Add our namespace
 var MilkChart = {};
 //MilkChart.Colors = ['#4f81bd', '#c0504d', '#9bbb59', '#8064a2', '#4198af', '#db843d'];
-MilkChart.Colors = ['#0079AC', '#338F5C', '#FFB953', '#FF5A5A', '#66C', '#4198af', '#db843d'];
+MilkChart.Colors = ['#3D943D', '#07A', '#FA1', '#FF5A5A', '#66C', '#4198af', '#db843d'];
 // Simple Point class
 var Point = new Class({
     initialize: function(x,y) {
