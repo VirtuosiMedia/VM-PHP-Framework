@@ -3,7 +3,7 @@
  */
 window.addEvent('domready', function(){
 	var myTips = new Tips('.tips', {text:'rel', 'className':'tipContainer'});
-	var mySmoothScroll = new Fx.SmoothScroll({links:'.topLink, .classLink', offset:{'x':0, 'y':-80}});
+	var mySmoothScroll = new Fx.SmoothScroll({links:'.topLink, .classLink', offset:{'x':0, 'y':-60}});
 	
 	//Form UI
 	inputMask('mask', false);
@@ -134,7 +134,7 @@ window.addEvent('domready', function(){
 	var replace = new CheckboxReplace('input[type="checkbox"]', {cloneClasses:true, activeClass:'activeCheck'});
 	
 	//Set up the UI for each individual test
-	$$('.tabMenu').each(function(item){
+	$$('.tabBar, .tabMenu').each(function(item){
 		var testedClassId = item.get('id');		
 		var tabs = new SimpleTabs($$('.'+testedClassId+'Tab'), {activeClassName: 'active', triggerEvent: 'click'});
 		if ($(testedClassId+'Loc')){
