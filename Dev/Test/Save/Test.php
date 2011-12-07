@@ -1,9 +1,9 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: Renders the history of an individual unit test case
-*/
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description Saves the history of an individual unit test case.
+ */
 class Test_Save_Test {
 	
 	protected $file;
@@ -56,7 +56,7 @@ class Test_Save_Test {
 
 		$data = json_encode($data);
 		
-		$logFile = 'Tests/Test/Reports/'.$this->testedClassName.'Report.json';
+		$logFile = 'Test/Reports/'.$this->testedClassName.'Report.json';
 		$directive = (file_exists($logFile)) ? 'a' : 'w';
 		$data = ($directive == 'a') ? "\n".$data : $data; //Done for parsing purposes
 
