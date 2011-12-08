@@ -151,14 +151,14 @@ window.addEvent('domready', function(){
 		}
 		
 		var chartOptions = {
-			width:660, 
+			width:525, 
 			background:"rgba(255, 255, 255, 0)", 
 			border:false, 
 			strokeColor:"rgba(255, 255, 255, 0)",
-			fontColor:'#FFF',
+			fontColor:'#000',
 			fontSize:11,
-			titleColor:'#FFF',
-			chartTextColor:'#FFF',
+			titleColor:'#000',
+			chartTextColor:'#000',
 			lineWeight:3,
 			padding:20,
 			showLines:true, 
@@ -176,6 +176,7 @@ window.addEvent('domready', function(){
 		if ($(testedClassId+'HistoryTab')){
 			$(testedClassId+'HistoryTab').addEvent('click', function(){		
 				if ((!$($(testedClassId+'HistoryTabClicked')))&&(!$('history-for-'+testedClassId).hasClass('empty'))){
+					var chartTabs = new SimpleTabs($$('.'+testedClassId+'ChartTab'), {activeClassName: 'active', triggerEvent: 'click'});
 					chartIds.each(function(itemId){
 						var data = JSON.decode($(itemId+'Data').get('text'));
 						var chartLine = new MilkChart.Line($(itemId), chartOptions);
