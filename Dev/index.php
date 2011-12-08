@@ -6,6 +6,7 @@ require_once('Assets/Autoload.php');
 
 $settings = array(
 	'excludeFoldersFromDocs'=>array('Vm'),
+	'fluxCapacitor'=>FALSE,
 	'installed'=>FALSE,
 	'overridePath'=>NULL,
 	'suiteTheme'=>'Centauri'
