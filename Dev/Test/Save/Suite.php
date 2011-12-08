@@ -1,9 +1,9 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: Renders the history of a filtered test suite
-*/
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description Renders the history of a filtered test suite
+ */
 class Test_Save_Suite {
 
 	protected $authors = array();
@@ -40,7 +40,7 @@ class Test_Save_Suite {
 	}
 	
 	/**
-	 * Sets the list of authors whose tests should be included
+	 * @description Sets the list of authors whose tests should be included
 	 * @param array $authors - An array of test authors
 	 */
 	public function setAuthors(array $authors){
@@ -48,7 +48,7 @@ class Test_Save_Suite {
 	}
 	
 	/**
-	 * Sets the list of authors whose tests should be excluded
+	 * @description Sets the list of authors whose tests should be excluded
 	 * @param array $authors - An array of test authors
 	 */
 	public function setExcludedAuthors(array $authors){
@@ -56,7 +56,7 @@ class Test_Save_Suite {
 	}
 
 	/**
-	 * Sets the list of groups for which tests should be included
+	 * @description Sets the list of groups for which tests should be included
 	 * @param array $groups - An array of test groups
 	 */
 	public function setGroups(array $groups){
@@ -64,7 +64,7 @@ class Test_Save_Suite {
 	}
 	
 	/**
-	 * Sets the list of groups for which tests should be excluded
+	 * @description Sets the list of groups for which tests should be excluded
 	 * @param array $groups - An array of test groups
 	 */
 	public function setExcludedGroups(array $groups){
@@ -72,7 +72,7 @@ class Test_Save_Suite {
 	}
 
 	/**
-	 * Sets the list of subgroups for which tests should be included
+	 * @description Sets the list of subgroups for which tests should be included
 	 * @param array $subgroups - An array of test subgroups
 	 */
 	public function setSubgroups(array $subgroups){
@@ -80,7 +80,7 @@ class Test_Save_Suite {
 	}
 	
 	/**
-	 * Sets the list of subgroups for which tests should be excluded
+	 * @description Sets the list of subgroups for which tests should be excluded
 	 * @param array $subgroups - An array of test subgroups
 	 */
 	public function setExcludedSubgroups(array $subgroups){
@@ -111,28 +111,28 @@ class Test_Save_Suite {
 	 * Saves the results of the test suite run
 	 */
 	public function save(){
-		$statementCoverage = ($this->includeCoverage) ? $this->results['statementCoverage'] : '';
-		$functionalCoverage = ($this->includeCoverage) ? $this->results['functionalCoverage'] : '';
+		$statementCoverage = ($this->includeCoverage) ? $this->results['statementCoveragePercentage'] : '';
+		$functionalCoverage = ($this->includeCoverage) ? $this->results['functionCoveragePercentage'] : '';
 		$avgComplexity = ($this->includeMetrics) ? $this->results['avgComplexity'] : '';
-		$refactor = ($this->includeMetrics) ? $this->results['refactor'] : '';
-		$readability = ($this->includeMetrics) ? $this->results['readability'] : '';
+		$refactor = ($this->includeMetrics) ? $this->results['refactorPercentage'] : '';
+		$readability = ($this->includeMetrics) ? $this->results['readabilityPercentage'] : '';
 		$readability = ($readability > 100) ? 100 : $readability;
-		$totalLoc = ($this->includeMetrics) ? $this->results['totalLoc'] : '';
+		$totalLoc = ($this->includeMetrics) ? $this->results['metricsLoc'] : '';
 		
 		$data = array(
 			'datetime'=>date("M d, Y, H:i"),
 			'numTestCases'=>$this->results['numTestCases'],
 			'numUnitTests'=>$this->results['numUnitTests'],
-			'statementCoverage'=>$statementCoverage,
-			'functionalCoverage'=>$functionalCoverage,
+			'statementCoveragePercentage'=>$statementCoverage,
+			'functionCoveragePercentage'=>$functionalCoverage,
 			'avgComplexity'=>$avgComplexity,
-			'refactor'=>$refactor,
-			'readability'=>$readability,
+			'refactorPercentage'=>$refactor,
+			'readabilityPercentage'=>$readability,
 			'loc'=>$totalLoc,
 			'totalTime'=>$this->results['totalTime']
 		);
 
-		if (file_exists('Tests/Test/Reports/Suite/'.$this->fileName)){
+		if (file_exists('Test/Reports/Suite/'.$this->fileName)){
 			$directive = 'a';
 			$data = "\n".json_encode($data);
 		} else {
@@ -140,7 +140,7 @@ class Test_Save_Suite {
 			$data = $this->getReportData()."\n".json_encode($data);
 		}
 
-		$handle = fopen('Tests/Test/Reports/Suite/'.$this->fileName, $directive);
+		$handle = fopen('Test/Reports/Suite/'.$this->fileName, $directive);
 		fwrite($handle, $data);
 		fclose($handle);			
 	}
