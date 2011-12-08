@@ -1,9 +1,9 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* @description: Builds a unit testing suite by scanning a given directory
-*/
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description Builds a unit testing suite by scanning a given directory.
+ */
 class Test_Suite {
 	
 	protected $authors = array();
@@ -187,6 +187,22 @@ class Test_Suite {
 	public function getTestData(){
 		return $this->testData;
 	}	
+
+	/**
+	 * Gets the tested class names and number of methods for for all tests
+	 * @return array - A multi-dimensional array: array(testName=>array(name=>className, numMethods=>int))
+	 */	
+	public function getTestedClasses(){
+		return $this->testedClasses;
+	}
+
+	/**
+	 * Gets the coverage for each test
+	 * @return array - A multi-dimensional array
+	 */
+	public function getCoverage(){
+		return $this->coverage;
+	}
 	
 	/**
 	 * Runs a test and logs its results
@@ -210,7 +226,6 @@ class Test_Suite {
 				$this->runTest($testName);
 			}
 		}
-		$this->compileResults();
 	}
 
 	/**
@@ -279,28 +294,10 @@ class Test_Suite {
 	}
 
 	/**
-	 * Compiles the results of all selected tests
-	 */
-	protected function compileResults(){
-		foreach ($this->testResults as $name=>$results){
-			$test = new Test_Render_Test($this->testedClasses[$name]['name'], $this->testData[$name], $results, $this->includeCoverage, $this->coverage[$name], $this->saveResults);
-			$test->includeMetrics($this->includeMetrics);			
-			$this->results[$this->testedClasses[$name]['name']] = $test->getResults();
-			$this->renderedTests[] = $test->render();			
-		}		
-	}
-
-	/**
 	 * @return array - An associative array of test results
 	 */
 	public function getResults(){
-		return $this->results;
+		return $this->testResults;
 	}
 
-	/**
-	 * @return array - The rendered tests as an array of strings, each value a single test
-	 */
-	public function getRenderedTests(){
-		return $this->renderedTests;
-	}
 }
