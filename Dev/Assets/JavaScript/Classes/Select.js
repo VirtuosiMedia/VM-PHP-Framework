@@ -191,7 +191,8 @@ var FormReplaceSelect = new Class({
 			} else {
 				el.set('selected', false);
 			}
-		});
+			this.selects[index].fireEvent('change');
+		}, this);
 	},
 	
 	deleteList: function(){
