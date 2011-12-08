@@ -29,6 +29,7 @@ class Suite_Controller_Docs_Tutorial extends Vm_Controller {
 		$view->pageTitle = 'Tutorial - '.str_replace('|', '-', str_replace('-', ' ', str_replace('---', '-|-', $this->params['t'])));
 		$view->scripts = array(
 			'Assets/JavaScript/Classes/Lighter/mootools-1.2.4.js', //This older version is because lighter.js hasn't been updated yet 
+			'Assets/JavaScript/Classes/Lighter/mootools-more-1.2.5.js',
 			'Assets/JavaScript/Classes/SimpleTabs.js',
 			'Assets/JavaScript/Classes/Lighter/Fuel.js',
 			'Assets/JavaScript/Classes/Lighter/Lighter.js', 
