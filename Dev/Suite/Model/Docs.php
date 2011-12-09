@@ -1,18 +1,26 @@
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * @description: The model for generating the docs page variables for VM PHP Framework Suite
- * @requirements: PHP 5.2 or higher
+ * @license MIT License
+ * @description The model for generating the docs page variables for VM PHP Framework Suite
+ * @requirements PHP 5.2 or higher
+ * @namespace Suite\Model
+ * @uses Vm\Folder
+ * @uses Vm\Version
  */
-class Suite_Model_Docs extends Vm_Model {
+namespace Suite\Model;
+
+use Vm\Folder;
+use Vm\Version;
+
+class Docs extends \Vm\Model {
 	
 	protected $params;
 	protected $settings;
 	
 	/**
-	 * 
-	 * @param array $params - An associative array of the URL parameters, with the parameter name as the key, it's value as the value
+	 * @param array $params - An associative array of the URL parameters, with the parameter name as the key, it's 
+	 * 		value as the value
 	 * @param array $settings - An associative settings array, with the setting name as the key, it's value as the value
 	 */	
 	function __construct($params, $settings){
@@ -25,7 +33,7 @@ class Suite_Model_Docs extends Vm_Model {
 		$tabs = array();
 		$apps = array();
 		
-		$folder = new Vm_Folder('../Includes');
+		$folder = new Folder('../Includes');
 		$folders = $folder->getFolders();
 		
 		foreach ($folders as $dir){
@@ -50,19 +58,19 @@ class Suite_Model_Docs extends Vm_Model {
 		$this->getAppData('Vm');
 		$this->getSuiteData();
 		
-		$version = new Vm_Version();
+		$version = new Version();
 		$this->setData('version', $version->get('version'));
 		$this->setData('copyright', $version->get('copyright'));		
 	}
 
 	protected function getAppData($app){
-		$folder = new Vm_Folder('../Includes/'.$app);
+		$folder = new Folder('../Includes/'.$app);
 		$files = $folder->getFiles(TRUE, 'php');
 		
 		$appData = array();
 		$classFiles = array();
 		foreach ($files as $path=>$file){
-			$name = str_replace('/', '_', str_replace('../Includes/', '', str_replace('.php', '', $path)));
+			$name = str_replace('/', '\\', str_replace('../Includes/', '', str_replace('.php', '', $path)));
 			$appData[] = array(
 				'name'=>$name,
 				'url'=>'index.php?p=docs&amp;f='.$name
@@ -79,7 +87,7 @@ class Suite_Model_Docs extends Vm_Model {
 		}
 
 		if (is_dir('Docs/Tutorials/'.$app)){
-			$folder = new Vm_Folder('Docs/Tutorials/'.$app);
+			$folder = new Folder('Docs/Tutorials/'.$app);
 			$tutorials = $folder->getFiles(TRUE, 'php');
 			
 			$appTutorials = array();
@@ -108,7 +116,7 @@ class Suite_Model_Docs extends Vm_Model {
 	}
 	
 	protected function getSuiteData(){
-		$folder = new Vm_Folder('Docs/Tutorials/Suite');
+		$folder = new Folder('Docs/Tutorials/Suite');
 		$tutorials = $folder->getFiles(TRUE, 'php');
 		
 		$suite = array();
