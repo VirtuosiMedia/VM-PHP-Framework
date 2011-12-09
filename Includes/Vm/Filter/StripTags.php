@@ -1,13 +1,16 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A filter class that strips slashes from input
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Filter_StripTags extends Vm_Filter {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A filter class that strips slashes from input
+ * @requirements: PHP 5.3 or higher
+ * @namespace Vm\Filter
+ */
+namespace Vm\Filter;
 
-	/*
+class StripTags extends \Vm\Filter {
+
+	/**
 	 * @param mixed $input - The input to be filtered
 	 * @param string $tagWhiteList - The allowable tags that won't be stripped, ie: '<b><i><p>'
 	 * @return string - The filtered input
