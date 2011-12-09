@@ -12,6 +12,6 @@ $settings = array(
 	'suiteTheme'=>'Centauri'
 );
 
-$suite = new Suite_Controller_Front($settings);
+$suite = new Suite\Controller\Front($settings);
 echo $suite->render();
 ?>
