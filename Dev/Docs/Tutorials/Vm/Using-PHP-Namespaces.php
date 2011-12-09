@@ -250,7 +250,34 @@ when writing your own code.</p>
 		vm\widget\gizmo are not.</li>
 	<li><strong>Semantic Aliases</strong> - If and when namespace aliases are used, they must have a clear, semantic, 
 		and unambigous meaning.</li>
+	<li><strong>Restrained Importing</strong> - Minimize the use of the namespace importing so that the top of a file 
+		isn't cluttered. If more than two classes are specifically imported with the use operator from the same 
+		namespace, go back a namespace and use more specificity when the classes are instantiated.</li>
 </ul>
+<p>As an example of the last point, if you have the following code:</p>
+<pre class="php">
+include('autoload.php');
+
+use Vm\Widget\Gadget;
+use Vm\Widget\Gizmo;
+use Vm\Widget\Doohicky;
+
+$widget = new Gadget();
+$gizmo = new Gizmo();
+$doohicky = new Doohicky();
+</pre>
+<p>Rather than cluttering the top of the file with import statements, the code should be refactored. Because each of the 
+	classes above share the Widget namespace, the shared namespace should be imported if there are more than two classes 
+	being imported by name. The revised code would look like:</p>
+<pre class="php">
+include('autoload.php');
+
+use Vm\Widget;
+
+$widget = new Widget\Gadget();
+$gizmo = new Widget\Gizmo();
+$doohicky = new Widget\Doohicky();
+</pre>	
 <h2>Further Reading</h2>
 <p>The <a href="http://www.php.net/manual/en/language.namespaces.php">PHP manual</a> has additional extensive 
 	documentation on using namespaces including specific gotchas, how namespaces are resolved, and how to use 
