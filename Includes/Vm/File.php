@@ -1,11 +1,14 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A basic file manipulation class
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_File {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A basic file manipulation class
+ * @requirements PHP 5.2 or higher
+ * @namespace Vm
+ */
+namespace Vm;
+
+class File {
 	
 	protected $dirPath;
 	protected $file;
@@ -30,11 +33,11 @@ class Vm_File {
 	}
 	
 	/**
-	 * Creates a new file by the name given in the constructor
+	 * @description Creates a new file by the name given in the constructor
 	 * @param boolean $overwrite - optional - TRUE if an existing file by the same name should be overwritten,
-	 * 	defaults false
+	 * 		defaults false
 	 * @return boolean - TRUE if the file was created, FALSE if it was not or already existed and overwriting
-	 * 	was not enabled
+	 * 		was not enabled
 	 */
 	public function create($overwrite = FALSE){
 		if (($this->exists()) && (!$overwrite)){
@@ -46,9 +49,9 @@ class Vm_File {
 	}
 
 	/**
-	 * Reads the contents of the file
+	 * @description Reads the contents of the file
 	 * @param int $bytes - optional - The number of bytes to be read (one character equals one byte), defaults
-	 * 	to the contents of the entire file
+	 * 		to the contents of the entire file
 	 * @return string - The file contents (in bytes, if specified, else the entire file) 
 	 */
 	public function read($bytes = NULL){
@@ -63,7 +66,7 @@ class Vm_File {
 	}
 
 	/**
-	 * Writes to the file starting at the beginning of the file; overwrites any previous contents
+	 * @description Writes to the file starting at the beginning of the file; overwrites any previous contents
 	 * @param string $data - The data to be written to the file
 	 */
 	public function write($data){
@@ -73,7 +76,7 @@ class Vm_File {
 	}
 
 	/**
-	 * Appends to the file starting at the end of the file; does not overwrite any previous contents
+	 * @description Appends to the file starting at the end of the file; does not overwrite any previous contents
 	 * @param string $data - The data to be appended to the file
 	 */	
 	public function append($data){
@@ -83,7 +86,7 @@ class Vm_File {
 	}
 
 	/**
-	 * Deletes the file
+	 * @description Deletes the file
 	 * @return boolean - TRUE if the file was deleted or does not exist, FALSE otherwise
 	 */
 	public function delete(){
@@ -94,7 +97,7 @@ class Vm_File {
 	}
 	
 	/**
-	 * Erases the file contents
+	 * @description Erases the file contents
 	 */
 	public function erase(){
 		$this->create(TRUE);
@@ -108,7 +111,7 @@ class Vm_File {
 	}
 
 	/**
-	 * Sets the file's permissions
+	 * @description Sets the file's permissions
 	 * @param $permissions - The file permissions in octal, ie 0755
 	 * @param boolean - TRUE if the permissions were set successfully, FALSE otherwise
 	 */
@@ -119,7 +122,7 @@ class Vm_File {
 	}
 	
 	/**
-	 * Reverts file permissions to their previous setting, ONLY to be used after the setPermissions method
+	 * @description Reverts file permissions to their previous setting, ONLY to be used after the setPermissions method
 	 * @return boolean - TRUE if the permissions were reverted successfully, FALSE otherwise
 	 */
 	public function revertPermissions(){
@@ -127,7 +130,7 @@ class Vm_File {
 	}
 	
 	/**
-	 * Injects the file into the document using require only if it exists
+	 * @description Injects the file into the document using require only if it exists
 	 * @param boolean $once - optional - Uses require_once() if TRUE, require() if FALSE
 	 */
 	public function inject($once = TRUE){
@@ -140,4 +143,3 @@ class Vm_File {
 		}
 	}
 }
-?>

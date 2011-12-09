@@ -1,11 +1,14 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A class for working with folders
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Folder {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A class for working with folders
+ * @requirements PHP 5.2 or higher
+ * @namespace Vm
+ */
+namespace Vm;
+
+class Folder {
 	
 	protected $baseDir;
 	protected $files = array();
@@ -20,7 +23,7 @@ class Vm_Folder {
 	}
 
 	/**
-	 * Recursively scans a directory and returns all contents
+	 * @description Recursively scans a directory and returns all contents
 	 * @param boolean $recursive - optional - Whether or not the scan should be recursive
 	 * @param boolean $includePath - optional - Whether or not the file path should be prepended to results
 	 * @param string $dir - optional - The current folder being scanned
@@ -59,7 +62,7 @@ class Vm_Folder {
 	}
 
 	/**
-	 * Recursively empties a directory of its contents
+	 * @description Recursively empties a directory of its contents
 	 * @param array $resource - The directory contents to be emptied
 	 */
 	protected function recursiveEmpty($resource){
@@ -78,7 +81,7 @@ class Vm_Folder {
 	}
 	
 	/**
-	 * Gets the contents of the base directory
+	 * @description Gets the contents of the base directory
 	 * @param boolean $recursive - optional - Whether or not a recursive scan should be used
 	 * @param boolean $includePath - optional - Whether or not the file path should be prepended to results
 	 * @return array - A multi-dimensional array of the directory contents
@@ -88,7 +91,7 @@ class Vm_Folder {
 	}
 	
 	/**
-	 * Gets the contents of the base directory
+	 * @description Gets the contents of the base directory
 	 * @param boolean $recursive - optional - Whether or not a recursive scan should be used
 	 * @param boolean $includePath - optional - Whether or not the file path should be prepended to result values
 	 * @return array - A single dimensional array of the directory folders
@@ -106,7 +109,7 @@ class Vm_Folder {
 	}
 
 	/**
-	 * Gets the files from the base base directory
+	 * @description Gets the files from the base base directory
 	 * @param boolean $recursive - optional - Whether or not a recursive scan should be used
 	 * @param string $fileExtension - optional - The file extension (minus the dot). 
 	 * @param boolean $includePath - optional - Whether or not the file path should be prepended to result values
@@ -136,10 +139,12 @@ class Vm_Folder {
 	}
 
 	/**
-	 * Creates a directory
+	 * @description Creates a directory
 	 * @param string $dirName - The name of the directory to create
-	 * @param int $mode - optional - The folder permissions in octal, defaults to 0755 for security purposes - Note: Mode is ignored on Windows.
-	 * @param boolean $recursive - optional - TRUE if the directory creation should be recursive, FALSE otherwise - Defaults FALSE
+	 * @param int $mode - optional - The folder permissions in octal, defaults to 0755 for security purposes - Note: 
+	 * 		Mode is ignored on Windows.
+	 * @param boolean $recursive - optional - TRUE if the directory creation should be recursive, FALSE otherwise - 
+	 * 		Defaults FALSE
 	 * @return boolean - TRUE if the directory was created, FALSE otherwise
 	 */
 	public function createDir($dirName, $mode = 0755, $recursive = FALSE){
@@ -147,7 +152,8 @@ class Vm_Folder {
 	}
 
 	/**
-	 * Deletes a directory if a name is given, else it deletes the base directory - Note: Directory must be empty to be deleted
+	 * @description Deletes a directory if a name is given, else it deletes the base directory - Note: Directory must 
+	 * 		be empty to be deleted
 	 * @param string $dirName - optional - The name of the directory to delete, defaults to base directory 
 	 * @return boolean - TRUE if the directory was deleted, FALSE otherwise
 	 */
@@ -156,19 +162,19 @@ class Vm_Folder {
 	}
 
 	/**
-	 * Empties a directory of its contents if a name is given, else it empties the base directory
+	 * @description Empties a directory of its contents if a name is given, else it empties the base directory
 	 * @param string $dirName - optional - The name of the directory to empty, defaults to the base directory
 	 * @param boolean - TRUE if the directory should be emptied recursively, FALSE otherwise. Defaults FALSE
 	 */
 	public function emptyDir($dirName = NULL, $recursive = FALSE){
 		$dir = ($dirName) ? $dirName : $this->baseDir;
-		$resources = new Vm_Folder($dir);
+		$resources = new \Vm\Folder($dir);
 		$contents = $resources->getContents($recursive, TRUE);
 		$this->recursiveEmpty($contents);			
 	}
 
 	/**
-	 * Renames a directory if it is given, else it renames the base directory
+	 * @description Renames a directory if it is given, else it renames the base directory
 	 * @param string $newName - The new directory name relative to the current working directory
 	 * @param string $oldName - optional - The name of the directory to be renamed relative to the base directory
 	 * 	If no old name is given, defaults to the base directory 
@@ -198,9 +204,10 @@ class Vm_Folder {
 	}
 	
 	/**
-	 * Sets the directory permissions if the user has permission to do so
+	 * @description Sets the directory permissions if the user has permission to do so
 	 * @param int $mode - The folder permissions in octal, ex: 0777
-	 * @param string $dirName -optional- The name of the directory to set the permissions for, defaults to base directory
+	 * @param string $dirName -optional- The name of the directory to set the permissions for, defaults to base 
+	 * 		directory
 	 * @return boolean - TRUE if the directory permissions were changed, FALSE otherwise
 	 */
 	public function setPermissions($mode, $dirName = NULL){
@@ -208,4 +215,3 @@ class Vm_Folder {
 		return chmod($dir, $mode);
 	}
 }
-?>

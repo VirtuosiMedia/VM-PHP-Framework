@@ -1,18 +1,20 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: Version and copyright information about VM Framework - Can be extended by an application to include application metadata
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Version extends Vm_Klass {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description Version and copyright information about VM Framework - Can be extended by an application to include 
+ * 		application metadata
+ * @requirements PHP 5.2 or higher
+ * @namespace Vm
+ */
+namespace Vm;
+
+class Version extends \Vm\Klass {
 
 	/**
 	 * @param array $options - optional - Metadata for the package
 	 */
 	function __construct($options = NULL){
-
-		// @var array The default options array for the class
 		$defaultOptions = array(
 			'copyright' => 'Copyright &copy; 2011, Virtuosi Media Inc.',
 			'license' => 'MIT license',
@@ -38,4 +40,3 @@ class Vm_Version extends Vm_Klass {
 		return $this->options[$metadata];
 	}
 }
-?>

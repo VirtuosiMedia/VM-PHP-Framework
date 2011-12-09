@@ -4,10 +4,15 @@
  * @license MIT License
  * @description A class for rendering a view.
  * @requirements PHP 5.2 or higher
- * @uses Vm_Filter
- * @uses Vm_Filter_StripTags
+ * @namespace Vm
+ * @uses Vm\Filter
+ * @uses Vm\Filter\StripTags
  */
-class Vm_View {
+namespace Vm;
+
+use Filter;
+
+class View {
 
 	protected $filters = array();
 	protected $overridePath;
@@ -258,7 +263,7 @@ class Vm_View {
 	 * @note Because this method is called automatically when you set your view data, it is a protected method, not 
 	 * 		public.
 	 * @security If the passed in value is not a string, array, or numeric, it will be returned unfiltered.
-	 * @uses Vm_Filter 
+	 * @uses Vm\Filter 
 	 * @param mixed $value - The value to be filtered. The value can be either a string, a number, or an array.
 	 * @param array $filters - optional - If the filter has required parameters, the filter name should be the key and 
 	 * 		the parameters should be contained in an array, excluding the input parameter, which is automatically 
@@ -278,7 +283,7 @@ class Vm_View {
 		} else if ((is_string($value))||(is_numeric($value))){
 			$filteredValue = $value;
 			foreach ($filters as $filterName=>$params){
-				$filterName = (is_array($params)) ? 'Vm_Filter_'.$filterName : 'Vm_Filter_'.$params;
+				$filterName = (is_array($params)) ? '\Vm\Filter\\'.$filterName : 'Vm\Filter\\'.$params;
 				$params = (is_array($params)) ? $params : array();
 				$numParams = sizeof($params);
 				$filter = new $filterName();				
@@ -317,7 +322,7 @@ class Vm_View {
 	 * @example
 	 * 
 	 * <pre class="php">
-	 * $view = new Vm_View();
+	 * $view = new \Vm\View();
 	 * 
 	 * //Assign an array to the view, which will be available as $this-&gt;view in the template file
 	 * $view-&gt;items = array('Item 1', 'Item 2', 'Item 3');

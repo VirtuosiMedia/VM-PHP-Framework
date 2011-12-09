@@ -1,11 +1,14 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A generic filter class to be extended by specific filters
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Filter extends Vm_Klass {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A generic filter class to be extended by specific filters
+ * @requirements PHP 5.2 or higher
+ * @namespace Vm
+ */
+namespace Vm;
+
+class Filter extends \Vm\Klass {
 
 	protected $filteredValue = NULL;
 	protected $value = NULL;
@@ -25,4 +28,3 @@ class Vm_Filter extends Vm_Klass {
 		return $this->filteredValue;
 	}
 }
-?>

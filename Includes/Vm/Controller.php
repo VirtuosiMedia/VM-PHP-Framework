@@ -1,17 +1,21 @@
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * @description: A sub controller abstract class
- * @requirements: PHP 5.2 or higher
+ * @license MIT License
+ * @description A sub controller abstract class
+ * @requirements PHP 5.2 or higher
+ * @namespace Vm
  */
-abstract class Vm_Controller {
+namespace Vm;
+
+abstract class Controller {
 
 	protected $params = array();
 	protected $view = NULL;
 
 	/**
-	 * This method is meant to be overriden by the extending class and it should load the appropriate models and views
+	 * @description This method is meant to be overriden by the extending class and it should load the appropriate 
+	 * 		models and views
 	 */
 	abstract public function load();
 	

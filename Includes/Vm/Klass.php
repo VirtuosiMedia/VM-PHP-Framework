@@ -4,8 +4,11 @@
  * @license MIT License
  * @description Creates an options array for a class, inspired by the MooTools JavaScript syntax for creating classes
  * @requirements PHP 5.2 or higher
+ * @namespace Vm
  */
-class Vm_Klass {
+namespace Vm;
+
+class Klass {
 	
 	// @var array $options - The generic options array for which extending classes should set default values
 	protected $options = array();
@@ -13,7 +16,7 @@ class Vm_Klass {
 	function __construct(){}
 	
 	/**
-	 * Description: The setOptions method should be called in the constructor of an extending class
+	 * @description The setOptions method should be called in the constructor of an extending class
 	 * @param array $options - The options array resets any default options present in the class
 	 * @param array $newDefaultOptions - optional - An array of any new default options to add to the options array
 	 * @return - $this
@@ -33,7 +36,7 @@ class Vm_Klass {
 	}
 
 	/**
-	 * Gets the options array
+	 * @description Gets the options array
 	 * @return array - The options array
 	 */
 	public function getOptions(){
@@ -41,7 +44,7 @@ class Vm_Klass {
 	}
 
 	/**
-	 * Gets the options value
+	 * @description Gets the options value
 	 * @param string $key - The option key to return a value for
 	 * @return array - The option key's value
 	 */	

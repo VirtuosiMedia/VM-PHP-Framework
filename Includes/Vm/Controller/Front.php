@@ -1,11 +1,14 @@
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * @description: A front controller abstract class
- * @requirements: PHP 5.2 or higher
+ * @license MIT License
+ * @description A front controller abstract class
+ * @requirements PHP 5.2 or higher
+ * @namespace Vm\Controller
  */
-abstract class Vm_Controller_Front {
+namespace Vm\Controller;
+
+abstract class Front {
 
 	protected $params = array();
 	protected $view = NULL;
@@ -21,7 +24,8 @@ abstract class Vm_Controller_Front {
 	}
 
 	/**
-	 * This method is meant to be overriden by the extending class and it should load the appropriate subcontrollers
+	 * @description This method is meant to be overriden by the extending class and it should load the appropriate 
+	 * 		subcontrollers
 	 */
 	abstract protected function loadControllers();
 	
