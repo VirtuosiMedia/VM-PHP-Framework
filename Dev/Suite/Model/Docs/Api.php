@@ -1,11 +1,17 @@
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * @description: The model for generating the API Docs for VM PHP Framework Suite
- * @requirements: PHP 5.2 or higher
+ * @license MIT License
+ * @description The model for generating the API Docs for VM PHP Framework Suite
+ * @requirements PHP 5.2 or higher
+ * @namespace Suite\Model\Docs
+ * @uses Vm\Folder;
  */
-class Suite_Model_Docs_Api extends Vm_Model {
+namespace Suite\Model\Docs;
+
+use \Vm\Folder;
+
+class Api extends \Vm\Model {
 
 	protected $appClasses = array();
 	protected $class;
@@ -14,8 +20,8 @@ class Suite_Model_Docs_Api extends Vm_Model {
 	protected $settings;
 	
 	/**
-	 * 
-	 * @param array $params - An associative array of the URL parameters, with the parameter name as the key, it's value as the value
+	 * @param array $params - An associative array of the URL parameters, with the parameter name as the key, it's 
+	 * 		value as the value
 	 * @param array $settings - An associative settings array, with the setting name as the key, it's value as the value
 	 */	
 	function __construct($params, $settings){
@@ -27,35 +33,40 @@ class Suite_Model_Docs_Api extends Vm_Model {
 	}
 
 	protected function getClasses(){
-		$this->phpClasses = array('stdClass', 'Exception', 'ErrorException', 'Closure', 'COMPersistHelper', 'com_exception', 
-			'com_safearray_proxy', 'variant', 'com', 'dotnet', 'DateTime', 'DateTimeZone', 'DateInterval', 'DatePeriod', 
-			'ReflectionException', 'Reflection', 'ReflectionFunctionAbstract', 'ReflectionFunction', 'ReflectionParameter', 
-			'ReflectionMethod', 'ReflectionClass', 'ReflectionObject', 'ReflectionProperty', 'ReflectionExtension', 
-			'LogicException', 'BadFunctionCallException', 'BadMethodCallException', 'DomainException', 
-			'InvalidArgumentException', 'LengthException', 'OutOfRangeException', 'RuntimeException', 'OutOfBoundsException', 
-			'OverflowException', 'RangeException', 'UnderflowException', 'UnexpectedValueException', 'RecursiveIteratorIterator', 
-			'IteratorIterator', 'FilterIterator', 'RecursiveFilterIterator', 'ParentIterator', 'LimitIterator', 'CachingIterator', 
-			'RecursiveCachingIterator', 'NoRewindIterator', 'AppendIterator', 'InfiniteIterator', 'RegexIterator', 'RecursiveRegexIterator', 
-			'EmptyIterator', 'RecursiveTreeIterator', 'ArrayObject', 'ArrayIterator', 'RecursiveArrayIterator', 'SplFileInfo', 
-			'DirectoryIterator', 'FilesystemIterator', 'RecursiveDirectoryIterator', 'GlobIterator', 'SplFileObject', 'SplTempFileObject', 
-			'SplDoublyLinkedList', 'SplQueue', 'SplStack', 'SplHeap', 'SplMinHeap', 'SplMaxHeap', 'SplPriorityQueue', 'SplFixedArray', 
-			'SplObjectStorage', 'MultipleIterator', '__PHP_Incomplete_Class', 'php_user_filter', 'Directory', 'LibXMLError', 'DOMException', 
-			'DOMStringList', 'DOMNameList', 'DOMImplementationList', 'DOMImplementationSource', 'DOMImplementation', 'DOMNode', 
-			'DOMNameSpaceNode', 'DOMDocumentFragment', 'DOMDocument', 'DOMNodeList', 'DOMNamedNodeMap', 'DOMCharacterData', 'DOMAttr', 
-			'DOMElement', 'DOMText', 'DOMComment', 'DOMTypeinfo', 'DOMUserDataHandler', 'DOMDomError', 'DOMErrorHandler', 'DOMLocator', 
+		$this->phpClasses = array('stdClass', 'Exception', 'ErrorException', 'Closure', 'COMPersistHelper', 
+			'com_exception', 'com_safearray_proxy', 'variant', 'com', 'dotnet', 'DateTime', 'DateTimeZone', 
+			'DateInterval', 'DatePeriod', 'ReflectionException', 'Reflection', 'ReflectionFunctionAbstract', 
+			'ReflectionFunction', 'ReflectionParameter', 'ReflectionMethod', 'ReflectionClass', 'ReflectionObject', 
+			'ReflectionProperty', 'ReflectionExtension', 'LogicException', 'BadFunctionCallException', 
+			'BadMethodCallException', 'DomainException', 'InvalidArgumentException', 'LengthException', 
+			'OutOfRangeException', 'RuntimeException', 'OutOfBoundsException', 'OverflowException', 'RangeException', 
+			'UnderflowException', 'UnexpectedValueException', 'RecursiveIteratorIterator', 'IteratorIterator', 
+			'FilterIterator', 'RecursiveFilterIterator', 'ParentIterator', 'LimitIterator', 'CachingIterator',
+			'RecursiveCachingIterator', 'NoRewindIterator', 'AppendIterator', 'InfiniteIterator', 'RegexIterator', 
+			'RecursiveRegexIterator', 'EmptyIterator', 'RecursiveTreeIterator', 'ArrayObject', 'ArrayIterator', 
+			'RecursiveArrayIterator', 'SplFileInfo', 'DirectoryIterator', 'FilesystemIterator', 
+			'RecursiveDirectoryIterator', 'GlobIterator', 'SplFileObject', 'SplTempFileObject', 'SplDoublyLinkedList', 
+			'SplQueue', 'SplStack', 'SplHeap', 'SplMinHeap', 'SplMaxHeap', 'SplPriorityQueue', 'SplFixedArray', 
+			'SplObjectStorage', 'MultipleIterator', '__PHP_Incomplete_Class', 'php_user_filter', 'Directory', 
+			'LibXMLError', 'DOMException', 'DOMStringList', 'DOMNameList', 'DOMImplementationList', 
+			'DOMImplementationSource', 'DOMImplementation', 'DOMNode', 'DOMNameSpaceNode', 'DOMDocumentFragment', 
+			'DOMDocument', 'DOMNodeList', 'DOMNamedNodeMap', 'DOMCharacterData', 'DOMAttr', 'DOMElement', 'DOMText', 
+			'DOMComment', 'DOMTypeinfo', 'DOMUserDataHandler', 'DOMDomError', 'DOMErrorHandler', 'DOMLocator', 
 			'DOMConfiguration', 'DOMCdataSection', 'DOMDocumentType', 'DOMNotation', 'DOMEntity', 'DOMEntityReference', 
-			'DOMProcessingInstruction', 'DOMStringExtend', 'DOMXPath', 'SimpleXMLElement', 'SimpleXMLIterator', 'XMLReader', 'XMLWriter', 
-			'XSLTProcessor', 'PharException', 'Phar', 'PharData', 'PharFileInfo', 'mysqli_sql_exception', 'mysqli_driver', 'mysqli', 
-			'mysqli_warning', 'mysqli_result', 'mysqli_stmt', 'PDOException', 'PDO', 'PDOStatement', 'PDORow', 'SoapClient', 'SoapVar', 
-			'SoapServer', 'SoapFault', 'SoapParam', 'SoapHeader', 'SQLiteDatabase', 'SQLiteResult', 'SQLiteUnbuffered', 'SQLiteException', 
-			'SQLite3', 'SQLite3Stmt', 'SQLite3Result', 'ZipArchive', 'SWFShape', 'SWFFill', 'SWFGradient', 'SWFBitmap', 'SWFText', 
-			'SWFTextField', 'SWFFont', 'SWFDisplayItem', 'SWFMovie', 'SWFButton', 'SWFAction', 'SWFMorph', 'SWFMovieClip', 'SWFSprite', 
-			'SWFSound', 'SWFFontChar', 'SWFButtonRecord', 'SWFSoundInstance', 'SWFVideoStream', 'SWFBinaryData', 'SWFInitAction', 
-			'SWFPrebuiltClip', 'SWFSoundStream', 'SWFFilter', 'SWFFilterMatrix', 'SWFShadow', 'SWFBlur', 'SWFCXform', 'SWFMatrix', 
-			'SWFInput', 'SWFBrowserFont', 'SWFFontCollection', 'SWFCharacter', 'PDFlibException', 'PDFlib'
+			'DOMProcessingInstruction', 'DOMStringExtend', 'DOMXPath', 'SimpleXMLElement', 'SimpleXMLIterator', 
+			'XMLReader', 'XMLWriter', 'XSLTProcessor', 'PharException', 'Phar', 'PharData', 'PharFileInfo', 
+			'mysqli_sql_exception', 'mysqli_driver', 'mysqli', 'mysqli_warning', 'mysqli_result', 'mysqli_stmt', 
+			'PDOException', 'PDO', 'PDOStatement', 'PDORow', 'SoapClient', 'SoapVar', 'SoapServer', 'SoapFault', 
+			'SoapParam', 'SoapHeader', 'SQLiteDatabase', 'SQLiteResult', 'SQLiteUnbuffered', 'SQLiteException', 
+			'SQLite3', 'SQLite3Stmt', 'SQLite3Result', 'ZipArchive', 'SWFShape', 'SWFFill', 'SWFGradient', 'SWFBitmap', 
+			'SWFText', 'SWFTextField', 'SWFFont', 'SWFDisplayItem', 'SWFMovie', 'SWFButton', 'SWFAction', 'SWFMorph', 
+			'SWFMovieClip', 'SWFSprite', 'SWFSound', 'SWFFontChar', 'SWFButtonRecord', 'SWFSoundInstance', 
+			'SWFVideoStream', 'SWFBinaryData', 'SWFInitAction', 'SWFPrebuiltClip', 'SWFSoundStream', 'SWFFilter', 
+			'SWFFilterMatrix', 'SWFShadow', 'SWFBlur', 'SWFCXform', 'SWFMatrix', 'SWFInput', 'SWFBrowserFont', 
+			'SWFFontCollection', 'SWFCharacter', 'PDFlibException', 'PDFlib'
 		);
 
-		$folder = new Vm_Folder('../Includes');
+		$folder = new Folder('../Includes');
 		$files = $folder->getFiles(TRUE, 'php');
 		
 		foreach ($files as $path=>$file){
@@ -83,9 +94,9 @@ class Suite_Model_Docs_Api extends Vm_Model {
 		$filePath = '../Includes/'.implode('/', $fileParts).'.php';
 			
 		if (file_exists($filePath)){
-			$this->class = new ReflectionClass(implode('_', $fileParts));
-			$publicMethods = $this->class->getMethods(ReflectionMethod::IS_PUBLIC);
-			$protectedMethods = $this->class->getMethods(ReflectionMethod::IS_PROTECTED);
+			$this->class = new \ReflectionClass(implode('_', $fileParts));
+			$publicMethods = $this->class->getMethods(\ReflectionMethod::IS_PUBLIC);
+			$protectedMethods = $this->class->getMethods(\ReflectionMethod::IS_PROTECTED);
 			
 			$this->setData('classDocs', $this->parseComments($this->class->getDocComment()));
 			$this->setData('publicMethods', $this->getMethodNames($publicMethods));
@@ -161,12 +172,14 @@ class Suite_Model_Docs_Api extends Vm_Model {
 				foreach ($classTags as $name=>$tag){
 					if (strpos($data, $tag) !== FALSE){
 						$data = rtrim(trim(str_replace('/', '', str_replace($tag, '', $data))), '/');
-						$docsData[$name][] = (!empty($data))? $this->getClassLink($data) : '<i class="noValue">Unspecified</i>';
+						$docsData[$name][] = (!empty($data)) 
+							? $this->getClassLink($data) 
+							: '<i class="noValue">Unspecified</i>';
 					} 
 				}
 			}		
 		}
-		$modifiers = implode(', ', Reflection::getModifierNames($this->class->getModifiers()));
+		$modifiers = implode(', ', \Reflection::getModifierNames($this->class->getModifiers()));
 		$docsData['Modifiers'][] = (!empty($modifiers)) ? $modifiers : '<i class="noValue">None</i>';
 		ksort($docsData);
 		return $docsData;
@@ -196,15 +209,21 @@ class Suite_Model_Docs_Api extends Vm_Model {
 	 * @param ReflectionMethod $method - The ReflectionMethod object for which data should be retrieved
 	 * @return array - An associative array of the method data
 	 */
-	protected function getMethodData(ReflectionMethod $method){
+	protected function getMethodData(\ReflectionMethod $method){
 		$methodData = array();
 		$comments = $this->parseComments($method->getDocComment());
 		
-		$methodData['Params'] = (isset($comments['Param'])) ? $this->getMethodParams($method->getParameters(), $comments['Param']) : array();
-		$methodData['Returns'] = (isset($comments['Returns'])) ? implode(' ', $comments['Returns']) : '<i class="noValue">No return value given.</i>';
-		$methodData['Description'] = (isset($comments['Description'])) ? $comments['Description'] : '<i class="noValue">No description available.</i>';
+		$methodData['Params'] = (isset($comments['Param'])) 
+			? $this->getMethodParams($method->getParameters(), $comments['Param']) 
+			: array();
+		$methodData['Returns'] = (isset($comments['Returns'])) 
+			? implode(' ', $comments['Returns']) 
+			: '<i class="noValue">No return value given.</i>';
+		$methodData['Description'] = (isset($comments['Description'])) 
+			? $comments['Description'] 
+			: '<i class="noValue">No description available.</i>';
 		
-		$modifiers = implode(' ', Reflection::getModifierNames($method->getModifiers()));
+		$modifiers = implode(' ', \Reflection::getModifierNames($method->getModifiers()));
 		$comments['Modifiers'][0] = (!empty($modifiers)) ? $modifiers : '<i class="noValue">None</i>';
 		
 		$class = $method->getDeclaringClass()->getName();
@@ -213,12 +232,15 @@ class Suite_Model_Docs_Api extends Vm_Model {
 				$comments['Defined'][0] = '<a href="http://php.net/manual/en/class.'.strtolower(str_replace('_', '-', $class))
 					.'.php" target="_blank">'.$class.'</a> (external link)';
 			} else if (in_array($class, $this->appClasses)){
-				$comments['Defined'][0] = '<a href="index.php?p=docs&amp;f='.$class.'#source">Line '.$method->getStartLine().' of '.$class.'</a>';
+				$comments['Defined'][0] = '<a href="index.php?p=docs&amp;f='.$class.
+					'#source">Line '.$method->getStartLine().' of '.$class.'</a>';
 			} else {
 				$comments['Defined'][0] = 'See Parent Class';
 			}
 		} else {
-			$comments['Defined'][0] = ($method->getStartLine()) ? '<a href="#source">Line '.$method->getStartLine().'</a>' : 'See Parent Class';	
+			$comments['Defined'][0] = ($method->getStartLine()) 
+				? '<a href="#source">Line '.$method->getStartLine().'</a>' 
+				: 'See Parent Class';	
 		}
 		
 		unset($comments['Param']);
@@ -249,7 +271,9 @@ class Suite_Model_Docs_Api extends Vm_Model {
 			} else {
 				$paramsList[$index]['default'] = '<i class="noValue">None</i>';
 			} 
-			$paramsList[$index]['description'] = (isset($comments[$index])) ? trim($comments[$index]) : '<i class="noValue">No description available.</i>';
+			$paramsList[$index]['description'] = (isset($comments[$index])) 
+				? trim($comments[$index]) 
+				: '<i class="noValue">No description available.</i>';
 		}
 		return $paramsList;
 	}
@@ -258,7 +282,7 @@ class Suite_Model_Docs_Api extends Vm_Model {
 	 * @param ReflectionParameter $param  - The parameter for which a type should be retrieved
 	 * @return string - The parameter type
 	 */
-	protected function getParameterType(ReflectionParameter $param){
+	protected function getParameterType(\ReflectionParameter $param){
 		if ($param->isArray()){
 			return 'array';
 		} else if ($param->getClass()){
