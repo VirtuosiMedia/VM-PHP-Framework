@@ -10,7 +10,7 @@
  */
 namespace Vm;
 
-use Filter;
+use Vm\Filter;
 
 class View {
 
