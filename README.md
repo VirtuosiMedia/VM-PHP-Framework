@@ -16,6 +16,7 @@ Developer Benefits
 Features
 ---------------------
 
+* **Modern** - VM PHP Framework is made for PHP 5.3 and above and uses namespaces.
 * **MVC** - VM PHP Framework supports, but does not require, the Model-View-Controller (MVC) pattern.
 * **Database Abstraction Layer** - Write secure database code once. Switch between with multiple database management systems by simply changing a setting.
 * **Form Validation, Filtering, and Generation** - Create, validate, and filter **any** form with a JSON-like syntax that will cut your form coding time by at least 50%.
@@ -26,6 +27,18 @@ Features
 * **String Translation** - Making a multi-lingual application has never been easier.
 * **Feed Generators** - Create your own dynamic RSS and Atom feeds.
 * **Caching Tools** - Use the smart caching classes to cache your JavaScript, CSS, and application files. 
+
+Requirements
+---------------------
+
+Most of the requirements for VM PHP Framework are what you would find in a normal install for PHP, but you should take note of them all:
+
+* PHP 5.3
+* GD Library (usually included and enabled)
+* Zlib (usually included and enabled)
+* PDO (usually included and enabled)
+* Reflection (usually included and enabled)
+* Xdebug (needs to be installed for the test suite)
 
 Installation
 ---------------------
