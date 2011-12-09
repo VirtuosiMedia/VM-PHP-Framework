@@ -1,21 +1,20 @@
 <?php
 /**
- * Autoloader function for VM Framework. Note: A new Autoloader will be generated it VM Framework application scaffolding is installed 
+ * Autoloader function for VM PHP Framework
  * Files must adhere to the following naming convention:
  * 		Path: Folder/Folder1/Folder2/File.php
- * 		Class Name: Folder_Folder1_Folder2_File
+ * 		Namspace: Folder\Folder1\Folder2\File
  */
 
 /**
  * @param string $className - The class to be loaded 
  */
 function __autoload($className) {
-	$uris = explode('_', $className);
+	$uris = explode('\\', ltrim($className, '\\'));
 	foreach($uris as $key=>$uri){
 		$uris[$key] = ucfirst($uri);
 	}
-	$className = implode('/', $uris);
-	//$prefix = ((file_exists('../Includes/Version.php'))&&(!preg_match('#^(Tests\/)#', $className))&&(!preg_match('#^(Tools\/)#', $className))) ? '../Includes/' : NULL;
-	$prefix = ($uris[0] == 'Vm') ? '../Includes/' : './';
+	$className = implode(DIRECTORY_SEPARATOR, $uris);
+	$prefix = (in_array($uris[0], array('Suite', 'Test', 'Tests', 'Tools'))) ? './' : '../Includes/';
 	require_once($prefix.$className.'.php');
 }
