@@ -92,7 +92,7 @@ class Docs extends \Vm\Model {
 			
 			$appTutorials = array();
 			foreach ($tutorials as $path=>$tutorial){
-				$classFile = str_replace('/', '_', str_replace('Docs/Tutorials/', '', str_replace('.php', '', $path)));
+				$classFile = str_replace('/', '\\', str_replace('Docs/Tutorials/', '', str_replace('.php', '', $path)));
 				if (!in_array($classFile, $classFiles)){
 					$param = str_replace('.php', '', $tutorial);
 					$name = str_replace('|', '-', str_replace('-', ' ', str_replace('---', '-|-', $param)));
