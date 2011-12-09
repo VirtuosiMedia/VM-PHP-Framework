@@ -12,22 +12,39 @@ class Suite_Model_Install_Environment extends Vm_Model {
 	}
 	
 	protected function compileData(){
-		$phpVersionClass = (defined('PHP_VERSION_ID')) ? 'pass' : 'fail';
-		$phpVersion = ($phpVersionClass == 'pass') ? 'Current PHP Version: '.phpversion().'.' : 'Current PHP Version: '.phpversion().' - Version 5.2.7 or higher required'; 
+		list($major, $minor, $release) = explode('.', phpversion());
+		$phpVersionClass = (($major >= 5) && ($minor >= 3)) ? 'pass' : 'fail';
+		$phpVersion = ($phpVersionClass == 'pass') ? 
+			'Current PHP Version: '.phpversion().'.' 
+			: 'Current PHP Version: '.phpversion().' - Version 5.3 or higher required'; 
 		$gdLibraryClass = (extension_loaded('gd') && function_exists('gd_info')) ? 'pass' : 'fail';
-		$gdLibrary = ($gdLibraryClass == 'pass') ? 'GD Library is enabled.' : 'GD Library must be enabled for some classes to work';
+		$gdLibrary = ($gdLibraryClass == 'pass') 
+			? 'GD Library is enabled.' 
+			: 'GD Library must be enabled for some classes to work';
 		$zlibClass = (extension_loaded('zlib')) ? 'pass' : 'fail';
-		$zlib = ($zlibClass == 'pass') ? 'Zlib extension is enabled.' : 'Zlib extension is disabled. Some classes will not function properly.';
+		$zlib = ($zlibClass == 'pass') 
+			? 'Zlib extension is enabled.' 
+			: 'Zlib extension is disabled. Some classes will not function properly.';
 		$pdoClass = (extension_loaded('pdo')) ? 'pass' : 'fail';
-		$pdo = ($pdoClass == 'pass') ? 'PDO extension is enabled.' : 'PDO extension is disabled. Database classes will not function properly.';
+		$pdo = ($pdoClass == 'pass') 
+			? 'PDO extension is enabled.' 
+			: 'PDO extension is disabled. Database classes will not function properly.';
 		$mysqlPdoClass = (extension_loaded('pdo')) ? 'pass' : 'fail';
-		$mysqlPdo = ($mysqlPdoClass == 'pass') ? 'MySQL PDO extension is enabled.' : 'MySQL PDO extension is disabled. MySQL database classes will not function properly.';
+		$mysqlPdo = ($mysqlPdoClass == 'pass') 
+			? 'MySQL PDO extension is enabled.' 
+			: 'MySQL PDO extension is disabled. MySQL database classes will not function properly.';
 		$ctypeClass = (extension_loaded('ctype')) ? 'pass' : 'fail';
-		$ctype = ($ctypeClass == 'pass') ? 'Ctype extension is enabled.' : 'Ctype extension is disabled. Some validation classes will not function properly.';
+		$ctype = ($ctypeClass == 'pass') 
+			? 'Ctype extension is enabled.' 
+			: 'Ctype extension is disabled. Some validation classes will not function properly.';
 		$reflectionClass = (class_exists('Reflection', false)) ? 'pass' : 'fail';
-		$reflection = ($reflectionClass == 'pass') ? 'Reflection extension is enabled.' : 'Reflection extension is disabled. Unit testing suite will not function properly.';
+		$reflection = ($reflectionClass == 'pass') 
+			? 'Reflection extension is enabled.' 
+			: 'Reflection extension is disabled. Unit testing suite will not function properly.';
 		$xdebugClass = (function_exists('xdebug_start_code_coverage')) ? 'pass' : 'warning';
-		$xdebug = ($xdebugClass == 'pass') ? 'Xdebug extension is enabled' : 'Xdebug extension is disabled. Code coverage analysis will not be available.';
+		$xdebug = ($xdebugClass == 'pass') 
+			? 'Xdebug extension is enabled' 
+			: 'Xdebug extension is disabled. Code coverage analysis will not be available.';
 		
 		$this->setData('phpVersionClass', $phpVersionClass);
 		$this->setData('phpVersion', $phpVersion);
