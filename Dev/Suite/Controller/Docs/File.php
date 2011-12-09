@@ -1,18 +1,26 @@
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * @description: The docs file page controller for the VM PHP Framework Suite
- * @requirements: PHP 5.2 or higher
+ * @license MIT License
+ * @description The docs file page controller for the VM PHP Framework Suite
+ * @requirements PHP 5.2 or higher
+ * @namespace Suite\Controller\Docs
+ * @uses Suite\Model
+ * @uses Vm\View
  */
-class Suite_Controller_Docs_File extends Vm_Controller {
+namespace Suite\Controller\Docs;
+
+use \Suite\Model;
+use \Vm\View;
+
+class File extends \Vm\Controller {
 	
 	protected $params;
 	protected $settings;
 	
 	/**
-	 * 
-	 * @param array $params - An associative array of the URL parameters, with the parameter name as the key, it's value as the value
+	 * @param array $params - An associative array of the URL parameters, with the parameter name as the key, it's 
+	 * 		value as the value
 	 * @param array $settings - An associative settings array, with the setting name as the key, it's value as the value
 	 */
 	function __construct(array $params, array $settings){
@@ -21,14 +29,14 @@ class Suite_Controller_Docs_File extends Vm_Controller {
 	}
 	
 	public function load(){
-		$topNav = new Suite_Model_TopNav($this->params, $this->settings);
-		$tabs = new Suite_Model_Docs_Tabs($this->params, $this->settings);
-		$tutorial = new Suite_Model_Docs_Tutorial($this->params, $this->settings);
-		$api = new Suite_Model_Docs_Api($this->params, $this->settings);
-		$code = new Suite_Model_Docs_Code($this->params, $this->settings);
+		$topNav = new Model\TopNav($this->params, $this->settings);
+		$tabs = new Model\Docs\Tabs($this->params, $this->settings);
+		$tutorial = new Model\Docs\Tutorial($this->params, $this->settings);
+		$api = new Model\Docs\Api($this->params, $this->settings);
+		$code = new Model\Docs\Code($this->params, $this->settings);
 		$fileName = str_replace('|', '-', str_replace('-', ' ', str_replace('---', '-|-', $this->params['f'])));
 		
-		$view = new Vm_View($this->defaultPath, $this->overridePath);
+		$view = new View($this->defaultPath, $this->overridePath);
 				
 		$view->setViewspace('Header');
 		$view->pageTitle = 'Docs - '.$fileName;

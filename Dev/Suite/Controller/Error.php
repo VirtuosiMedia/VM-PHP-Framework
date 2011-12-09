@@ -1,18 +1,28 @@
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * @description: The error page controller for the VM PHP Framework Suite
- * @requirements: PHP 5.2 or higher
+ * @license MIT License
+ * @description The error page controller for the VM PHP Framework Suite
+ * @requirements PHP 5.2 or higher
+ * @namespace Suite\Controller
+ * @uses \Suite\Model\TopNav
+ * @uses \Vm\Version
+ * @uses \Vm\View
  */
-class Suite_Controller_Error extends Vm_Controller {
+namespace Suite\Controller;
+
+use \Suite\Model\TopNav;
+use \Vm\Version;
+use \Vm\View;
+
+class Error extends \Vm\Controller {
 	
 	protected $params;
 	protected $settings;
 	
 	/**
-	 * 
-	 * @param array $params - An associative array of the URL parameters, with the parameter name as the key, it's value as the value
+	 * @param array $params - An associative array of the URL parameters, with the parameter name as the key, it's value 
+	 * 		as the value
 	 * @param array $settings - An associative settings array, with the setting name as the key, it's value as the value
 	 */
 	function __construct(array $params, array $settings){
@@ -21,8 +31,8 @@ class Suite_Controller_Error extends Vm_Controller {
 	}
 	
 	public function load(){
-		$topNav = new Suite_Model_TopNav($this->params, $this->settings);
-		$view = new Vm_View($this->defaultPath, $this->overridePath);
+		$topNav = new TopNav($this->params, $this->settings);
+		$view = new View($this->defaultPath, $this->overridePath);
 				
 		$view->setViewspace('Header');
 		$view->pageTitle = 'VM PHP Framework for PHP5';
@@ -36,7 +46,7 @@ class Suite_Controller_Error extends Vm_Controller {
 		
 		$view->setViewspace('Body');
 		
-		$version = new Vm_Version();
+		$version = new Version();
 		$view->version = $version->get('version');
 		$view->copyright = $version->get('copyright');		
 		

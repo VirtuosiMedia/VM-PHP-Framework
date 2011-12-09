@@ -1,11 +1,18 @@
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * @description: The docs page controller for the VM PHP Framework Suite
- * @requirements: PHP 5.2 or higher
+ * @license MIT License
+ * @description The docs page controller for the VM PHP Framework Suite
+ * @requirements PHP 5.2 or higher
+ * @uses \Suite\Model
+ * @uses \Vm\View
  */
-class Suite_Controller_Docs extends Vm_Controller {
+namespace Suite\Controller;
+
+use \Suite\Model;
+use \Vm\View;
+
+class Docs extends \Vm\Controller {
 	
 	protected $params;
 	protected $settings;
@@ -22,19 +29,19 @@ class Suite_Controller_Docs extends Vm_Controller {
 	
 	public function load(){
 		if ((isset($this->params['t']))&&(isset($this->params['a']))){
-			$subController = new Suite_Controller_Docs_Tutorial($this->params, $this->settings);
+			$subController = new Docs\Tutorial($this->params, $this->settings);
 			$subController->setViewPath('Suite/View/Default/', $this->settings['overridePath']);
 			$subController->load();
 			$this->setView($subController->render());
 		} else if (isset($this->params['f'])){
-			$subController = new Suite_Controller_Docs_File($this->params, $this->settings);
+			$subController = new Docs\File($this->params, $this->settings);
 			$subController->setViewPath('Suite/View/Default/', $this->settings['overridePath']);
 			$subController->load();
 			$this->setView($subController->render());			
 		} else {
-			$topNav = new Suite_Model_TopNav($this->params, $this->settings);
-			$main = new Suite_Model_Docs($this->params, $this->settings);
-			$view = new Vm_View($this->defaultPath, $this->overridePath);
+			$topNav = new Model\TopNav($this->params, $this->settings);
+			$main = new Model\Docs($this->params, $this->settings);
+			$view = new View($this->defaultPath, $this->overridePath);
 					
 			$view->setViewspace('Header');
 			$view->pageTitle = 'Docs for VM PHP Framework';
