@@ -238,7 +238,7 @@ class Schoolar_Lessons_Math {
 	<li><i>assertFalse</i> - ($x) [boolean] Tests if x is FALSE, fails if it is not.</li>
 	<li><i>assertNull</i> - ($x) [mixed] Tests if x is NULL, fails if it is not.</li>
 	<li><i>assertNotNull</i> - ($x) [mixed] Tests if x is not NULL, fails if it is.</li>
-	<li><i>assertEmpty</i> - ($x) [mixed] Tests if x is empty, fails if it is not.</li>
+	<li><i>assertIsEmpty</i> - ($x) [mixed] Tests if x is empty, fails if it is not.</li>
 	<li><i>assertNotEmpty</i> - ($x) [mixed] Tests if x is not empty, fails if it is.</li>
 	<li><i>assertResourceExists</i> - ($resourceName) [string] Tests if a file or directory exists, fails if it does not exist.</li>
 	<li><i>assertResourceDoesNotExist</i> - ($resourceName) [string] Tests if a file or directory does not exist, fails if it does exist.</li>	
