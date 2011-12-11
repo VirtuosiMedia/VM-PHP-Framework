@@ -8,7 +8,7 @@
  */
 namespace Test\Model\Suite;
 
-class Metrics extends Vm\Model {
+class Metrics extends \Vm\Model {
 
 	protected $results;
 	protected $testData = array();

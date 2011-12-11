@@ -8,7 +8,7 @@
  */
 namespace Test\Model\Suite;
 
-class Results extends Vm\Model {
+class Results extends \Vm\Model {
 
 	protected $avgNumUnitTests = 0;
 	protected $avgTestTime = 0;

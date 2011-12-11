@@ -8,7 +8,7 @@
  */
 namespace Test\Model\Suite;
 
-class Coverage extends Vm\Model {
+class Coverage extends \Vm\Model {
 
 	protected $results;
 	protected $testData = array();

@@ -8,7 +8,7 @@
  */
 namespace Test\Model\Suite;
 
-class History extends Vm\Model {
+class History extends \Vm\Model {
 
 	protected $fileName = FALSE;
 	protected $historyExists = FALSE;
