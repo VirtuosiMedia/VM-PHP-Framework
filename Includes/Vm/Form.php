@@ -83,7 +83,8 @@ class Form extends Validate {
 	 * @description Creates a form element
 	 * @param string $tagName - The tag name of the form element
 	 * @param string $fieldName - The field name of the form element	
-	 * @param array $attributesArray - The attributes of the form element, with the attribute name as a key, the value as a value
+	 * @param array $attributesArray - The attributes of the form element, with the attribute name as a key, the value 
+	 * 		as a value
 	 * @param boolean $selfClosing - Whether or not the tag is self closing
 	 * @param string $input - The input for this element if the form has already been submitted
 	 * @param array $selectOptionsArray - optional - the options array if the form element is a select box
@@ -138,7 +139,8 @@ class Form extends Validate {
 	/**
 	 * @description Creates a label element
 	 * @param string $fieldName - The field name of the label's form element	
-	 * @param array $labelArray - The attributes of the label element, with the attribute name as a key, the value as a value
+	 * @param array $labelArray - The attributes of the label element, with the attribute name as a key, the value 
+	 * 		as a value
 	 * @param string $formElementId - The id of the form element, if it exists
 	 * @return string - The label in HTML
 	 */
