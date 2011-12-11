@@ -22,7 +22,7 @@ abstract class Dml {
 	 * @param $prefix - optional - A prefix for the table
 	 * @return The object for chaining 
 	 */
-	public function __construct(PDO $db, $driverType, $table, array $fields, $schema, $prefix = NULL){
+	public function __construct(\PDO $db, $driverType, $table, array $fields, $schema, $prefix = NULL){
 		$driverType = strtolower($driverType);
 		switch ($driverType){
 			case 'mysql':
@@ -88,7 +88,7 @@ abstract class Dml {
 	}
 
 	/**
-	 * Joins will be added to the join array and processed in their array order and use the ON syntax 
+	 * @description Joins will be added to the join array and processed in their array order and use the ON syntax 
 	 * 	rather than USING. Optional for query build.
 	 * @param string $joinType -The type of join to be performed. Acceptable values are 'left', 'right', 'inner', and 
 	 * 		'full'
@@ -106,7 +106,7 @@ abstract class Dml {
 	}
 
 	/**
-	 * Creates a where clause.  Optional for query build.
+	 * @description Creates a where clause.  Optional for query build.
 	 * @param string $column - The column(s) to be compared to the value
 	 * @param string $operator - The operator to be used in the comparison. 
 	 * @param mixed $value - The value to which $column is compared - If multiple values are entered as an array, they 
@@ -135,7 +135,7 @@ abstract class Dml {
 	}
 
 	/**
-	 * Creates a HAVING clause.  Optional for query build. MUST be used in conjunction with the GROUP BY clause
+	 * @description Creates a HAVING clause.  Optional for query build. MUST be used in conjunction with the GROUP BY clause
 	 * @param string $column - The column(s) to be compared to the value. Note: The column is not a bound parameter in 
 	 * 		this clause
 	 * @param string $operator - The operator to be used in the comparison
@@ -151,7 +151,7 @@ abstract class Dml {
 	}
 
 	/**
-	 * Orders the query.  Optional for query build
+	 * @description Orders the query.  Optional for query build
 	 * @param string $field - The field to sort by
 	 * @param string $sort (optional) - The sort type. Acceptable values are ASC and DESC
 	 * @param boolean $caseSensitive - optional - Whether or not the ordering should be case sensitive, defaults TRUE. 
@@ -199,7 +199,7 @@ abstract class Dml {
 	}
 		
 	/**
-	 * Clears all class variables by setting them to NULL, allow class instance reuse
+	 * @description Clears all class variables by setting them to NULL, allow class instance reuse
 	 * @param boolean $clearBound - optional - Whether or not the bound variables should be cleared, defaults TRUE
 	 */
 	public function clear($clearBound = TRUE) {
@@ -207,7 +207,7 @@ abstract class Dml {
 	} 
 
 	/**
-	 * Compiles the given data into a select query and returns a result set based on the query
+	 * @description Compiles the given data into a select query and returns a result set based on the query
 	 * @param string (optional) $mode - 
 	 * If set to 'single', returns a single result set which may be accessed through magic methods.
 	 * 
@@ -273,7 +273,7 @@ abstract class Dml {
 	} 
 	
 	/**
-	 * The insert function inserts records into the database. Magic methods are used to insert
+	 * @description The insert function inserts records into the database. Magic methods are used to insert
 	 * 	values into each field. Fields that are not assigned a value will not be included in the compiled query.
 	 * Example usage: 
 	 * 		$users = new Db_Users($db);
@@ -292,8 +292,8 @@ abstract class Dml {
 	} 
 
 	/**
-	 * Updates a database field with values obtained from magic methods representing the field names. 
-	 * Notes: Multiple table updates are currently not supported, nor are ordering or limiting result sets due to
+	 * @description Updates a database field with values obtained from magic methods representing the field names. 
+	 * @note Multiple table updates are currently not supported, nor are ordering or limiting result sets due to
 	 * 	DBMS syntax inconsistencies
 	 * @param string $mode - optional - If set to 'debug', returns the compiled SQL query
 	 * @return int - The number of affected rows 
@@ -303,7 +303,7 @@ abstract class Dml {
 	} 
 	
 	/**
-	 * The delete function deletes all rows that meet the conditions specified in the where clause
+	 * @description The delete function deletes all rows that meet the conditions specified in the where clause
 	 * 	and returns the number of affected rows
 	 * @param string $mode - optional - Acceptable value is 'debug', which prints the compiled query
 	 */
@@ -312,7 +312,7 @@ abstract class Dml {
 	}
 
 	/**
-	 * Description: Deletes all rows in the table, returns the number of affected rows.
+	 * @description Deletes all rows in the table, returns the number of affected rows.
 	 * @return int - The number of affected rows
 	 */
 	public function deleteAll(){
