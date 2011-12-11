@@ -13,7 +13,7 @@ class ExceptionTest extends \Tests\Test {
 	protected function testVmCacheException(){
 		try {
 			throw new \Vm\Cache\Exception('This is a test exception');
-		} catch (Exception $e) {}
+		} catch (\Exception $e) {}
 		$exception = ($e) ? $e->getMessage() : NULL;	
 		return $this->assertEqual($exception, 'This is a test exception');
 	}	

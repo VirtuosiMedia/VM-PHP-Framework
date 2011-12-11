@@ -13,7 +13,7 @@ class ExceptionTest extends \Tests\Test {
 	protected function testVmFormException(){
 		try {
 			throw new \Vm\Form\Exception('This is a test exception');
-		} catch (Exception $e) {}
+		} catch (\Exception $e) {}
 		$exception = ($e) ? $e->getMessage() : NULL;	
 		return $this->assertEqual($exception, 'This is a test exception');
 	}
