@@ -22,12 +22,17 @@
 				<?php if (is_array($this->$app)):?>	
 					<h3 class="title"><?php echo $app;?> Class Files</h3>
 					<p>Each of the class files will contain API docs, a usage tutorial, and the file source code.</p>
-					<?php foreach ($this->$app as $column):?>
-						<ul class="column">
-						<?php foreach ($column as $doc):?>
-							<li><a href="<?php echo $doc['url']; ?>"><?php echo $doc['name']?></a></li>	
+					<?php foreach ($this->$app as $columns):?>
+						<div class="column">
+						<?php foreach ($columns as $namespace=>$classes):?>
+							<h4><?php echo $namespace;?></h4>
+							<ul>
+							<?php foreach ($classes as $class):?>
+								<li><a href="<?php echo $class['url']; ?>"><?php echo $class['name']?></a></li>	
+							<?php endforeach;?>
+							</ul>
 						<?php endforeach;?>
-						</ul>
+						</div>
 					<?php endforeach;?>
 				<?php else:?>
 					<h3 class="title"><?php echo $app;?> Class Files</h3>
@@ -49,13 +54,18 @@
 			<?php endif;?>	
 			<h3 class="title">VM PHP Framework Class Files</h3>
 			<p>Each of the class files will contain API docs, a usage tutorial, and the file source code.</p>
-			<?php foreach ($this->Vm as $column):?>
-				<ul class="column">
-				<?php foreach ($column as $doc):?>
-					<li><a href="<?php echo $doc['url']; ?>"><?php echo $doc['name']?></a></li>	
+			<?php foreach ($this->Vm as $columns):?>
+				<div class="column">
+				<?php foreach ($columns as $namespace=>$classes):?>
+					<h4><?php echo $namespace;?></h4>
+					<ul>
+					<?php foreach ($classes as $class):?>
+						<li><a href="<?php echo $class['url']; ?>"><?php echo $class['name']?></a></li>	
+					<?php endforeach;?>
+					</ul>
 				<?php endforeach;?>
-				</ul>
-			<?php endforeach;?>		
+				</div>
+			<?php endforeach;?>
 		</div>
 		<div id="suite">
 			<h3 class="title">Development Suite Documentation</h3>

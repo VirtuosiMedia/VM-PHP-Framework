@@ -71,16 +71,24 @@ class Docs extends \Vm\Model {
 		$classFiles = array();
 		foreach ($files as $path=>$file){
 			$name = str_replace('/', '\\', str_replace('../Includes/', '', str_replace('.php', '', $path)));
-			$appData[] = array(
+			$namespacePieces = explode('\\', $name);
+			$class = array_pop($namespacePieces);
+			$namespace = implode('\\', $namespacePieces);
+			if (!isset($appData[$namespace])){
+				$appData[$namespace] = array();
+			}
+			 
+			$appData[$namespace][] = array(
 				'name'=>$name,
 				'url'=>'index.php?p=docs&amp;f='.$name
 			);
+			
 			$classFiles[] = $name;
-		}		
-		
+		}
+
 		if (sizeof($classFiles) > 0){
-			$numFiles =  (is_int(sizeof($appData)/2)) ? sizeof($appData)/2 : (sizeof($appData) + 1)/2; 
-			$appData = array_chunk($appData, $numFiles);
+			$numFiles =  (is_int(sizeof($appData)/2)) ? (sizeof($appData) + 4)/2 : (sizeof($appData) + 5)/2; 
+			$appData = array_chunk($appData, $numFiles, TRUE);
 			$this->setData($app, $appData);
 		} else {
 			$this->setData($app, FALSE);
