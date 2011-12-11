@@ -44,7 +44,7 @@ class YmdTest extends \Tests\Test {
 	}
 
 	protected function testDateNoSeparatorInvalid(){
-		$this->fixture = new Vm_Validate_Date_Mdy('19760704');
+		$this->fixture = new Ymd('19760704');
 		return $this->assertFalse($this->fixture->validates());
 	}	
 	

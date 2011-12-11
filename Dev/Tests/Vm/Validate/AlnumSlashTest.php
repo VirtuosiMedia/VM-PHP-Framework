@@ -44,7 +44,7 @@ class AlnumSlashTest extends \Tests\Test {
 
 	protected function testException(){
 		$this->fixture = new AlnumSlash('JohnDoe45');
-		throw new Exception('Exception test');
+		throw new \Exception('Exception test');
 		return $this->skip('This will never be seen.');
 	}	
 	
