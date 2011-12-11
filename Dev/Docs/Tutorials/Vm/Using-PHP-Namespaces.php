@@ -277,7 +277,31 @@ use Vm\Widget;
 $widget = new Widget\Gadget();
 $gizmo = new Widget\Gizmo();
 $doohicky = new Widget\Doohicky();
-</pre>	
+</pre>
+<h2>Namespace Gotchas</h2>
+<p>While namespaces do offer a number of advantages, there are a few instances where issues can arise. If you are aware 
+	of the areas where namespaces can get tricky, it'll make working with namespaces much easier.</p>
+<ul>
+	<li><strong>Reserved Words Are Forbidden</strong> - Using a PHP reserved word anywhere in your namespace will 
+		result in an error. For a complete list of reserved words, see the 
+		<a href="http://php.net/manual/en/reserved.php">PHP Manual</a>.
+	</li>
+	<li><strong>Dynamic Class Instantiation From A String</strong> - The backslash character is the namespace separator, 
+		but it is also an escape character, so you will need to take special care when constructing class names from a 
+		string. A string that ends with a <i>\</i> will escape the final quotation mark, continuing the string. Also, 
+		any control characters like a tab, <i>\t</i>, or a newline, <i>\n</i>, will be interpreted in a string in 
+		double-quotes. To avoid these issues, you must escape the backslash character, <i>\\</i>.
+	</li>
+	<li><strong>Aliases Don't Always Work As Expected</strong> - If you want to use the	reflection API or other PHP 
+		classes or functions that deal with classes, you must use the fully-qualified namespace to refer to the class 
+		because aliases won't work.
+	</li>
+	<li><strong>Native PHP Classes May Need To Be Fully Qualified</strong> - If you aren't in the global namespace, you 
+		will need to fully qualify any native PHP classes as PHP isn't smart enough to look for them if they aren't in 
+		the current namespace. So, if you aren't in the global namespace, <i>new DOMDocument();</i> needs to become
+		<i>new \DOMDocument();</i> or it will result in an error.
+	</li>
+</ul> 
 <h2>Further Reading</h2>
 <p>The <a href="http://www.php.net/manual/en/language.namespaces.php">PHP manual</a> has additional extensive 
 	documentation on using namespaces including specific gotchas, how namespaces are resolved, and how to use 
