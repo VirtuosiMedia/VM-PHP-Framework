@@ -44,27 +44,27 @@ class Xml {
 	 * 		Defaults to FALSE
 	 */
 	public function createTag($tagName, array $attributes = array(), $selfClosing = FALSE){
-		$tag = "<$tagName";
+		$tag = array("<$tagName");
 		$innerHTML = NULL;
 		foreach ($attributes as $attribute=>$value){
 			$attribute = strtolower($attribute);
 			if ($attribute != 'innerhtml'){
-				$tag .= ' '.$attribute.'="'.$value.'"';
+				$tag[] = ' '.$attribute.'="'.$value.'"';
 			} else {
 				$innerHTML = $value;
 			}
 		}
 		
 		if ($selfClosing){
-			$tag .= " />";
+			$tag[] = " />";
 		} else {
-			$tag .= ">";
+			$tag[] = ">";
 			if ($innerHTML){
-				$tag .= $innerHTML;
+				$tag[] = $innerHTML;
 			}
-			$tag .= "</$tagName>";
+			$tag[] = "</$tagName>";
 		}
-		return $tag;		
+		return implode('', $tag);		
 	}
 
 	/**
@@ -73,15 +73,15 @@ class Xml {
 	 * 		as the array key, its value as the array value.	Note: innerHtml is ignored
 	 */
 	public function startTag($tagName, array $attributes = array()){
-		$tag = "<$tagName";
+		$tag = array("<$tagName");
 		foreach ($attributes as $attribute=>$value){
 			$attribute = strtolower($attribute);
 			if ($attribute != 'innerhtml'){
-				$tag .= ' '.$attribute.'="'.$value.'"';
+				$tag[] = ' '.$attribute.'="'.$value.'"';
 			} 
 		}
-		$tag .= ">";
-		return $tag;	
+		$tag[] = ">";
+		return implode('', $tag);	
 	}
 
 	/**
