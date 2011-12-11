@@ -3,7 +3,6 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description A filter class that adds slashes to input
- * @requirements PHP 5.2 or higher
  * @namspace Vm\Filter
  */
 namespace Vm\Filter;
