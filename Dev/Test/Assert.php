@@ -7,7 +7,7 @@
  */
 namespace Test;
 
-abstract class Assert {
+class Assert {
 
 	protected $error;
 	protected $result;
