@@ -86,7 +86,7 @@ class Coverage {
 	 */		
 	protected function calculateFunctionCoverage(){
 		$reflect = new \ReflectionClass($this->testedClassName);
-		$methods = $reflect->getMethods(ReflectionMethod::IS_PUBLIC);
+		$methods = $reflect->getMethods(\ReflectionMethod::IS_PUBLIC);
 		$classMethods = array();
 		
 		foreach ($methods as $method){
