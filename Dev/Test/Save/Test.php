@@ -59,7 +59,7 @@ class Test {
 
 		$data = json_encode($data);
 		
-		$logFile = 'Test/Reports/'.$this->testedClassName.'Report.json';
+		$logFile = 'Test/Reports/'.str_replace('\\', '-', $this->testedClassName).'Report.json';
 		$directive = (file_exists($logFile)) ? 'a' : 'w';
 		$data = ($directive == 'a') ? "\n".$data : $data; //Done for parsing purposes
 
