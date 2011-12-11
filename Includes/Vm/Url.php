@@ -27,7 +27,7 @@ class Url {
 	
 	/**
 	* @description Redirects to the specified URL, regardless if headers have been sent or Javascript has been enabled
-	* @attribution stevenwebster http://ca3.php.net/manual/en/function.header.php#83448
+	* @attribution <a href="http://ca3.php.net/manual/en/function.header.php#83448">Steven Webster</a> 
 	* @param string $url - The url to redirect the user to
 	*/
 	public function redirect($url){
