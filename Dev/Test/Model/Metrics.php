@@ -78,7 +78,7 @@ class Metrics {
 	/**
 	 * @param ReflectionClass $class - The ReflectionClass object
 	 */
-	protected function getParentClass(ReflectionClass $class){
+	protected function getParentClass(\ReflectionClass $class){
 		$parent = $class->getParentClass();
 		$parentName = is_object($parent) ? $parent->getName() : FALSE;
 		if ($parentName){
@@ -110,7 +110,7 @@ class Metrics {
 		foreach ($classMethods as $methodName){
 			$method = new \ReflectionMethod($this->testedClassName, $methodName);
 			$methodLines[$method->getStartLine()] = $methodName;
-			$this->methodMetrics[$methodName]['modifiers'] = implode(', ', Reflection::getModifierNames($method->getModifiers()));
+			$this->methodMetrics[$methodName]['modifiers'] = implode(', ', \Reflection::getModifierNames($method->getModifiers()));
 			$this->methodMetrics[$methodName]['params'] = $method->getNumberOfParameters();
 			$this->methodMetrics[$methodName]['startLine'] = $method->getStartLine();
 			$this->methodMetrics[$methodName]['endLine'] = $method->getEndLine();
