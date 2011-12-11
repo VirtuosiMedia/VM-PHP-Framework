@@ -43,9 +43,14 @@
  * @license http://opensource.org/licenses/mit-license.php MIT License
  * @version 1.1.1 (2008-03-02)
  * @link http://code.google.com/p/jsmin-php/
+ * @namespace Vm\External
+ * @uses Vm\External\JsMin\Exception
  */
+namespace Vm\External;
 
-class Vm_External_JsMin {
+use \Vm\External\JsMin\Exception;
+
+class JsMin {
   const ORD_LF    = 10;
   const ORD_SPACE = 32;
 
@@ -91,7 +96,7 @@ class Vm_External_JsMin {
             }
 
             if (ord($this->a) <= self::ORD_LF) {
-              throw new Vm_External_JsMin_Exception('Unterminated string literal.');
+              throw new Exception('Unterminated string literal.');
             }
 
             if ($this->a === '\\') {
@@ -120,7 +125,7 @@ class Vm_External_JsMin {
               $this->output .= $this->a;
               $this->a       = $this->get();
             } elseif (ord($this->a) <= self::ORD_LF) {
-              throw new Vm_External_JsMin_Exception('Unterminated regular expression '.
+              throw new Exception('Unterminated regular expression '.
                   'literal.');
             }
 
@@ -268,7 +273,7 @@ class Vm_External_JsMin {
                 break;
 
               case null:
-                throw new Vm_External_JsMin_Exception('Unterminated comment.');
+                throw new Exception('Unterminated comment.');
             }
           }
 
@@ -285,7 +290,3 @@ class Vm_External_JsMin {
     return $this->lookAhead;
   }
 }
-
-// -- Exceptions ---------------------------------------------------------------
-class Vm_External_JsMin_Exception extends Exception {}
-?>

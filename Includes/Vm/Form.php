@@ -3,8 +3,8 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description A form rendering class that extends Validate_Validator and uses the same options in its constructor.
- * @dependencies Vm\Validate\Validator and Vm\Xml
- * @requirements: PHP 5.2 or higher
+ * @requires Vm\Validate\Validator 
+ * @requires Vm\Xml
  * @note Vm\Form generates but does not enforce valid HTML.
  * @namespace Vm
  * @uses Vm\Xml

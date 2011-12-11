@@ -3,7 +3,6 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description Creates an options array for a class, inspired by the MooTools JavaScript syntax for creating classes
- * @requirements PHP 5.2 or higher
  * @namespace Vm
  */
 namespace Vm;

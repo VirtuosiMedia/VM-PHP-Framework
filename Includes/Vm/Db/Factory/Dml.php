@@ -4,10 +4,12 @@
  * @license MIT License
  * @description An abstract database class factory, meant to be extended by table-specific database classes. This 
  * 		factory class acts as a wrapper for a specific database driver.
- * @requirements PHP 5.2 or higher
- * @uses Vm_Db_MySql_Dml
+ * @uses Vm\Db\MySql\Dml
+ * @namespace Vm\Db\Factory
  */
-abstract class Vm_Db_Factory_Dml {
+namespace Vm\Db\Factory;
+
+abstract class Dml {
 
 	protected $driver;
 	protected $driverType;
@@ -24,7 +26,7 @@ abstract class Vm_Db_Factory_Dml {
 		$driverType = strtolower($driverType);
 		switch ($driverType){
 			case 'mysql':
-				$driverName = 'Vm_Db_MySql_Dml';
+				$driverName = '\Vm\Db\MySql\Dml';
 				break;
 			default:
 				throw new Vm_Db_Exception('Database driver type "'.$driverType.'" is not supported.');

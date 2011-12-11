@@ -1,11 +1,13 @@
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * @description: A filter class that turns a string to lowercase
- * @requirements: PHP 5.2 or higher
+ * @license MIT License
+ * @description A filter class that turns a string to lowercase
+ * @namspace Vm\Filter
  */
-class Vm_Filter_Lower extends Vm_Filter {
+namespace Vm\Filter;
+
+class Lower extends \Vm\Filter {
 
 	/**
 	 * @param string $input - The input to be filtered

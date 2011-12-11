@@ -1,11 +1,14 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* @description: A generic caching class
-* @requires: PHP 5.2 or higher
-*/
-class Vm_Cache extends Vm_View {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A generic caching class
+ * @extends Vm\View
+ * @namespace Vm
+ */
+namespace Vm;
+
+class Cache extends \Vm\View {
 	
 	protected $cacheDir = NULL;
 
@@ -45,9 +48,10 @@ class Vm_Cache extends Vm_View {
 	}
 	
 	/**
-	 * Description: Creates a cached file if one does not already exist by the same name
+	 * @description Creates a cached file if one does not already exist by the same name
 	 * @param string $fileName - The file name for the cached file, minus the file extension, which will be .php
-	 * @param string $key (optional) - The key from which the data should be fetched. Defaults to fetching from the general view
+	 * @param string $key (optional) - The key from which the data should be fetched. Defaults to fetching from the 
+	 * 		general view
 	 */
 	public function cache($fileName, $key = NULL) {
 		$data = ($key) ? $this->getValue($key) : $this->view;
@@ -58,9 +62,10 @@ class Vm_Cache extends Vm_View {
 	}
 	
 	/**
-	 * Description: Creates a cached file, overriding any previously cached files by the same name
+	 * @description Creates a cached file, overriding any previously cached files by the same name
 	 * @param string $fileName - The file name for the cached file, minus the file extension, which will be .php
-	 * @param string $key (optional) - The key from which the data should be fetched. Defaults to fetching from the general view
+	 * @param string $key (optional) - The key from which the data should be fetched. Defaults to fetching from the 
+	 * 		general view
 	 */
 	public function refreshCache($fileName, $key = NULL) {
 		$data = ($key) ? $this->getValue($key) : $this->view;
@@ -79,7 +84,7 @@ class Vm_Cache extends Vm_View {
 	}
 	
 	/**
-	 * Description: Creates a cached file, overriding any previously cached files by the same name
+	 * @description Creates a cached file, overriding any previously cached files by the same name
 	 * @param string $fileName - The file name for the cached file, minus the file extension, which will be .php
 	 * @param int $expiry - In seconds, the allowable age of the cache
 	 * @return string - The contents of the cached file if it exists and is current, FALSE otherwise
@@ -90,7 +95,8 @@ class Vm_Cache extends Vm_View {
 	}
 	
 	/**
-	 * Description: Creates a cached file, overriding any previously cached files by the same name and uses include to load the file
+	 * @description Creates a cached file, overriding any previously cached files by the same name and uses include to 
+	 * 		load the file
 	 * @param string $fileName - The file name for the cached file, minus the file extension, which will be .php
 	 * @param int $expiry - In seconds, the allowable age of the cache
 	 */	
@@ -101,4 +107,3 @@ class Vm_Cache extends Vm_View {
 		} 
 	}		
 }
-?>

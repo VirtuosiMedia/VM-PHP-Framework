@@ -1,8 +1,11 @@
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * @description: An exception handler for VM_Form
- * @requirements: PHP 5.2 or higher
+ * @license MIT License
+ * @description An exception handler for Vm\View
+ * @extends Vm\Exception
+ * @namespace Vm\View
  */
-class Vm_View_Exception extends Vm_Exception {}
+namespace Vm\Translate;
+
+class Exception extends \Vm\Exception {}

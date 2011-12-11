@@ -1,11 +1,14 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: Creates an Atom 1.0 feed
-* Requirements: PHP 5.2 or higher, Vm_Xml
-*/
-class Vm_Feed_Atom {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description Creates an Atom 1.0 feed
+ * @requires Vm\Xml
+ * @namespace Vm\Feed
+ */
+namespace Vm\Feed;
+
+class Atom {
 	
 	protected $contributors;
 	protected $entries;
@@ -126,7 +129,7 @@ class Vm_Feed_Atom {
 	}	
 
 	/**
-	 * Renders the XML for an author or contributor
+	 * @description Renders the XML for an author or contributor
 	 * @param string $element - The type of element to return: 'author' or 'contributor'
 	 * @param array $content - An array containing the following information: (name, email, uri)
 	 * @return strubg - The rendered person XML
@@ -146,7 +149,7 @@ class Vm_Feed_Atom {
 		foreach ($this->info as $element=>$content){
 			switch($element){
 				case 'updated':
-					$dateTime = new DateTime($content);			
+					$dateTime = new \DateTime($content);			
 					$info .= $this->xml->updated($dateTime->format('Y-m-d\TH:i:sP'));
 					break;
 				case 'author':
@@ -188,7 +191,7 @@ class Vm_Feed_Atom {
 			foreach ($entry as $element=>$content){
 				switch($element){
 					case 'updated':
-						$dateTime = new DateTime($content);			
+						$dateTime = new \DateTime($content);			
 						$entryContainer .= $this->xml->updated($dateTime->format('Y-m-d\TH:i:sP'));						
 						break;
 					case 'author':
@@ -223,7 +226,7 @@ class Vm_Feed_Atom {
 						}
 						break;
 					case 'published':
-						$dateTime = new DateTime($content);			
+						$dateTime = new \DateTime($content);			
 						$entryContainer .= $this->xml->updated($dateTime->format('Y-m-d\TH:i:sP'));
 						break;
 					case 'source':
@@ -263,7 +266,7 @@ class Vm_Feed_Atom {
 	 * @return string - The rendered Atom feed
 	 */
 	public function render(){
-		$this->xml = new Vm_Xml();
+		$this->xml = new \Vm\Xml();
 		$info = $this->renderInfo();
 		$entries = $this->renderEntries();
 		return '<?xml version="1.0" encoding="utf-8"?>'.$this->xml->feed($info.$entries, array('xmlns'=>'http://www.w3.org/2005/Atom'));

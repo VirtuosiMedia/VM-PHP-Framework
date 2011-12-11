@@ -1,11 +1,14 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A data set sorting class that extends Vm_Paginate
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Paginate_Sort extends Vm_Paginate {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A data set sorting class that extends Vm_Paginate
+ * @extends Vm\Paginate
+ * @namespace Vm\Paginate
+ */
+namespace Vm\Paginate;
+
+class Sort extends \Vm\Paginate {
 
 	protected $currentSortColumn = NULL;
 	protected $currentSortStyle = NULL;		
@@ -60,7 +63,7 @@ class Vm_Paginate_Sort extends Vm_Paginate {
 		return $queryString;
 	}
 	
-	/*
+	/**
 	 * @param string $sortColumnValue optional - The column by which the data should be sorted, else it automatically searches for it
 	 * @return - The object, for chaining	
 	 */
@@ -75,7 +78,7 @@ class Vm_Paginate_Sort extends Vm_Paginate {
 		return $this;
 	}
 
-	/*
+	/**
 	 * @param string $sortStyleValue optional - The sort style, ASC or DESC, else it automatically searches for it
 	 * @return - The object, for chaining	
 	 */	
@@ -84,14 +87,14 @@ class Vm_Paginate_Sort extends Vm_Paginate {
 		return $this;
 	}
 	
-	/*
+	/**
 	 * @return string - The sort column name	
 	 */	
 	public function getSortColumn(){
 		return $this->currentSortColumn;
 	}
 
-	/*
+	/**
 	 * @return string - The sort style: ASC or DESC	
 	 */		
 	public function getSortStyle(){
@@ -100,28 +103,28 @@ class Vm_Paginate_Sort extends Vm_Paginate {
 		return (!empty($paramValue)) ? $paramValue : $this->options['sortStyle'];
 	}
 
-	/*
+	/**
 	 * @return string - The sort column parameter
 	 */		
 	public function getSortColumnParam(){
 		return $this->options['sortColumnParam'];
 	}
 
-	/*
+	/**
 	 * @return string - The sort style parameter
 	 */			
 	public function getSortStyleParam(){
 		return $this->options['sortStyleParam'];
 	}
 
-	/*
+	/**
 	 * @return string - ASC or DESC depending on what the current setting is
 	 */	
 	public function toggleSortStyle(){
 		return ($this->currentSortStyle == 'ASC') ? 'DESC' : 'ASC';
 	}
 
-	/*
+	/**
 	 * @param string $sortColumn - The column name by which the result set should be sorted
 	 * @return string - The sorted URL that is sorted the opposite of the current sort style
 	 */	
@@ -133,7 +136,7 @@ class Vm_Paginate_Sort extends Vm_Paginate {
 		return htmlentities($queryString, NULL, NULL, FALSE);	
 	}
 	
-	/*
+	/**
 	 * @param string $sortColumn - The column name by which the result set should be sorted
 	 * @return string - A class to indicate if the column is currently being used to sort the result set and how clicking would sort it
 	 *	Example:
@@ -149,4 +152,3 @@ class Vm_Paginate_Sort extends Vm_Paginate {
 		return $sortClass.$sortDir;	
 	}	
 }
-?>

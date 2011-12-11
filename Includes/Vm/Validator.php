@@ -3,7 +3,6 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description A generic validator class
- * @requirements PHP 5.2 or higher
  * @namespace Vm
  */
 namespace Vm;
@@ -14,7 +13,7 @@ abstract class Validator {
 	protected $validates = TRUE;
 	
 	/**
-	 * Sets the error message and sets validatation to FALSE
+	 * @description Sets the error message and sets validatation to FALSE
 	 * @param string $error - The error to be set
 	 */
 	public function setError($error){

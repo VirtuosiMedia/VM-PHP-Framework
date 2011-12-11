@@ -5,10 +5,12 @@
  * @description The Vm_Db_Mysql_Dml class handles data manipulation language (DML) statements for a MySQL database. It 
  * 		is not to be used directly, but is intended to be wrapped by Vm_Db_Factory_Dml. This particular Vm_Db_Mysql_Dml 
  * 		is for use with a MySQL	PDO driver.
- * @dependencies A database connection script that uses the MySQL PDO extension
- * @requirements PHP 5.2 or higher
+ * @requires A database connection script that uses the MySQL PDO extension
+ * @namespace Vm\Db\MySql
  */
-class Vm_Db_Mysql_Dml {
+namespace Vm\Db\MySql;
+
+class Dml {
 
 	protected $alias = NULL;
 	protected $boundValues = array();
@@ -74,7 +76,7 @@ class Vm_Db_Mysql_Dml {
 	}
 	
 	/**
-	 * Adds a value to be bound on query execution
+	 * @description Adds a value to be bound on query execution
 	 * @param mixed $value - The value(s) to be bound
 	 * @return string - The named value placeholder
 	 */
@@ -99,7 +101,7 @@ class Vm_Db_Mysql_Dml {
 	}
 
 	/**
-	 * Adds space separators to each bound value
+	 * @description Adds space separators to each bound value
 	 * @return array - The spaced bound values
 	 */
 	protected function getSpacedBoundValues(){
@@ -137,7 +139,7 @@ class Vm_Db_Mysql_Dml {
 	}
 
 	/**
-	 * Joins will be added to the join array and processed in their array order and use the ON syntax 
+	 * @description Joins will be added to the join array and processed in their array order and use the ON syntax 
 	 * 	rather than USING. Optional for query build.
 	 * @param string $joinType -The type of join to be performed. Acceptable values are 'left', 'right', 'inner', and 'full'
 	 * @param string $table - The name of the table to be joined with the current table
@@ -171,7 +173,7 @@ class Vm_Db_Mysql_Dml {
 	}
 
 	/**
-	 * Creates a where clause.  Optional for query build.
+	 * @description Creates a where clause.  Optional for query build.
 	 * @param string $column - The column(s) to be compared to the value
 	 * @param string $operator - The operator to be used in the comparison. 
 	 * @param mixed $value - The value to which $column is compared - If multiple values are entered as an array, they will be wrapped in parentheses, else use a string
@@ -213,7 +215,7 @@ class Vm_Db_Mysql_Dml {
 	}
 
 	/**
-	 * Creates a HAVING clause.  Optional for query build. MUST be used in conjunction with the GROUP BY clause
+	 * @description Creates a HAVING clause.  Optional for query build. MUST be used in conjunction with the GROUP BY clause
 	 * @param string $column - The column(s) to be compared to the value. Note: The column is not a bound parameter in this clause
 	 * @param string $operator - The operator to be used in the comparison
 	 * @param string $value - The value to which $column is compared
@@ -230,7 +232,7 @@ class Vm_Db_Mysql_Dml {
 	}
 
 	/**
-	 * Orders the query.  Optional for query build
+	 * @description Orders the query.  Optional for query build
 	 * @param string $field - The field to sort by
 	 * @param string $sort (optional) - The sort type. Acceptable values are ASC and DESC
 	 * @param boolean $caseSensitive - optional - Whether or not the ordering should be case sensitive, defaults TRUE. If FALSE, will use UTF8_GENERAL_CI
@@ -268,7 +270,7 @@ class Vm_Db_Mysql_Dml {
 	}
 
 	/**
-	 * Credit for the ranking formula: Ryan Campbell http://particletree.com/notebook/ranked-searches-with-sql/
+	 * @attribution Credit for the ranking formula: Ryan Campbell http://particletree.com/notebook/ranked-searches-with-sql/
 	 * @param array $columns - The columns to be searched
 	 * @param array $terms - The terms to be searched for as an array of strings. Note: Wildcard characters may be included (%, _)
 	 * @param array $excludedTerms - optional - The terms to be excluded as an array of strings. Note: Wildcard characters may be included (%, _)
@@ -358,7 +360,7 @@ class Vm_Db_Mysql_Dml {
 	
 	
 	/**
-	 * Clears all class variables by setting them to NULL, allow class instance reuse
+	 * @description Clears all class variables by setting them to NULL, allow class instance reuse
 	 * @param boolean $clearBound - optional - Whether or not the bound variables should be cleared, defaults TRUE
 	 */
 	public function clear($clearBound = TRUE) {
@@ -379,7 +381,7 @@ class Vm_Db_Mysql_Dml {
 	} 
 
 	/**
-	 * Compiles the given data into a select query and returns a result set based on the query
+	 * @description Compiles the given data into a select query and returns a result set based on the query
 	 * @param string (optional) $mode - 
 	 * If set to 'single', returns a single result set which may be accessed through magic methods.
 	 * 
@@ -515,9 +517,9 @@ class Vm_Db_Mysql_Dml {
 	} 
 	
 	/**
-	 * The insert function inserts records into the database. Magic methods are used to insert
+	 * @description The insert function inserts records into the database. Magic methods are used to insert
 	 * 	values into each field. Fields that are not assigned a value will not be included in the compiled query.
-	 * Example usage: 
+	 * @example  
 	 * 		$users = new Db_Users($db);
 	 *		$users->username = 'jDoe';
 	 *		$users->firstName = 'John';
@@ -602,8 +604,8 @@ class Vm_Db_Mysql_Dml {
 	} 
 
 	/**
-	 * Updates a database field with values obtained from magic methods representing the field names. 
-	 * Notes: Multiple table updates are currently not supported, nor are ordering or limiting result sets due to
+	 * @description Updates a database field with values obtained from magic methods representing the field names. 
+	 * @note Multiple table updates are currently not supported, nor are ordering or limiting result sets due to
 	 * 	DBMS syntax inconsistencies
 	 * @param string $mode - optional - If set to 'debug', returns the compiled SQL query
 	 * @return int - The number of affected rows 
@@ -650,7 +652,7 @@ class Vm_Db_Mysql_Dml {
 	} 
 	
 	/**
-	 * The delete function deletes all rows that meet the conditions specified in the where clause
+	 * @description The delete function deletes all rows that meet the conditions specified in the where clause
 	 * 	and returns the number of affected rows
 	 * @param string $mode - optional - Acceptable value is 'debug', which prints the compiled query
 	 */
@@ -671,7 +673,7 @@ class Vm_Db_Mysql_Dml {
 	}
 
 	/**
-	 *  Description: Deletes all rows in the table, returns the number of affected rows.
+	 * @description Deletes all rows in the table, returns the number of affected rows.
 	 * @return int - The number of affected rows
 	 */
 	public function deleteAll(){

@@ -1,11 +1,14 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A translation controller
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Translate extends Vm_Lang {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A translation controller
+ * @extends Vm\Lang
+ * @namespace Vm
+ */
+namespace Vm;
+
+class Translate extends \Vm\Lang {
 
 	protected $currentLang;
 	protected $defaultLang;
@@ -15,9 +18,10 @@ class Vm_Translate extends Vm_Lang {
 	
 	
 	/**
-	 * @param string $currentLang - The current language in ISO 639 format (lowercase) - if the file does not exists, reverts to the 
-	 *	default language
-	 * @param string $defaultLang - The default language in ISO 639 format (lowercase) - defaults to 'en' if a improper value is given
+	 * @param string $currentLang - The current language in ISO 639 format (lowercase) - if the file does not exists, 
+	 * 		reverts to the default language
+	 * @param string $defaultLang - The default language in ISO 639 format (lowercase) - defaults to 'en' if a improper 
+	 * 		value is given
 	 * @param string $className - The name of the language class, excluding the final underscore and the language code 
 	 * 	identifier: For example, a class named Vm_Lang_En would be shortened to Vm_Lang
 	 * @param string $includesDirPath - optional - The relative path to the includes directory, without the trailing 
@@ -37,13 +41,14 @@ class Vm_Translate extends Vm_Lang {
 			$loadClass = $className.'_En';
 			$this->lang = new $loadClass();		
 		} else {
-			throw new Vm_Translate_Exception("A translation file does not exist for the language code '$currentLang'");			
+			throw new Translate\Exception("A translation file does not exist for the language code '$currentLang'");			
 		}	
 	}
 	
 	/**
 	 * @param string $translationKey - The translation key for the word or phrase to be translated
-	 * @param array $replacementText - optional - An array of replacement texts to be applied if the translation text has placeholders 
+	 * @param array $replacementText - optional - An array of replacement texts to be applied if the translation text 
+	 * 		has placeholders 
 	 * @return - The value for the $translationKey if it exists, FALSE otherwise 
 	 */
 	public function translate($translationKey, array $replacementText = array()){
@@ -81,4 +86,3 @@ class Vm_Translate extends Vm_Lang {
 		return $this->defaultLang;
 	}
 }
-?>

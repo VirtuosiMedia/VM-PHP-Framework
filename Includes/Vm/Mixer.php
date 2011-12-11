@@ -4,8 +4,11 @@
  * @license MIT License
  * @description Vm_Mixer is an abstract class that simulates multiple inheritance using mixins. It allows you to extend 
  * 		the functionality of multiple classes and manage any conflicts between them, should they arise.
+ * @namespace Vm
  */
-abstract class Vm_Mixer {
+namespace Vm;
+
+abstract class Mixer {
 	
 	protected $methods = array();
 	protected $mixins = array();

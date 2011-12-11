@@ -4,7 +4,6 @@
  * @license MIT License
  * @description Version and copyright information about VM Framework - Can be extended by an application to include 
  * 		application metadata
- * @requirements PHP 5.2 or higher
  * @namespace Vm
  */
 namespace Vm;

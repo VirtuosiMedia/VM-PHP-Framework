@@ -1,11 +1,13 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A pagination class
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Paginate extends Vm_Klass {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A pagination class
+ * @namespace Vm
+ */
+namespace Vm;
+
+class Paginate extends \Vm\Klass {
 
 	protected $baseUrl = NULL;
 	protected $baseParams;
@@ -81,7 +83,7 @@ class Vm_Paginate extends Vm_Klass {
 	}
 	
 	/**
-	 * Description: This function MUST be used for most of the get functions to work
+	 * @description This function MUST be used for most of the get functions to work
 	 * @param int $numRecords - The total number of records 
 	 * @return - The object, for chaining	
 	 */
@@ -126,8 +128,8 @@ class Vm_Paginate extends Vm_Klass {
 	}
 
 	/**
-	 * Description - Returns the offset for either a page number if it exists else the offset parameter if it exists else 
-	 *	the default offset 
+	 * @description Returns the offset for either a page number if it exists else the offset parameter if it exists else 
+	 *		the default offset 
 	 * @return int - The offset (the row number at which the result set should begin)
 	 */		
 	public function getOffset(){
@@ -271,4 +273,3 @@ class Vm_Paginate extends Vm_Klass {
 		return $this->baseParams;
 	}
 }
-?>

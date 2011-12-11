@@ -3,12 +3,12 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description A validator for alphabetic characters - Evaluates TRUE if an empty string is passed
- * @requirements PHP 5.2 or higher
+ * @extends Vm\Validate\Regex
  * @namespace Vm\Validate
  */
 namespace Vm\Validate;
 
-class Alpha extends Regex{
+class Alpha extends \Vm\Validate\Regex {
 
 	/** 
 	 * @param string $input - The input to be validated

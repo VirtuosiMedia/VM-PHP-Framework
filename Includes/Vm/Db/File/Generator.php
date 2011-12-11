@@ -3,11 +3,13 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description Generates a database file
- * @requires PHP 5.2 or higher
- * @extends Vm_Db_Ddl
- * @uses Vm_Db_Exception
+ * @extends Vm\Db\Factory\Ddl
+ * @uses Vm\Db\Exception
+ * @namespace Vm\Db\File
  */
-class Vm_Db_File_Generator extends Vm_Db_Ddl {
+namespace Vm\Db\File;
+
+class Generator extends \Vm\Db\Factory\Ddl {
 	
 	/**
 	 * @description Generates a database class file for the given table
@@ -26,32 +28,35 @@ class Vm_Db_File_Generator extends Vm_Db_Ddl {
 		$fields = "'".implode("', '", $fields)."'";
 		
 		$fileName = $dir.'/'.$newtableName.'.php';
-		$objectName = 'Db_'.$newtableName;
+		$objectName = $newtableName;
 
 		switch(strtolower($dbType)){
 			case 'mysql':
 				$dbType = 'MySQL';
-				$extension = 'Vm_Db_MySql_Dml';
+				$extension = 'Vm\Db\MySql\Dml';
 				break;
 			default:
-				throw new Vm_Db_Exception('Database driver type "'.$driverType.'" is not supported.');
+				throw new \Vm\Db\Exception('Database driver type "'.$driverType.'" is not supported.');
 		}
 		
 		$file = <<<EOT
 <?php
 /**
  * @description The database class for the $tableName table. Uses a $dbType database. This class has been auto-generated.
- * @extends Vm_Db_Factory_Dml
+ * @extends Vm\Db\Factory\Dml
  * @extends $extension
+ * @namespace Db
  */
-class $objectName extends Vm_Db_Factory_Dml {
+namespace Db;
+ 
+class $objectName extends \Vm\Db\Factory\Dml {
 	
 	/**
 	 * @param object \$db - The PDO connection
 	 * @param string \$prefix - optional - The prefix for the database 
 	 * @return Returns the current object for chaining purposes
 	 */
-	function __construct(PDO \$db, \$prefix = NULL) {
+	function __construct(\PDO \$db, \$prefix = NULL) {
 		parent::__construct(\$db, '$dbType', '$tableName', array($fields), 'public', \$prefix);
   	}
 }

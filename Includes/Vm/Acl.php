@@ -1,12 +1,14 @@
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * @description: An access control resource/consumer class
- * @requirements: PHP 5.2 or higher
- * @extends Vm_Klass
+ * @license MIT License
+ * @description An access control resource/consumer class
+ * @extends Vm\Klass
+ * @namespace Vm
  */
-class Vm_Acl extends Vm_Klass {
+namespace Vm;
+
+class Acl extends \Vm\Klass {
  
     protected $id = NULL;
 	protected $permissionsList = array();
@@ -27,7 +29,7 @@ class Vm_Acl extends Vm_Klass {
     }
 
     /**
-	 * Sets the list of resources ids that a potential consumer object can consume and the id passed in to 
+	 * @description Sets the list of resources ids that a potential consumer object can consume and the id passed in to 
 	 * 	the constructor should be on the list in order for the consumer object to access it
      * @param array $resourceList - An array of resources accessible to the consumer
      */
@@ -36,7 +38,7 @@ class Vm_Acl extends Vm_Klass {
     }
  
     /**
-	 * Gets the list of resources a potential consumer object can consume
+	 * @description Gets the list of resources a potential consumer object can consume
      * @return array $resourceList - An array of resource ids accessible to the consumer
      */
     public function getResourceList(){
@@ -44,7 +46,7 @@ class Vm_Acl extends Vm_Klass {
     }
 
     /**
-	 * Sets a list of resource ids the current object has permission to consume (or access)
+	 * @description Sets a list of resource ids the current object has permission to consume (or access)
      * @param array $permissionsList - An array of resource ids to which a consumer Acl object has access
      */
     public function setPermissions(array $permissionsList){
@@ -52,7 +54,7 @@ class Vm_Acl extends Vm_Klass {
     }
  
     /**
-	 * Gets a list of resource ids the object can consume
+	 * @description Gets a list of resource ids the object can consume
      * @return array $permissionsList - An array of resource ids to which a consumer Acl object has access
      */
     public function getPermissions(){
@@ -60,14 +62,15 @@ class Vm_Acl extends Vm_Klass {
     }
 	
     /**
-     * @return boolean - TRUE if the consumer object has access to consume the current object's resources, FALSE otherwise
+     * @return boolean - TRUE if the consumer object has access to consume the current object's resources, 
+     * 		FALSE otherwise
      */ 
     public function accessPermitted(){
         return (in_array($this->id, $this->resourceList)) ? TRUE : FALSE;
     }
 
     /**
-     * Determines if the consumer object has access to the passed in resource
+     * @description Determines if the consumer object has access to the passed in resource
      * @param mixed $resource - The resource to check
   	 * @return boolean - TRUE if the consumer object has access to consume the given object's resources, FALSE otherwise
      */

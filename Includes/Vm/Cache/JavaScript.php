@@ -1,12 +1,14 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A caching class that concatenates, minifies, and gzips passed in JavaScript files
-* Dependencies: VM_External_JsMin and gzipping must be enabled
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Cache_JavaScript extends Vm_Cache {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A caching class that concatenates, minifies, and gzips passed in JavaScript files
+ * @requires VM\External\JsMin and gzipping must be enabled
+ * @namespace Vm\Cache
+ */
+namespace Vm\Cache;
+
+class JavaScript extends \Vm\Cache {
 	
 	/**
 	 * @param string $fileName - The complete file path and file name of the file
@@ -40,11 +42,12 @@ class Vm_Cache_JavaScript extends Vm_Cache {
 	}
 
 	/**
-	 * Description: Creates a cached file if one does not already exist by the same name
+	 * @description Creates a cached file if one does not already exist by the same name
 	 * @param string $fileName - The file name for the cached file, minus the file extension, which will be .php
-	 * @param string $key (optional) - The key from which the data should be fetched. Defaults to fetching from the general view
+	 * @param string $key (optional) - The key from which the data should be fetched. Defaults to fetching from the 
+	 * 		general view
 	 * @param string $expiresHeader - optional - The date for the expires header, in the following format: 
-	 *	'Thu, 12 Feb 2009 05:00:00 GMT'
+	 *		'Thu, 12 Feb 2009 05:00:00 GMT'
 	 * @param boolean $prependJs - optional - Whether or not to prepend the string 'js-' to the file name, defaults TRUE
 	 * @param boolean $gzip - optional - Whether or not to gzip the file, defaults TRUE			
 	 */
@@ -57,11 +60,12 @@ class Vm_Cache_JavaScript extends Vm_Cache {
 	}
 	
 	/**
-	 * Description: Creates a cached file, overriding any previously cached files by the same name
+	 * @description Creates a cached file, overriding any previously cached files by the same name
 	 * @param string $fileName - The file name for the cached file, minus the file extension, which will be .php
-	 * @param string $key (optional) - The key from which the data should be fetched. Defaults to fetching from the general view
+	 * @param string $key (optional) - The key from which the data should be fetched. Defaults to fetching from the 
+	 * 		general view
 	 * @param string $expiresHeader - optional - The date for the expires header, in the following format: 
-	 *	'Thu, 12 Feb 2009 05:00:00 GMT'	
+	 *		'Thu, 12 Feb 2009 05:00:00 GMT'	
 	 * @param boolean $prependJs - optional - Whether or not to prepend the string 'js-' to the file name, defaults TRUE
 	 * @param boolean $gzip - optional - Whether or not to gzip the file, defaults TRUE	
 	 */
@@ -72,7 +76,7 @@ class Vm_Cache_JavaScript extends Vm_Cache {
 	}
 
 	/**
-	 * Description: Creates an HTML script tag linking to the cached file
+	 * @description Creates an HTML script tag linking to the cached file
 	 * @param string $fileName - The file name for the cached file, minus the file extension, which will be .php
 	 * @return string - An HTML script tag linking to the cached file
 	 */	
@@ -81,4 +85,3 @@ class Vm_Cache_JavaScript extends Vm_Cache {
 		return '<script type="text/javascript" src="'.$file.'"></script>';	
 	}	
 }
-?>

@@ -1,16 +1,19 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: Creates an XML file based on a database table structure (not contents) using DbOperations
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Db_MySQL_ToXml extends DbOperations {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description Creates an XML file based on a database table structure (not contents) using DbOperations
+ * @extends Vm\Db\MySql\Ddl
+ * @namespace Vm\Db\MySql
+ */
+namespace Vm\Db\MySql;
+
+class ToXml extends \Vm\Db\MySql\Ddl {
 
 	protected $xml;
 
 	/**
-	 * Creates an XML snippet for the table structure of the given table 
+	 * @description Creates an XML snippet for the table structure of the given table 
 	 * @param string $tableName - The name of the table for which a snippet should be created
 	 * @return string - The XML snippet
 	 */
@@ -70,7 +73,7 @@ class Vm_Db_MySQL_ToXml extends DbOperations {
 	}
 
 	/**
-	 * Creates an XML snippet for the table data of the given table 
+	 * @description Creates an XML snippet for the table data of the given table 
 	 * @param string $tableName - The name of the table for which a snippet should be created
 	 * @return string - The XML snippet
 	 */	
@@ -98,7 +101,7 @@ class Vm_Db_MySQL_ToXml extends DbOperations {
 	}
 	
 	/**
-	 * Creates an XML file representing the given table's structure 
+	 * @description Creates an XML file representing the given table's structure 
 	 * @param mixed $tableNames - The names of the tables as a string or an array of strings  
 	 * @param string $fileName - optional - The name of the new file, complete with the relative path and with extension
 	 * @param string $mode - optional - 'structure', 'data', or 'both', defaults to 'both' 
@@ -128,4 +131,3 @@ class Vm_Db_MySQL_ToXml extends DbOperations {
 		return $file->asXML($fileName);
 	}
 }
-?>

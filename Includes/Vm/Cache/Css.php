@@ -1,14 +1,16 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license MIT License
-* @description A caching class that concatenates, minifies, and gzips passed in CSS files
-* @extends Vm_Cache
-* @uses Vm_External_CssMin
-* @requires VM_External_CssMin and gzipping must be enabled
-* @requires PHP 5.2 or higher
-*/
-class Vm_Cache_Css extends Vm_Cache {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A caching class that concatenates, minifies, and gzips passed in CSS files
+ * @extends Vm\Cache
+ * @uses Vm\External\CssMin
+ * @requires VM\External\CssMin and gzipping must be enabled
+ * @namespace Vm
+ */
+namespace Vm\Cache;
+
+class Css extends \Vm\Cache {
 	
 	/**
 	 * @param string $fileName - The complete file path and file name of the file
@@ -42,12 +44,14 @@ class Vm_Cache_Css extends Vm_Cache {
 	}
 
 	/**
-	 * Description: Creates a cached file if one does not already exist by the same name
+	 * @description Creates a cached file if one does not already exist by the same name
 	 * @param string $fileName - The file name for the cached file, minus the file extension, which will be .php
-	 * @param string $key (optional) - The key from which the data should be fetched. Defaults to fetching from the general view
+	 * @param string $key (optional) - The key from which the data should be fetched. Defaults to fetching from the 
+	 * 		general view
 	 * @param string $expiresHeader - optional - The date for the expires header, in the following format: 
 	 *	'Thu, 12 Feb 2009 05:00:00 GMT'	
-	 * @param boolean $prependCss - optional - Whether or not to prepend the string 'css-' to the file name, defaults TRUE
+	 * @param boolean $prependCss - optional - Whether or not to prepend the string 'css-' to the file name, 
+	 * 		defaults TRUE
 	 * @param boolean $gzip - optional - Whether or not to gzip the file, defaults TRUE	
 	 */
 	public function cache($fileName, $key = NULL, $expiresHeader = NULL, $prependCss = TRUE, $gzip = TRUE) {
@@ -59,12 +63,14 @@ class Vm_Cache_Css extends Vm_Cache {
 	}
 	
 	/**
-	 * Description: Creates a cached file, overriding any previously cached files by the same name
+	 * @description Creates a cached file, overriding any previously cached files by the same name
 	 * @param string $fileName - The file name for the cached file, minus the file extension, which will be .php
-	 * @param string $key (optional) - The key from which the data should be fetched. Defaults to fetching from the general view
+	 * @param string $key (optional) - The key from which the data should be fetched. Defaults to fetching from the 
+	 * 		general view
 	 * @param string $expiresHeader - optional - The date for the expires header, in the following format: 
 	 *	'Thu, 12 Feb 2009 05:00:00 GMT'		
-	 * @param boolean $prependCss - optional - Whether or not to prepend the string 'css-' to the file name, defaults TRUE
+	 * @param boolean $prependCss - optional - Whether or not to prepend the string 'css-' to the file name, 
+	 * 		defaults TRUE
 	 * @param boolean $gzip - optional - Whether or not to gzip the file, defaults TRUE	
 	 */
 	public function refreshCache($fileName, $key = NULL, $expiresHeader = NULL, $prependCss = TRUE, $gzip = TRUE) {
@@ -74,7 +80,7 @@ class Vm_Cache_Css extends Vm_Cache {
 	}
 
 	/**
-	 * Description: Creates an HTML script tag linking to the cached file
+	 * @description Creates an HTML script tag linking to the cached file
 	 * @param string $fileName - The file name for the cached file, minus the file extension, which will be .php
 	 * @return string - An HTML script tag linking to the cached file
 	 */	
@@ -83,4 +89,3 @@ class Vm_Cache_Css extends Vm_Cache {
 		return '<link type="text/css" rel="stylesheet" href="'.$file.'" />';	
 	}	
 }
-?>

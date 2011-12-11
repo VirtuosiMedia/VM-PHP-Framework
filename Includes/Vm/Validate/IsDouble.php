@@ -1,9 +1,11 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: An alias for the Validate_Is_Float class
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Validate_IsDouble extends Vm_Validate_IsFloat{}
-?>
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description An alias for the Vm\Validate\IsFloat class.
+ * @extends Vm\Validate\IsFloat
+ * @namespace Vm\Validate
+ */
+namespace Vm\Validate;
+
+class IsDouble extends \Vm\Validate\IsFloat {}

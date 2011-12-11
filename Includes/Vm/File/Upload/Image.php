@@ -1,18 +1,19 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A basic file upload class for single or multiple commonly used image files types. NOTE: Does not
-* 	allow files with the extension .bmp
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_File_Upload_Image extends Vm_File_Upload {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A basic file upload class for single or multiple commonly used image files types. 
+ * @namespace Vm\File\Upload
+ */
+namespace Vm\File\Upload;
+
+class Image extends \Vm\File\Upload {
 
 	/**
 	 * @param string $fieldName - The name of the field name for the file array
 	 * @param string $uploadDir - optional - The directory the file should be upload to, without the trailing
 	 * 	slash, relative to the current directory. Defaults to the current directory
-	 * @param array $options - optional - The options array, including all options from Vm_File_Upload
+	 * @param array $options - optional - The options array, including all options from Vm\File\Upload
 	 */	
 	function __construct($fieldName, $uploadDir = NULL, $options = NULL){
 		$defaultOptions = array(
@@ -24,13 +25,13 @@ class Vm_File_Upload_Image extends Vm_File_Upload {
 			'imageMinSizeError'=>'Image Size Requirement Not Met'		//The error to display if the image is too large
 		);
 		
-		$allowedFileTypes = array('png', 'jpe', 'jpeg', 'jpg', 'gif', 'ico');
+		$allowedFileTypes = array('png', 'jpe', 'jpeg', 'jpg', 'gif', 'ico', 'bmp');
 		parent::__construct($fieldName, $allowedFileTypes, $uploadDir);
 		$this->setOptions($options, $defaultOptions);
 	}
 
 	/**
-	 * Validates that the size of the image is within the maximum allowed 
+	 * @description Validates that the size of the image is within the maximum allowed 
 	 * @param array $file - The files array
 	 * @return boolean - TRUE if the image is the proper dimensions, FALSE if it is not an image or too big
 	 */
@@ -55,7 +56,7 @@ class Vm_File_Upload_Image extends Vm_File_Upload {
 	}
 	
 	/**
-	 * Uploads the file
+	 * @description Uploads the file
 	 * @return boolean - TRUE if the upload succeeded, FALSE otherwise
 	 */
 	public function upload(){
@@ -77,4 +78,3 @@ class Vm_File_Upload_Image extends Vm_File_Upload {
 		return (sizeof($this->errors) > 0) ? FALSE : TRUE;
 	}	
 }
-?>

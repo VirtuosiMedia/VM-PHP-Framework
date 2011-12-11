@@ -3,7 +3,6 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description A class for rendering a view.
- * @requirements PHP 5.2 or higher
  * @namespace Vm
  * @uses Vm\Filter
  * @uses Vm\Filter\StripTags

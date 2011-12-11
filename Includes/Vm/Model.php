@@ -3,7 +3,6 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description An abstract model class
- * @requirements PHP 5.2 or higher
  * @namespace Vm
  */
 namespace Vm;

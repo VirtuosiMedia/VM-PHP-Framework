@@ -1,11 +1,14 @@
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * Description: A validator for alphanumeric characters and forward slashes - Evaluates TRUE if an empty string is passed
- * Requirements: PHP 5.2 or higher
+ * @license MIT License
+ * @description A validator for alphanumeric characters and forward slashes - Evaluates TRUE if an empty string is passed
+ * @extends Vm\Validate\Regex
+ * @namespace Vm\Validate
  */
-class Vm_Validate_AlnumSlash extends Vm_Validate_Regex{
+namespace Vm\Validate;
+
+class AlnumSlash extends \Vm\Validate\Regex {
 
 	/**
 	 * @param string $input - The input to be validated
@@ -16,4 +19,3 @@ class Vm_Validate_AlnumSlash extends Vm_Validate_Regex{
 		parent::__construct($input, $error, '/^[a-zA-Z0-9\/]*$/');
 	}
 }
-?>

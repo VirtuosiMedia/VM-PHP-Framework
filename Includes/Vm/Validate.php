@@ -3,7 +3,6 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description A basic validation class that constructs validators and collects errors
- * @requirements PHP 5.2 or higher
  * @namespace Vm
  */
 namespace Vm;

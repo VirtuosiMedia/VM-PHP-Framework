@@ -1,11 +1,13 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: An array mapping class
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Map extends Vm_Klass {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description An array mapping class
+ * @namespace Vm
+ */
+namespace Vm;
+
+class Map extends \Vm\Klass {
 
 	protected $map = array();
 	
@@ -17,8 +19,8 @@ class Vm_Map extends Vm_Klass {
 	}
 
 	/**
-	 * @param array $map - An array for mapping column names to an alias, for security reasons so the database column name doesn't
-	 *	appear in the URL - The alias is the key, the column name is the value
+	 * @param array $map - An array for mapping column names to an alias, for security reasons so the database column 
+	 * 		name doesn't appear in the URL - The alias is the key, the column name is the value
 	 */
 	public function setMap(array $map){
 		$this->map = $map;
@@ -63,4 +65,3 @@ class Vm_Map extends Vm_Klass {
 		return (sizeof($key) > 0) ? $key[0] : FALSE;
 	}	
 }
-?>

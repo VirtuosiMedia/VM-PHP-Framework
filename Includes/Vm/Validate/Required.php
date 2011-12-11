@@ -4,7 +4,7 @@
  * @license MIT License
  * @description A validator for required fields - Returns TRUE if minimum length of 1 is met, FALSE otherwise. 
  * @note Vm\Validate\Required will automatically trim the input of whitespace
- * @requirements PHP 5.3 or higher
+ * @extends Vm\Validator
  * @namespace Vm\Validate
  */
 namespace Vm\Validate;

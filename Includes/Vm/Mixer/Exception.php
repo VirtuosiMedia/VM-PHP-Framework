@@ -1,9 +1,10 @@
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * Description: An exception handler for VM_Mixer
- * Requirements: PHP 5.2 or higher
+ * @license MIT License
+ * @description An exception handler for VM\Mixer
+ * @namespace Vm\Mixer
  */
-class Vm_Mixer_Exception extends Vm_Exception {}
-?>
+namespace Vm\Mixer;
+
+class Exception extends \Vm\Exception {}

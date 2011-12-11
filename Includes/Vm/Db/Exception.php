@@ -2,9 +2,10 @@
 /**
  * @author Virtuosi Media Inc.
  * @license MIT License
- * @description An exception handler for VM_Validate
- * @requires PHP 5.2 or higher
- * @extends Vm_Exception
+ * @description An exception handler for Vm\Db classes
+ * @extends Vm\Exception
+ * @namespace Vm\Db
  */
-class Vm_Db_Exception extends Vm_Exception {}
-?>
+namespace Vm\Db;
+
+class Exception extends \Vm\Exception {}

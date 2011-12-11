@@ -1,11 +1,14 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A very basic image thumbnail creation class
-* Requirements: PHP 5.2 or higher, GD Library enabled
-*/
-class Vm_Image_Thumbnail {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A very basic image thumbnail creation class
+ * @requires GD Library must be enabled
+ * @namespace Vm\Image
+ */
+namespace Vm\Image;
+
+class Thumbnail {
 	
 	protected $original;
 	protected $type;
@@ -20,7 +23,7 @@ class Vm_Image_Thumbnail {
 	}
 	
 	/**
-	 * Calculates the size ratio for the image
+	 * @description Calculates the size ratio for the image
 	 * @param int $width - The new max width of the image, in pixels
 	 * @param int $height - optional - The new max height of the image, in pixels, automatically calculates 
 	 * 	if not given
@@ -44,7 +47,7 @@ class Vm_Image_Thumbnail {
 	}
 
 	/**
-	 * Saves the image to the specified filepath
+	 * @description Saves the image to the specified filepath
 	 * @param int $width - The new max width of the image, in pixels
 	 * @param int $height - The new max height of the image, in pixels, automatically calculates 
 	 * 	if not given
@@ -86,7 +89,7 @@ class Vm_Image_Thumbnail {
 	}
 	
 	/**
-	 * Resizes the image to scale given
+	 * @description Resizes the image to scale given
 	 * @param int $width - The new max width of the image, in pixels
 	 * @param int $height - optional - The new max height of the image, in pixels, automatically calculates 
 	 * 	if not given
@@ -97,7 +100,7 @@ class Vm_Image_Thumbnail {
 	}
 
 	/**
-	 * Creates a thumbnail of the current image to the scale given
+	 * @description Creates a thumbnail of the current image to the scale given
 	 * @param int $width - The new max width of the image, in pixels
 	 * @param int $height - optional - The new max height of the image, in pixels, automatically calculates 
 	 * 	if not given
@@ -115,4 +118,3 @@ class Vm_Image_Thumbnail {
 		}
 	}
 }
-?>

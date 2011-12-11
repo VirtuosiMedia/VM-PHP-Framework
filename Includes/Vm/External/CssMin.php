@@ -21,11 +21,14 @@
  * @copyright   2008 Joe Scylla <joe.scylla@gmail.com>
  * @license     http://opensource.org/licenses/mit-license.php MIT License
  * @version     1.0.1.b3 (2008-10-02)
+ * @namespace Vm\External
  */
-class Vm_External_CssMin {
+namespace Vm\External;
+
+class CssMin {
 
 	/**
-	* Minifies stylesheet definitions
+	* @description Minifies stylesheet definitions
 	*
 	* <code>
 	* $css_minified = cssmin::minify(file_get_contents("path/to/target/file.css"));
@@ -71,7 +74,7 @@ class Vm_External_CssMin {
 	}
 
 	/**
-	* Description: Return a array structure of a stylesheet definitions.
+	* @description Return a array structure of a stylesheet definitions.
 	*
 	* <code>
 	* $css_structure = cssmin::toArray(file_get_contents("path/to/target/file.css"));
@@ -104,7 +107,7 @@ class Vm_External_CssMin {
 	}
 
 	/**
-	* Description: Return a array structure created by {@link cssmin::toArray()} to a string.
+	* @description Return a array structure created by {@link cssmin::toArray()} to a string.
 	*
 	* <code>
 	* $css_string = cssmin::toString($css_structure);
@@ -127,7 +130,7 @@ class Vm_External_CssMin {
 }
 
 /**
-* Description: Trims all elements of the array and removes empty elements. 
+* @description Trims all elements of the array and removes empty elements. 
 * @param array $array
 * @return array
 */
@@ -149,7 +152,7 @@ function cssMinArrayClean(array $array){
 }
 
 /**
-* Description: Return if a value is a associative array.
+* @description Return if a value is a associative array.
 * @param array $array
 * @return boolean
 */
@@ -162,7 +165,7 @@ function cssMinArrayIsAssoc($array){
 	}
 }
 /**
-* Description: Encodes a url() expression.
+* @description Encodes a url() expression.
 * @param array $match
 * @return string
 */
@@ -170,11 +173,10 @@ function cssMinEncodeUrl($match){
 	return "url(" . base64_encode(trim($match[1])) . ")";
 }
 /**
-* Description: Decodes a url() expression.
+* @description Decodes a url() expression.
 * @param array $match
 * @return string
 */
 function cssMinDecodeUrl($match){
 	return "url(" . base64_decode($match[1]) . ")";
 }
-?>

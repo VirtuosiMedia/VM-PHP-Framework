@@ -1,13 +1,15 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A filter class that trims the input of whitespace
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Filter_Trim extends Vm_Filter {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A filter class that trims the input of whitespace
+ * @namspace Vm\Filter
+ */
+namespace Vm\Filter;
 
-	/*
+class Trim extends \Vm\Filter {
+
+	/**
 	 * @param string $input - The input to be filtered
 	 * @return string - The filtered input
 	 */
@@ -25,4 +27,3 @@ class Vm_Filter_Trim extends Vm_Filter {
 		return $input;
 	}
 }
-?>

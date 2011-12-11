@@ -1,9 +1,11 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: An alias for the Validate_Is_Int class
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Validate_IsInteger extends Vm_Validate_IsInt{}
-?>
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description An alias for the Vm\Validate\IsInt class.
+ * @extends Vm\Validate\IsInt
+ * @namespace Vm\Validate
+ */
+namespace Vm\Validate;
+
+class IsInteger extends \Vm\Validate\IsInt {}

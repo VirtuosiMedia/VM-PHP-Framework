@@ -3,12 +3,12 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description A generic regular expression validator, to be extended with specific regex filters 
- * @requirements PHP 5.2 or higher
+ * @extends Vm\Validator
  * @namespace Vm\Validate
  */
 namespace Vm\Validate;
 
-class Regex extends \Vm\Validator{
+class Regex extends \Vm\Validator {
 
 	/**
 	 * @param string $input - The input to be validated

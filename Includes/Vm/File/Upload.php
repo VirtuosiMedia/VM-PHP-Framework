@@ -1,11 +1,13 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A basic file upload class for single or multiple files
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_File_Upload extends Vm_Klass {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A basic file upload class for single or multiple files
+ * @namespace Vm\File
+ */
+namespace Vm\File;
+
+class Upload extends \Vm\Klass {
 	
 	protected $allowedFileTypes;
 	protected $allowedMimeTypes = array();
@@ -106,8 +108,8 @@ class Vm_File_Upload extends Vm_Klass {
 	}
 
 	/**
-	 * Resorts the file array so that each file is contained in it's own array. Modified from:
-	 * 	http://docs.php.net/manual/en/features.file-upload.multiple.php#53240
+	 * @description Resorts the file array so that each file is contained in it's own array. Modified from:
+	 * 		http://docs.php.net/manual/en/features.file-upload.multiple.php#53240
 	 */
 	protected function resort(){
 		$files = $_FILES[$this->fieldName];
@@ -122,7 +124,7 @@ class Vm_File_Upload extends Vm_Klass {
 	}
 	
 	/**
-	 * Validates if the file is the proper type, size, and if it has been uploaded
+	 * @description Validates if the file is the proper type, size, and if it has been uploaded
 	 * @param array $file - The files array for the current file
 	 * @param integer $count - optional - If multiple files are uploaded, this is the count
 	 */
@@ -146,7 +148,7 @@ class Vm_File_Upload extends Vm_Klass {
 	}
 
 	/**
-	 * Generates a name according to the set options 
+	 * @description Generates a name according to the set options 
 	 * @param array $file - The files array for the current file
 	 * @param integer $count - optional - If multiple files are uploaded, this is the count
 	 * @return string - The file name, with extension
@@ -165,7 +167,7 @@ class Vm_File_Upload extends Vm_Klass {
 	}
 	
 	/**
-	 * Transfers the file to the its new directory
+	 * @description Transfers the file to the its new directory
 	 * @param array $file - The files array for the current file
 	 * @param integer $count - optional - If multiple files are uploaded, this is the count
 	 */
@@ -180,7 +182,7 @@ class Vm_File_Upload extends Vm_Klass {
 	}
 
 	/**
-	 * Sets the allowed MIME types according to the file extensions given. Note: If there is not an equivalent
+	 * @description Sets the allowed MIME types according to the file extensions given. Note: If there is not an equivalent
 	 * 	MIME type for the file in the mimeTypes array, the file will not be uploaded. Use the appendMimeTypes()
 	 * 	method to add additional MIME types to the array
 	 */
@@ -191,7 +193,7 @@ class Vm_File_Upload extends Vm_Klass {
 	}
 
 	/**
-	 * Uploads the file
+	 * @description Uploads the file
 	 * @return mixed - TRUE if the upload succeeded, FALSE otherwise
 	 */
 	public function upload(){
@@ -218,7 +220,7 @@ class Vm_File_Upload extends Vm_Klass {
 	}
 
 	/**
-	 * Appends new MIME types to the mimeTypes array
+	 * @description Appends new MIME types to the mimeTypes array
 	 * @param array $newList - An array of the available MIME types, with the file extension as the key, 
 	 * 	the MIME type as the value
 	 */
@@ -242,4 +244,3 @@ class Vm_File_Upload extends Vm_Klass {
 		return $this->fileNames;
 	}
 }
-?>

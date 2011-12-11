@@ -1,14 +1,17 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A validator for control characters by using the ctype_cntrl function - Returns TRUE if every character in text 
-*	is a control character from the current locale, FALSE otherwise (including empty strings).
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Validate_Ctype_Cntrl extends Vm_Validator{
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A validator for control characters by using the ctype_cntrl function - Returns TRUE if every character 
+ * 		in text	is a control character from the current locale, FALSE otherwise (including empty strings).
+ * @extends Vm\Validator
+ * @namespace Vm\Validate\Ctype
+ */
+namespace Vm\Validate\Ctype;
 
-	/* 
+class Cntrl extends \Vm\Validator {
+
+	/** 
 	 * @param string $input - The input to be validated
 	 * @param string $error - optional - A custom error message to be returned if the input fails validation
 	 */
@@ -20,4 +23,3 @@ class Vm_Validate_Ctype_Cntrl extends Vm_Validator{
 		}
 	}
 }
-?>

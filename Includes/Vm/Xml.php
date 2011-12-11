@@ -3,7 +3,6 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description A basic XML class that simply returns the passed in parameters in XML tag format
- * @requirements PHP 5.2 or higher
  * @namespace Vm
  */
 namespace Vm;

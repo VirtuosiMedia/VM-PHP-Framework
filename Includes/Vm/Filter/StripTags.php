@@ -3,7 +3,6 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description A filter class that strips slashes from input
- * @requirements: PHP 5.3 or higher
  * @namespace Vm\Filter
  */
 namespace Vm\Filter;

@@ -1,13 +1,15 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A filter class that salts an input with a defined constant called SALT
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Filter_Salt extends Vm_Filter {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A filter class that salts an input with a defined constant called SALT
+ * @namspace Vm\Filter
+ */
+namespace Vm\Filter;
 
-	/*
+class Salt extends \Vm\Filter {
+
+	/**
 	 * @param string $input - The input to be filtered
 	 * @param string $salt - The salt to combine with the input
 	 * @return string - The filtered input
@@ -22,4 +24,3 @@ class Vm_Filter_Salt extends Vm_Filter {
 		return $input;
 	}
 }
-?>

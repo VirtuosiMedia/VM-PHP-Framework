@@ -1,11 +1,15 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A validator for string length by using the strlen function - Returns TRUE if minimum length is met, FALSE otherwise.
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Validate_MinLength extends Vm_Validator{
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A validator for string length by using the strlen function - Returns TRUE if minimum length is met, 
+ * 		FALSE otherwise.
+ * @extends Vm\Validator
+ * @namespace Vm\Validate
+ */
+namespace Vm\Validate;
+
+class MinLength extends \Vm\Validator {
 
 	/**
 	 * @param string $input - The input to be validated
@@ -20,4 +24,3 @@ class Vm_Validate_MinLength extends Vm_Validator{
 		}
 	}
 }
-?>

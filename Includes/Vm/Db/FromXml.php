@@ -1,14 +1,16 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: Creates a database table from an XML file using DbOperations
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Db_FromXml extends DbOperations {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description Creates a database table from an XML file using DbOperations
+ * @namespace Vm\Db
+ */
+namespace Vm\Db;
+
+class FromXml extends \Vm\Db\Factory\Ddl {
 
 	/**
-	 * Installs the table into the database if it doesn't already exist 
+	 * @description Installs the table into the database if it doesn't already exist 
 	 * @param object $table - A simpleXML object representing the table
 	 */
 	protected function installStructure($table){
@@ -80,7 +82,7 @@ class Vm_Db_FromXml extends DbOperations {
 	}
 	
 	/**
-	 * Adds data to the database 
+	 * @description Adds data to the database 
 	 * @param object $table - A simpleXML object representing the table
 	 */
 	protected function installData($table){
@@ -105,7 +107,7 @@ class Vm_Db_FromXml extends DbOperations {
 	}
 	
 	/**
-	 * Creates a database table based on an xml database file
+	 * @description Creates a database table based on an xml database file
 	 * @param mixed $fileNames - The name of the xml database file with relative path included as a string, else an array
 	 * 	of file names and paths
 	 * @param string $mode - optional - 'structure', 'data', or 'both', defaults to 'both' 
@@ -125,4 +127,3 @@ class Vm_Db_FromXml extends DbOperations {
 		}
 	}
 }
-?>

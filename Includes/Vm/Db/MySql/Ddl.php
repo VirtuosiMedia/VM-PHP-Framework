@@ -1,16 +1,17 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: The Vm_Db_MySql_Ddl class is for performing data definition language (DDL) statements including creating and deleting
-* 	tables, getting table schemas, a list of schemas, a full table list, a database version, adding and dropping columns, creating
-* 	an XML representation of the table metadata, parsing an XML snippet of table metadata to create a table
-* 	Vm_Db_MySql_Ddl is for use with a MySQL PDO driver.
-* Dependencies: A database connection script that uses the MySQL PDO extension
-* Requirements: PHP 5.2 or higher
-*/
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description The Vm_Db_MySql_Ddl class is for performing data definition language (DDL) statements including 
+ * 		creating and deleting tables, getting table schemas, a list of schemas, a full table list, a database version, 
+ * 		adding and dropping columns, creating an XML representation of the table metadata, parsing an XML snippet of 
+ * 		table metadata to create a table. Vm\Db\MySql\Ddl is for use with a MySQL PDO driver.
+ * @requires A database connection script that uses the MySQL PDO extension
+ * @namespace Vm\Db\MySql
+ */
+namespace Vm\Db\MySql;
 
-class Vm_Db_MySql_Ddl {
+class Ddl {
 
 	protected $columns;
 	protected $db;	
@@ -28,8 +29,8 @@ class Vm_Db_MySql_Ddl {
 	}
 
 	/**
-	 * Protected function for checking the mode and either displaying the query for debugging or
-	 * 	executing the query
+	 * @description Protected function for checking the mode and either displaying the query for debugging or
+	 * 		executing the query
 	 * @param string $query - The query to be run
 	 * @param boolean $debug - Whether or not to return a debugging statement, defaults FALSE
 	 * @return mixed - The debug statement if debug is set TRUE, else returns nothing
@@ -44,7 +45,7 @@ class Vm_Db_MySql_Ddl {
 	}
 
 	/**
-	 * Gets the database version and returns it.
+	 * @description Gets the database version and returns it.
 	 * @return string - The database version
 	 */
 	public function getDbVersion() {
@@ -54,7 +55,7 @@ class Vm_Db_MySql_Ddl {
 	}
 
 	/**
-	 * Gets the schema and returns it
+	 * @description Gets the schema and returns it
 	 * @return string - MySQL does not support schemas, so an error message is returned
 	 */
 	public function getSchemaList() {
@@ -62,7 +63,7 @@ class Vm_Db_MySql_Ddl {
 	}
 
 	/**
-	 * Sets the primary key
+	 * @description Sets the primary key
 	 * @param string $primaryKey - The field name that is to be the primary key
 	 */
 	public function setPrimaryKey($primaryKey) {
@@ -70,8 +71,8 @@ class Vm_Db_MySql_Ddl {
 	}
 
 	/**
-	 * The base function for data types, to be used by the specific datatype functions. It adds the compiled
-	 * 	column to the columns array
+	 * @description The base function for data types, to be used by the specific datatype functions. It adds the compiled
+	 * 		column to the columns array
 	 * @param string $field - The name of the field to be created
 	 * @param string $datatype - The datatype (including its values if it needs them)
 	 * @param string $default - The default value of the field. Note: if the default is a numeric zero (0), it must be quoted
@@ -94,7 +95,7 @@ class Vm_Db_MySql_Ddl {
 	} 
 	
 	/**
-	 * Adds a SMALLINT datatype 
+	 * @description Adds a SMALLINT datatype 
 	 * @param string $field - The name of the field to be created
 	 * @param string $nullState - optional - 'NULL' or 'NOT NULL'
 	 * @param string $default - optional - The default value of the field
@@ -105,7 +106,7 @@ class Vm_Db_MySql_Ddl {
 	}
 	
 	/**
-	 * Adds an INT datatype 
+	 * @description Adds an INT datatype 
 	 * @param string $field - The name of the field to be created
 	 * @param string $nullState - optional - 'NULL' or 'NOT NULL'
 	 * @param string $default - optional - The default value of the field
@@ -116,7 +117,7 @@ class Vm_Db_MySql_Ddl {
 	}
 	
 	/**
-	 * Adds a BIGINT datatype 
+	 * @description Adds a BIGINT datatype 
 	 * @param string $field - The name of the field to be created
 	 * @param string $nullState - optional - 'NULL' or 'NOT NULL'
 	 * @param string $default - optional - The default value of the field
@@ -127,7 +128,7 @@ class Vm_Db_MySql_Ddl {
 	}
 	
 	/**
-	 * Adds a single precision datatype (in MySQL, this is a FLOAT)
+	 * @description Adds a single precision datatype (in MySQL, this is a FLOAT)
 	 * @param string $field - The name of the field to be created
 	 * @param string $nullState - optional - 'NULL' or 'NOT NULL'
 	 * @param string $default - optional - The default value of the field
@@ -138,7 +139,7 @@ class Vm_Db_MySql_Ddl {
 	}
 	
 	/**
-	 * Adds a double precision datatype (in MS SQL, this is a FLOAT)
+	 * @description Adds a double precision datatype (in MS SQL, this is a FLOAT)
 	 * @param string $field - The name of the field to be created
 	 * @param string $nullState - optional - 'NULL' or 'NOT NULL'
 	 * @param string $default - optional - The default value of the field
@@ -149,7 +150,7 @@ class Vm_Db_MySql_Ddl {
 	}
 
 	/**
-	 * Adds a fixed precision datatype of DECIMAL
+	 * @description Adds a fixed precision datatype of DECIMAL
 	 * @param string $field - The name of the field to be created
 	 * @param int $precision -The number of significant digits stored as values
 	 * @param int $scale - The number of digits following the decimal
@@ -162,7 +163,7 @@ class Vm_Db_MySql_Ddl {
 	}				
 
 	/**
-	 * Adds a fixed precision datatype of NUMERIC
+	 * @description Adds a fixed precision datatype of NUMERIC
 	 * @param string $field - The name of the field to be created
 	 * @param int $precision -The number of significant digits stored as values
 	 * @param int $scale - The number of digits following the decimal
@@ -175,7 +176,7 @@ class Vm_Db_MySql_Ddl {
 	}
 
 	/**
-	 * Adds a datatype of CHAR
+	 * @description Adds a datatype of CHAR
 	 * @param string $field - The name of the field to be created
 	 * @param int $value - The length of the field
 	 * @param string $nullState - optional - 'NULL' or 'NOT NULL'
@@ -187,7 +188,7 @@ class Vm_Db_MySql_Ddl {
 	}
 
 	/**
-	 * Adds a datatype of VARCHAR
+	 * @description Adds a datatype of VARCHAR
 	 * @param string $field - The name of the field to be created
 	 * @param int $value - The length of the field
 	 * @param string $nullState - optional - 'NULL' or 'NOT NULL'
@@ -199,7 +200,7 @@ class Vm_Db_MySql_Ddl {
 	}
 
 	/**
-	 * Adds a datatype of TEXT
+	 * @description Adds a datatype of TEXT
 	 * @param string $field - The name of the field to be created
 	 * @param string $nullState - optional - 'NULL' or 'NOT NULL'
 	 * @param string $default - optional - The default value of the field
@@ -210,7 +211,7 @@ class Vm_Db_MySql_Ddl {
 	}
 	
 	/**
-	 * Adds a datatype of DATE (In MS SQL, DATETIME is used)
+	 * @description Adds a datatype of DATE (In MS SQL, DATETIME is used)
 	 * @param string $field - The name of the field to be created
 	 * @param string $nullState - optional - 'NULL' or 'NOT NULL'
 	 * @param string $default - optional - The default value of the field
@@ -221,7 +222,7 @@ class Vm_Db_MySql_Ddl {
 	}	
 
 	/**
-	 * Adds a datatype of TIMESTAMP, which displays both date and time (In MS SQL, DATETIME is used)
+	 * @description Adds a datatype of TIMESTAMP, which displays both date and time (In MS SQL, DATETIME is used)
 	 * @param string $field - The name of the field to be created
 	 * @param string $nullState - optional - 'NULL' or 'NOT NULL'
 	 * @param string $default - optional - The default value of the field
@@ -232,7 +233,7 @@ class Vm_Db_MySql_Ddl {
 	}
 
 	/**
-	 * Adds a datatype of BLOB (Binary Large OBject)
+	 * @description Adds a datatype of BLOB (Binary Large OBject)
 	 * @param string $field - The name of the field to be created
 	 * @param int $value - The length of the field - Not all DBMS's will use this variable
 	 * @param string $nullState - optional - 'NULL' or 'NOT NULL'
@@ -244,9 +245,9 @@ class Vm_Db_MySql_Ddl {
 	}
 
 	/**
-	 * Specifies the columns that are to be constrained as unique
+	 * @description Specifies the columns that are to be constrained as unique
 	 * @param mixed $columns - The name of the unique columns as a string if there is only one, an array for
-	 * 	multiples
+	 * 		multiples
 	 */	
 	public function unique($columns) {
 		$columns = (is_array($columns)) ? implode(', ', $columns) : $columns; 
@@ -254,7 +255,7 @@ class Vm_Db_MySql_Ddl {
 	}	
 	
 	/**
-	 * Specifies the columns that are to be constrained as foreign keys
+	 * @description Specifies the columns that are to be constrained as foreign keys
 	 * @param mixed $columns - The name of the column that is a foreign key in string form or an array of column names
 	 */	
 	public function foreignKey($columns) {
@@ -263,7 +264,7 @@ class Vm_Db_MySql_Ddl {
 	}	
 	
 	/**
-	 * Compiles everything into an SQL query and executes it depending on the mode
+	 * @description Compiles everything into an SQL query and executes it depending on the mode
 	 * @param string $table_name - The name of the table to be created. The prefix will be prepended automatically
 	 * @param string optional $comments - Table comments
 	 * @param boolean $debug - Whether or not to return a debugging statement, defaults FALSE
@@ -279,7 +280,7 @@ class Vm_Db_MySql_Ddl {
 	} 
 	
 	/**
-	 * Drops a table
+	 * @description Drops a table
 	 * @param string $tableName - The table name to be dropped
 	 * @param boolean $debug - Whether or not to return a debugging statement, defaults FALSE
 	 */
@@ -290,7 +291,7 @@ class Vm_Db_MySql_Ddl {
 	}
 
 	/**
-	 * Renames a table
+	 * @description Renames a table
 	 * @param string $tableName - The table name to be dropped
 	 * @param string $newName - The new name of the table
 	 * @param boolean $debug - Whether or not to return a debugging statement, defaults FALSE
@@ -303,7 +304,7 @@ class Vm_Db_MySql_Ddl {
 	}
 	
 	/**
-	 * Adds a column to a table
+	 * @description Adds a column to a table
 	 * @param string $tableName - The table name to which the column is added
 	 * @param boolean $debug - Whether or not to return a debugging statement, defaults FALSE
 	 */
@@ -315,7 +316,7 @@ class Vm_Db_MySql_Ddl {
 	}
 	
 	/**
-	 * Drops a column from a table
+	 * @description Drops a column from a table
 	 * @param string $tableName - The table from which the column is dropped
 	 * @param string $columnName - The column to be dropped
 	 * @param boolean $debug - Whether or not to return a debugging statement, defaults FALSE
@@ -327,7 +328,7 @@ class Vm_Db_MySql_Ddl {
 	}
 
 	/**
-	 * Shows all the tables in the given database
+	 * @description Shows all the tables in the given database
 	 * @param string $dbName - optional - The name of the database to fetch table data from, defaults to current connection
 	 * @return array - The names of the tables in a BOTH array format
 	 */
@@ -339,7 +340,7 @@ class Vm_Db_MySql_Ddl {
 	}
 	
 	/**
-	 * Shows the columns and their info for the given table
+	 * @description Shows the columns and their info for the given table
 	 * @param string $tableName - The name of the table
 	 * @param string $columnName - optional - The name of a single column to return info for, defaults to all columns in table  
 	 * @return array - Uses PDO::fetchAll() to return the column names and info
@@ -353,7 +354,7 @@ class Vm_Db_MySql_Ddl {
 	}
 	
 	/**
-	 * Shows the table creation statement for the given table
+	 * @description Shows the table creation statement for the given table
 	 * @param string $tableName - The table name
 	 * @return string - The SQL CREATE TABLE statement for the given table
 	 */
@@ -367,7 +368,7 @@ class Vm_Db_MySql_Ddl {
 	}
 
 	/**
-	 * Shows the indices for the given table
+	 * @description Shows the indices for the given table
 	 * @param string $tableName - The table name
 	 * @return array - The SQL SHOW INDEX statement for the given table
 	 */	
@@ -380,7 +381,7 @@ class Vm_Db_MySql_Ddl {
 	}
 
 	/**
-	 * Shows the metadata for the given table
+	 * @description Shows the metadata for the given table
 	 * @param string $tableName - The table name
 	 * @return array - The SQL SHOW TABLE STATUS statement for the given table
 	 */	
@@ -391,5 +392,4 @@ class Vm_Db_MySql_Ddl {
 		$result->execute();
 		return $result->fetchAll();		
 	}
-} 
-?>
+}
