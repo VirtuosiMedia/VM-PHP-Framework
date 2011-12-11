@@ -39,7 +39,7 @@ class IsBoolTest extends \Tests\Test {
 	}
 
 	protected function testObjectIsInvalid(){
-		$this->fixture = new IsBool(new DateTime());
+		$this->fixture = new IsBool(new \DateTime());
 		return $this->assertFalse($this->fixture->validates());		
 	}
 

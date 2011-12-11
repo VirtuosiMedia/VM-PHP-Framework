@@ -39,7 +39,7 @@ class IsRealTest extends \Tests\Test {
 	}
 
 	protected function testObjectIsInvalid(){
-		$this->fixture = new IsReal(new DateTime());
+		$this->fixture = new IsReal(new \DateTime());
 		return $this->assertFalse($this->fixture->validates());		
 	}
 

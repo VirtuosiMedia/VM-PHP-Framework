@@ -54,7 +54,7 @@ class IsNumericEmptyTest extends \Tests\Test {
 	}
 
 	protected function testObjectIsInvalid(){
-		$this->fixture = new IsNumericEmpty(new DateTime());
+		$this->fixture = new IsNumericEmpty(new \DateTime());
 		return $this->assertFalse($this->fixture->validates());		
 	}
 

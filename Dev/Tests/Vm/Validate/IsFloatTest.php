@@ -39,7 +39,7 @@ class IsFloatTest extends \Tests\Test {
 	}
 
 	protected function testObjectIsInvalid(){
-		$this->fixture = new IsFloat(new DateTime());
+		$this->fixture = new IsFloat(new \DateTime());
 		return $this->assertFalse($this->fixture->validates());		
 	}
 

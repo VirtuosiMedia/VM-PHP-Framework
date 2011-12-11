@@ -39,7 +39,7 @@ class IsIntegerTest extends \Tests\Test {
 	}
 
 	protected function testObjectIsInvalid(){
-		$this->fixture = new IsInteger(new DateTime());
+		$this->fixture = new IsInteger(new \DateTime());
 		return $this->assertFalse($this->fixture->validates());		
 	}
 

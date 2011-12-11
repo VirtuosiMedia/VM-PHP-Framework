@@ -54,7 +54,7 @@ class IsStringTest extends \Tests\Test {
 	}
 
 	protected function testObjectIsInvalid(){
-		$this->fixture = new IsString(new DateTime());
+		$this->fixture = new IsString(new \DateTime());
 		return $this->assertFalse($this->fixture->validates());		
 	}
 

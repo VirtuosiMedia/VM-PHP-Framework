@@ -54,7 +54,7 @@ class IsObjectTest extends \Tests\Test {
 	}
 
 	protected function testObjectIsValid(){
-		$this->fixture = new IsObject(new DateTime());
+		$this->fixture = new IsObject(new \DateTime());
 		return $this->assertTrue($this->fixture->validates());		
 	}
 

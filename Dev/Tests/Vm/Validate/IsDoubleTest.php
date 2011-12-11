@@ -39,7 +39,7 @@ class IsDoubleTest extends \Tests\Test {
 	}
 
 	protected function testObjectIsInvalid(){
-		$this->fixture = new IsDouble(new DateTime());
+		$this->fixture = new IsDouble(new \DateTime());
 		return $this->assertFalse($this->fixture->validates());		
 	}
 

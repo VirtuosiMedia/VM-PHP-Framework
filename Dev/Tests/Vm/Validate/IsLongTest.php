@@ -39,7 +39,7 @@ class IsLongTest extends \Tests\Test {
 	}
 
 	protected function testObjectIsInvalid(){
-		$this->fixture = new IsLong(new DateTime());
+		$this->fixture = new IsLong(new \DateTime());
 		return $this->assertFalse($this->fixture->validates());		
 	}
 

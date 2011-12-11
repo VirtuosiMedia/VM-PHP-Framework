@@ -39,7 +39,7 @@ class IsNullTest extends \Tests\Test {
 	}
 
 	protected function testObjectIsInvalid(){
-		$this->fixture = new IsNull(new DateTime());
+		$this->fixture = new IsNull(new \DateTime());
 		return $this->assertFalse($this->fixture->validates());		
 	}
 

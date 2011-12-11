@@ -39,7 +39,7 @@ class IsArrayTest extends \Tests\Test {
 	}
 
 	protected function testObjectIsInvalid(){
-		$this->fixture = new IsArray(new DateTime());
+		$this->fixture = new IsArray(new \DateTime());
 		return $this->assertFalse($this->fixture->validates());		
 	}
 
