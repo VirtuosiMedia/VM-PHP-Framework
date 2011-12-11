@@ -171,7 +171,8 @@ class Form extends Validate {
 	/**
 	 * @description Creates an error list
 	 * @param boolean $submittedCheck - Whether or not the form has been submitted
-	 * @param string $fieldName - optional - The field name to retrieve errors for. If empty, will fetch all errors for form
+	 * @param string $fieldName - optional - The field name to retrieve errors for. If empty, will fetch all errors 
+	 * 		for form
 	 * @return string - The compiled error list if errors exist, else NULL
 	 */
 	protected function createErrorList($fieldName = NULL, $tagName = NULL){
