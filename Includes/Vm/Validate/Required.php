@@ -1,14 +1,17 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A validator for required fields - Returns TRUE if minimum length of 1 is met, FALSE otherwise. 
-*	Note: It will automatically trim the input of whitespace
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Validate_Required extends Vm_Validator{
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A validator for required fields - Returns TRUE if minimum length of 1 is met, FALSE otherwise. 
+ * @note Vm\Validate\Required will automatically trim the input of whitespace
+ * @requirements PHP 5.3 or higher
+ * @namespace Vm\Validate
+ */
+namespace Vm\Validate;
 
-	/* 
+class Required extends \Vm\Validator {
+
+	/**
 	 * @param int $minLength - The minimum number of characters	
 	 * @param mixed $input - The input to be validated
 	 * @param string $error - optional - A custom error message to be returned if the input fails validation
@@ -28,4 +31,3 @@ class Vm_Validate_Required extends Vm_Validator{
 		}		
 	}
 }
-?>
