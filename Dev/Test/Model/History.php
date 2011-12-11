@@ -27,7 +27,7 @@ class History {
 	 * @description Reads the history for the tested class and compiles it into an appropriate JSON format
 	 */
 	protected function readHistory(){
-		if (file_exists('Test/Reports/'.$this->testedClassName.'Report.json')){
+		if (file_exists('Test/Reports/'.str_replace('\\', '-', $this->testedClassName).'Report.json')){
 			$this->historyExists = TRUE;
 			
 			$this->historyData['tests']['title'] = 'Unit Tests';
@@ -46,7 +46,7 @@ class History {
 			$this->historyData['loc']['colNames'] = array('Lines of Code');
 			$this->historyData['loc']['rowNames'] = array();
 
-			$data = file('Test/Reports/'.$this->testedClassName.'Report.json', FILE_IGNORE_NEW_LINES);
+			$data = file('Test/Reports/'.str_replace('\\', '-', $this->testedClassName).'Report.json', FILE_IGNORE_NEW_LINES);
 			foreach ($data as $record){
 				$record = json_decode($record, TRUE);
 				$this->historyData['tests']['rows'][0][] = $record['numTests'];
