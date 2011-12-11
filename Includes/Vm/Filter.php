@@ -2,13 +2,13 @@
 /**
  * @author Virtuosi Media Inc.
  * @license MIT License
- * @description A generic filter class to be extended by specific filters
+ * @description An abstract generic filter class to be extended by specific filters
  * @requirements PHP 5.2 or higher
  * @namespace Vm
  */
 namespace Vm;
 
-class Filter extends \Vm\Klass {
+abstract class Filter extends \Vm\Klass {
 
 	protected $filteredValue = NULL;
 	protected $value = NULL;
