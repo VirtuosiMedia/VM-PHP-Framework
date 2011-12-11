@@ -91,5 +91,4 @@ class Xml {
 	public function endTag($tagName){
 		return "</$tagName>";	
 	}
-}	
-?>
+}
