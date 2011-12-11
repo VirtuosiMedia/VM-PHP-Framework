@@ -105,7 +105,7 @@ class Test {
 	 * @param array $coverage - The xdebug_get_code_coverage array
 	 */
 	protected function processCoverage($testName, $coverage){
-		$testedClass = str_replace('_', '/', $this->testedClassName).'.php';
+		$testedClass = str_replace('\\', '/', $this->testedClassName).'.php';
 		foreach ($coverage as $fileName=>$results){
 			$fileName = str_replace('\\', '/', $fileName);
 			if (strstr($fileName, $testedClass)){
