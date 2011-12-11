@@ -61,7 +61,7 @@
 								<tr>
 									<td>
 										<span class="<?php echo $test['statusClass'];?>"></span>
-										<a class="classLink tips" title="View this class" href="<?php echo '#'.$test['className'];?>"><?php echo $test['className'];?></a>
+										<a class="classLink tips" title="View this class" href="<?php echo '#'.str_replace('\\', '-', $test['className']);?>"><?php echo $test['className'];?></a>
 									</td>
 									<td<?php echo $test['testNameAttributes'];?>><?php echo $test['testName'];?></td>
 									<td <?php echo $test['statusAttributes'];?>><?php echo $test['status'];?></td>
@@ -95,7 +95,7 @@
 							<?php foreach ($this->suiteCoverage as $name=>$data):?>
 							<tr>
 								<td>
-									<a class="classLink tips" title="View this class" href="<?php echo '#'.$name;?>"><?php echo $name;?></a>
+									<a class="classLink tips" title="View this class" href="<?php echo '#'.str_replace('\\', '-', $name);?>"><?php echo $name;?></a>
 								</td>
 								<td>
 									<div class="meterContainer tips" title="<?php echo $data['functional']['functionCoverageTitle'];?>">
@@ -169,7 +169,7 @@
 							<?php foreach ($this->suiteMetrics as $name=>$data):?>
 							<tr>
 								<td>
-									<a class="classLink tips" title="View this class" href="<?php echo '#'.$name;?>"><?php echo $name;?></a>
+									<a class="classLink tips" title="View this class" href="<?php echo '#'.str_replace('\\', '-', $name);?>"><?php echo $name;?></a>
 								</td>
 								<td>
 									<div class="complexity tips" title="<?php echo $data['complexity']['complexityTitle'];?>">

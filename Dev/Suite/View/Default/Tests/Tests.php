@@ -1,21 +1,22 @@
 <?php foreach ($this->tests as $name=>$test):?>
+<?php $safeName = str_replace('\\', '-', $name);?>
 <div class="contentContainer">
 	<div class="titleBar">
-		<h3 class="title"><a class="classLink" href="<?php echo '#'.$name;?>"><?php echo $name;?></a></h3>
+		<h3 class="title"><a class="classLink" href="<?php echo '#'.$safeName;?>"><?php echo $name;?></a></h3>
 		<a href="#top" class="topLink tips" title="Return to the top of the page"></a>
 	</div>
-	<ul id="<?php echo $name;?>" class="tabBar">
-		<li><a class="<?php echo $name;?>Tab firstTab active" href="#results-for-<?php echo $name;?>">Results</a></li>
+	<ul id="<?php echo $safeName;?>" class="tabBar">
+		<li><a class="<?php echo $safeName;?>Tab firstTab active" href="#results-for-<?php echo $safeName;?>">Results</a></li>
 		<?php if ($this->includeCoverage):?>
-			<li><a class="<?php echo $name;?>Tab tab" href="#coverage-for-<?php echo $name;?>">Coverage</a></li>
+			<li><a class="<?php echo $safeName;?>Tab tab" href="#coverage-for-<?php echo $safeName;?>">Coverage</a></li>
 		<?php endif;?>
 		<?php if ($this->includeMetrics):?>
-			<li><a class="<?php echo $name;?>Tab tab" href="#metrics-for-<?php echo $name;?>">Metrics</a></li>
+			<li><a class="<?php echo $safeName;?>Tab tab" href="#metrics-for-<?php echo $safeName;?>">Metrics</a></li>
 		<?php endif;?>
-		<li><a id="<?php echo $name;?>HistoryTab" class="<?php echo $name;?>Tab tab" href="#history-for-<?php echo $name;?>">History</a></li>
+		<li><a id="<?php echo $safeName;?>HistoryTab" class="<?php echo $safeName;?>Tab tab" href="#history-for-<?php echo $safeName;?>">History</a></li>
 	</ul>
 	<div class="testContent">
-			<div id="results-for-<?php echo $name;?>">
+			<div id="results-for-<?php echo $safeName;?>">
 				<div class="infoContainer">
 					<div class="meterContainer">
 						<span class="<?php echo $test['resultsBarStatus'];?>" style="width:<?php echo $test['resultsBarPercentage'];?>%;"></span>
@@ -60,7 +61,7 @@
 				</div>
 			</div>
 			<?php if ($this->includeCoverage):?>
-				<div id="coverage-for-<?php echo $name;?>">
+				<div id="coverage-for-<?php echo $safeName;?>">
 					<div class="infoContainer">
 						<div class="meterContainer tips" title="<?php echo $test['functionalBarTitle'];?>">
 							<span class="<?php echo $test['functionalBarStatus'];?>" style="width:<?php echo $test['functionalBarPercentage'];?>%;"></span>
@@ -90,7 +91,7 @@
 				</div>
 			<?php endif;?>
 			<?php if ($this->includeMetrics):?>
-				<div id="metrics-for-<?php echo $name;?>">
+				<div id="metrics-for-<?php echo $safeName;?>">
 					<div class="infoContainer">
 						<div class="complexity tips" title="<?php echo $test['complexityTitle'];?>">
 							<span class="<?php echo $test['complexityStatus'];?>"><?php echo $test['avgComplexity'];?></span>
@@ -134,8 +135,8 @@
 					</div>
 					<div class="resultsTableContainer">
 						<h4 class="tips" title="Lines of Code Analysis">LOC Analysis</h4>
-						<div id="<?php echo $name;?>LocHolder" title="Lines of Code Analysis, by percentage" class="locHolder tips">
-							<table id="<?php echo $name;?>Loc" class="testTable locChart" cellspacing="0" cellpadding="0" width="100%">
+						<div id="<?php echo $safeName;?>LocHolder" title="Lines of Code Analysis, by percentage" class="locHolder tips">
+							<table id="<?php echo $safeName;?>Loc" class="testTable locChart" cellspacing="0" cellpadding="0" width="100%">
 								<thead>
 									<tr>
 										<?php if ($test['executableLoc'] > 0):?>
@@ -193,64 +194,64 @@
 				</div>
 			<?php endif;?>
 			<?php if ($test['historyExists']):?>
-				<div id="history-for-<?php echo $name;?>" class="historyContainer">
+				<div id="history-for-<?php echo $safeName;?>" class="historyContainer">
 					<noscript><p class="fail"><strong>History is not viewable with JavaScript disabled.</strong></p></noscript>
 					<div class="chartsInfoContainer">
-						<ul id="<?php echo $name;?>ChartTabs" class="chartTabs">
-							<li><a href="<?php echo '#'.$name;?>TestChartSlide" class="<?php echo $name;?>ChartTab active">Unit Tests</a></li>
-							<li><a href="<?php echo '#'.$name;?>CoverageChartSlide" class="<?php echo $name;?>ChartTab">Coverage</a></li>
-							<li><a href="<?php echo '#'.$name;?>ComplexityChartSlide" class="<?php echo $name;?>ChartTab">Complexity</a></li>
-							<li><a href="<?php echo '#'.$name;?>RefactorChartSlide" class="<?php echo $name;?>ChartTab">Cleanup</a></li>
-							<li><a href="<?php echo '#'.$name;?>LocChartSlide" class="<?php echo $name;?>ChartTab">LOC</a></li>
+						<ul id="<?php echo $safeName;?>ChartTabs" class="chartTabs">
+							<li><a href="<?php echo '#'.$safeName;?>TestChartSlide" class="<?php echo $safeName;?>ChartTab active">Unit Tests</a></li>
+							<li><a href="<?php echo '#'.$safeName;?>CoverageChartSlide" class="<?php echo $safeName;?>ChartTab">Coverage</a></li>
+							<li><a href="<?php echo '#'.$safeName;?>ComplexityChartSlide" class="<?php echo $safeName;?>ChartTab">Complexity</a></li>
+							<li><a href="<?php echo '#'.$safeName;?>RefactorChartSlide" class="<?php echo $safeName;?>ChartTab">Cleanup</a></li>
+							<li><a href="<?php echo '#'.$safeName;?>LocChartSlide" class="<?php echo $safeName;?>ChartTab">LOC</a></li>
 						</ul>
 					</div>
 					<div class="chartsContainer">
-						<div id="<?php echo $name;?>TestChartSlide">
-							<div id="<?php echo $name;?>TestChartContainer" class="tips" title="Click on the chart for a new chart type.">
-								<div id="<?php echo $name;?>TestChart" class="lines"></div>
+						<div id="<?php echo $safeName;?>TestChartSlide">
+							<div id="<?php echo $safeName;?>TestChartContainer" class="tips" title="Click on the chart for a new chart type.">
+								<div id="<?php echo $safeName;?>TestChart" class="lines"></div>
 							</div>
 							<p>The number of tests should increase over time until each possible state of <?php echo $name;?> has 
 								been tested.</p>
-							<div id="<?php echo $name;?>TestChartData" style="display:none;"><?php echo $test['historyTests'];?></div>
+							<div id="<?php echo $safeName;?>TestChartData" style="display:none;"><?php echo $test['historyTests'];?></div>
 						</div>
-						<div id="<?php echo $name;?>CoverageChartSlide">
-							<div id="<?php echo $name;?>CoverageChartContainer" class="tips" title="Click on the chart for a new chart type.">
-								<div id="<?php echo $name;?>CoverageChart" class="lines"></div>
+						<div id="<?php echo $safeName;?>CoverageChartSlide">
+							<div id="<?php echo $safeName;?>CoverageChartContainer" class="tips" title="Click on the chart for a new chart type.">
+								<div id="<?php echo $safeName;?>CoverageChart" class="lines"></div>
 							</div>
 							<p>Functional coverage tests that each method in your class is called while statement coverage tests 
 								that each line of executable code is run. You should try to achieve 100% coverage for both.</p>
-							<div id="<?php echo $name;?>CoverageChartData" style="display:none;"><?php echo $test['historyCoverage'];?></div>
+							<div id="<?php echo $safeName;?>CoverageChartData" style="display:none;"><?php echo $test['historyCoverage'];?></div>
 						</div>
-						<div id="<?php echo $name;?>ComplexityChartSlide">
-							<div id="<?php echo $name;?>ComplexityChartContainer" class="tips" title="Click on the chart for a new chart type.">
-								<div id="<?php echo $name;?>ComplexityChart" class="lines"></div>
+						<div id="<?php echo $safeName;?>ComplexityChartSlide">
+							<div id="<?php echo $safeName;?>ComplexityChartContainer" class="tips" title="Click on the chart for a new chart type.">
+								<div id="<?php echo $safeName;?>ComplexityChart" class="lines"></div>
 							</div>
 							<p>Cyclomatic Complexity measures how complex a given piece of code is based on the number of decision 
 								points it contains. This chart gives the average complexity rating for all of <?php echo $name;?>'s 
 								methods. Lower numbers are good, above 8 should be looked at, and over 16 should be refactored.</p>
-							<div id="<?php echo $name;?>ComplexityChartData" style="display:none;"><?php echo $test['historyComplexity'];?></div>
+							<div id="<?php echo $safeName;?>ComplexityChartData" style="display:none;"><?php echo $test['historyComplexity'];?></div>
 						</div>
-						<div id="<?php echo $name;?>RefactorChartSlide">						
-							<div id="<?php echo $name;?>RefactorChartContainer" class="tips" title="Click on the chart for a new chart type.">
-								<div id="<?php echo $name;?>RefactorChart" class="lines"></div>
+						<div id="<?php echo $safeName;?>RefactorChartSlide">						
+							<div id="<?php echo $safeName;?>RefactorChartContainer" class="tips" title="Click on the chart for a new chart type.">
+								<div id="<?php echo $safeName;?>RefactorChart" class="lines"></div>
 							</div>
 							<p>The Refactor Probability attempts gauge if a class needs to be refactored based on its complexity, 
 								readability, and length. Readability simply measures how easily a class can be understood based on 
 								its complexity and the amount of commenting.</p>
-							<div id="<?php echo $name;?>RefactorChartData" style="display:none;"><?php echo $test['historyRefactor'];?></div>
+							<div id="<?php echo $safeName;?>RefactorChartData" style="display:none;"><?php echo $test['historyRefactor'];?></div>
 						</div>
-						<div id="<?php echo $name;?>LocChartSlide">										
-							<div id="<?php echo $name;?>LocChartContainer" class="tips" title="Click on the chart for a new chart type.">
-								<div id="<?php echo $name;?>LocChart" class="lines"></div>
+						<div id="<?php echo $safeName;?>LocChartSlide">										
+							<div id="<?php echo $safeName;?>LocChartContainer" class="tips" title="Click on the chart for a new chart type.">
+								<div id="<?php echo $safeName;?>LocChart" class="lines"></div>
 							</div>
 							<p>This chart simply tracks the number of total lines of code in <?php echo $name;?> over time, 
 								including comments and whitespace.</p>
-							<div id="<?php echo $name;?>LocChartData" style="display:none;"><?php echo $test['historyLoc'];?></div>
+							<div id="<?php echo $safeName;?>LocChartData" style="display:none;"><?php echo $test['historyLoc'];?></div>
 						</div>
 					</div>
 				</div>
 			<?php else:?>
-				<div id="history-for-<?php echo $name;?>" class="historyContainer empty">
+				<div id="history-for-<?php echo $safeName;?>" class="historyContainer empty">
 					<h3 class="title">No History Found</h3>
 					<p>History for this test class is not available. Please rerun the test suite and select the 'Save 
 						Results' checkbox to begin tracking the results of this test class over time.</p>
