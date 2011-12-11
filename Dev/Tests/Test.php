@@ -177,7 +177,7 @@ class Test {
 				}
 				$profile = number_format((($endTime - $startTime)), 7);
 				
-			} catch (Exception $e){
+			} catch (\Exception $e){
 				$exception = $e->getMessage();
 				$status = new \Test\Assert();
 				$status->setResult(FALSE);
