@@ -95,8 +95,8 @@ class Test {
 	 */
 	protected function loadTestedClass(){
 		$this->testedClassName = preg_replace('#(Test)$#', '', $this->className);
-		$this->testedClassName = str_replace('Tests_', '', $this->testedClassName);
-		$className = '../Includes/'.str_replace('_', '/', $this->testedClassName);
+		$this->testedClassName = str_replace('Tests\\', '', $this->testedClassName);
+		$className = '../Includes/'.str_replace('\\', '/', $this->testedClassName);
 		require_once($className.'.php');
 	}
 
@@ -157,7 +157,7 @@ class Test {
 			$status = FALSE;
 			$exception = NULL;
 			$profile = NULL;
-			set_error_handler(array('Tests_Test','exceptionErrorHandler'));
+			set_error_handler(array('\Tests\Test','exceptionErrorHandler'));
 			
 			try {
 				if ((function_exists('xdebug_start_code_coverage'))&&($this->includeCoverage)){
