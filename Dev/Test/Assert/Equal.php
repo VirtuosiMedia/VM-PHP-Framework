@@ -1,13 +1,16 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A unit test that tests if x is equal to y, fails if they are not equal.
-*/
-class Test_Assert_Equal extends Test_Assert {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A unit test that tests if x is equal to y, fails if they are not equal.
+ * @namespace Test\Assert
+ */
+namespace Test\Assert;
+
+class Equal extends \Test\Assert {
 	
 	/**
-	 * Tests if x is equal to y, fails if they are not equal
+	 * @description Tests if x is equal to y, fails if they are not equal
 	 * @param mixed $x - The first parameter
 	 * @param mixed $y - The second parameter
 	 */
@@ -18,4 +21,3 @@ class Test_Assert_Equal extends Test_Assert {
 		}		
 	}	
 }
-?>

@@ -1,10 +1,13 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A base class for test assertions, meant to be extended by individual assertion classes
-*/
-class Test_Assert {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A base class for test assertions, meant to be extended by individual assertion classes
+ * @namespace Test
+ */
+namespace Test;
+
+abstract class Assert {
 
 	protected $error;
 	protected $result;
@@ -37,4 +40,3 @@ class Test_Assert {
 		$this->error = $error;
 	}
 }
-?>

@@ -1,13 +1,16 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A unit test that tests if x is FALSE, fails if it is not.
-*/
-class Test_Assert_False extends Test_Assert {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A unit test that tests if x is FALSE, fails if it is not.
+ * @namespace Test\Assert
+ */
+namespace Test\Assert;
+
+class False extends \Test\Assert {
 	
 	/**
-	 * Tests if x is FALSE, fails if it is not
+	 * @description Tests if x is FALSE, fails if it is not
 	 * @param boolean $x - A boolean parameter
 	 */
 	function __construct($x){
@@ -17,4 +20,3 @@ class Test_Assert_False extends Test_Assert {
 		}		
 	}	
 }
-?>

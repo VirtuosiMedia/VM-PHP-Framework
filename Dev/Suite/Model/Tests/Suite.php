@@ -3,8 +3,11 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description Loads the test suite data
+ * @namespace Suite\Model\Tests
  */
-class Suite_Model_Tests_Suite extends Vm_Model {
+namespace Suite\Model\Tests;
+
+class Suite extends \Vm\Model {
 
 	protected $authors = array();
 	protected $coverage;
@@ -40,7 +43,13 @@ class Suite_Model_Tests_Suite extends Vm_Model {
 		}
 		
 		$this->saveResults = (isset($_POST['saveResults'])) ? TRUE : FALSE;
-		$this->testSuite = new Test_Suite('../Includes/Vm', 'Tests/Vm', $this->includeCoverage, $this->includeMetrics, $this->saveResults);		
+		$this->testSuite = new \Test\Suite(
+			'../Includes/Vm', 
+			'Tests/Vm', 
+			$this->includeCoverage, 
+			$this->includeMetrics, 
+			$this->saveResults
+		);		
 	}
 
 	protected function loadReport(){
@@ -79,8 +88,12 @@ class Suite_Model_Tests_Suite extends Vm_Model {
 	}	
 	
 	protected function saveResults(){
-		$results = array_merge($this->results->getViewData(), $this->coverage->getViewData(), $this->metrics->getViewData());	
-		$saveResults = new Test_Save_Suite($results, $this->includeCoverage, $this->includeMetrics);
+		$results = array_merge(
+			$this->results->getViewData(), 
+			$this->coverage->getViewData(), 
+			$this->metrics->getViewData()
+		);	
+		$saveResults = new \Test\Save\Suite($results, $this->includeCoverage, $this->includeMetrics);
 		$saveResults->setAuthors($this->testSuite->getAuthors());
 		$saveResults->setExcludedAuthors($this->testSuite->getExcludedAuthors());
 		$saveResults->setGroups($this->testSuite->getGroups());
@@ -175,7 +188,7 @@ class Suite_Model_Tests_Suite extends Vm_Model {
 	 * @description Sets the form object so the suite has access to its data.
 	 * @param Test_SelectionForm $form
 	 */
-	public function setForm(Test_SelectionForm $form){
+	public function setForm(\Test\SelectionForm $form){
 		$this->authors = $form->getAuthors();
 		$this->groups = $form->getGroups();
 		$this->subgroups = $form->getSubgroups();
@@ -206,7 +219,7 @@ class Suite_Model_Tests_Suite extends Vm_Model {
 		$coverage = $this->testSuite->getCoverage();
 		
 		foreach ($this->testResults as $name=>$results){
-			$test = new Suite_Model_Tests_Tests(
+			$test = new Tests(
 				$testedClasses[$name]['name'], 
 				$testData[$name], 
 				$results, 
@@ -219,16 +232,16 @@ class Suite_Model_Tests_Suite extends Vm_Model {
 			$testResults[$testedClasses[$name]['name']] = $test->getResults();
 		}
 		
-		$this->results = new Test_Model_Suite_Results($testResults);
+		$this->results = new \Test\Model\Suite\Results($testResults);
 		$includeData = $this->results->getViewData(); 
 		
 		if ($this->includeCoverage){
-			$this->coverage = new Test_Model_Suite_Coverage($testResults);
+			$this->coverage = new \Test\Model\Suite\Coverage($testResults);
 			$includeData = array_merge($includeData, $this->coverage->getViewData());
 		}
 		
 		if ($this->includeMetrics){
-			$this->metrics = new Test_Model_Suite_Metrics($testResults);
+			$this->metrics = new \Test\Model\Suite\Metrics($testResults);
 			$includeData = array_merge($includeData, $this->metrics->getViewData());
 		}
 
@@ -236,7 +249,7 @@ class Suite_Model_Tests_Suite extends Vm_Model {
 			$this->saveResults();
 		}			
 		
-		$this->history = new Test_Model_Suite_History();
+		$this->history = new \Test\Model\Suite\History();
 		$includeData = array_merge($includeData, $this->history->getViewData());				
 		
 		$this->setData('tests', $testResults);

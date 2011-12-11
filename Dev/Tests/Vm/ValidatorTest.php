@@ -1,14 +1,17 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: Tests the Vm_Validator class
-* Requirements: PHP 5.2 or higher
-*/
-class Tests_Vm_ValidatorTest extends Tests_Test {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description Tests the Vm\Validator class
+ * @requirements PHP 5.2 or higher
+ * @namespace Tests\Vm
+ */
+namespace Tests\Vm;
+
+class ValidatorTest extends \Tests\Test {
 	
 	function setUp(){
-		$this->fixture = new Vm_Validator();
+		$this->fixture = new Vm\Validator();
 	}
 	
 	protected function testValidatesTrue(){
@@ -29,4 +32,3 @@ class Tests_Vm_ValidatorTest extends Tests_Test {
 		return $this->assertFalse($this->fixture->validates());
 	}
 }
-?>

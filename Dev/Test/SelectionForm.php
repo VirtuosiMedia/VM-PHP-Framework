@@ -3,8 +3,15 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description Renders the report selection form
+ * @namespace Test
+ * @uses Vm\Form
  */
-class Test_SelectionForm {
+namespace Test;
+
+use Vm\Form;
+use Vm\Xml;
+
+class SelectionForm {
 	
 	protected $authors = array();
 	protected $authorsData = array();
@@ -20,9 +27,9 @@ class Test_SelectionForm {
 	protected $testSuite;
 	protected $xml;
 	
-	function __construct(Test_Suite $testSuite){
+	function __construct(\Test\Suite $testSuite){
 		$this->testSuite = $testSuite;
-		$this->xml = new Vm_Xml();
+		$this->xml = new Xml();
 		$this->compileFilters();
 		$this->buildForm();	
 	}
@@ -133,7 +140,7 @@ class Test_SelectionForm {
 			: array('id'=>'saveResults', 'value'=>'TRUE');
 		$selectedInclude = (isset($_POST['include'])) ? array($_POST['include']) : array(); 
 		
-		$this->form = new Vm_Form(array('id'=>'testForm'));		
+		$this->form = new Form(array('id'=>'testForm'));		
 		$this->form->select('reports', array(
 			'attributes'=>array('id'=>'reports', 'class'=>'reports'),
 			'selected'=>$this->getSelectedReport(),

@@ -1,14 +1,17 @@
 <?php 
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: Tests the Vm_Xml class
-* Requirements: PHP 5.2 or higher
-*/
-class Tests_Vm_XmlTest extends Tests_Test {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description Tests the Vm\Xml class
+ * @requirements PHP 5.2 or higher
+ * @namespace Tests\Vm
+ */
+namespace Tests\Vm;
+
+class XmlTest extends \Tests\Test {
 	
 	function setUp(){
-		$this->fixture = new Vm_Xml();
+		$this->fixture = new \Vm\Xml();
 	}
 	
 	protected function testCreateTag(){
@@ -31,4 +34,3 @@ class Tests_Vm_XmlTest extends Tests_Test {
 	}
 	
 }
-?>

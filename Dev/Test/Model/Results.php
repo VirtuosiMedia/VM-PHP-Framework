@@ -3,8 +3,11 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description Renders the unit test results of an individual unit test case
+ * @namespace Test\Model
  */
-class Test_Model_Results {
+namespace Test\Model;
+
+class Results {
 
 	protected $results = array();
 	protected $settings;

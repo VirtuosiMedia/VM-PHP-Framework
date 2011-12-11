@@ -1,13 +1,16 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A unit test that tests if x is greater than y, fails if x is less than or equal to y.
-*/
-class Test_Assert_GreaterThan extends Test_Assert {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A unit test that tests if x is greater than y, fails if x is less than or equal to y.
+ * @namespace Test\Assert
+ */
+namespace Test\Assert;
+
+class GreaterThan extends \Test\Assert {
 	
 	/**
-	 * Tests if x is greater than y, fails if x is less than or equal to y
+	 * @description Tests if x is greater than y, fails if x is less than or equal to y
 	 * @param num $x - The first number
 	 * @param num $y - The second number
 	 */
@@ -18,4 +21,3 @@ class Test_Assert_GreaterThan extends Test_Assert {
 		}		
 	}	
 }
-?>

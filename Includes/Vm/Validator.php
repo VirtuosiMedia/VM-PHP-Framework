@@ -1,11 +1,14 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A generic validator class
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Validator {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A generic validator class
+ * @requirements PHP 5.2 or higher
+ * @namespace Vm
+ */
+namespace Vm;
+
+abstract class Validator {
 
 	protected $error = NULL;
 	protected $validates = TRUE;
@@ -33,4 +36,3 @@ class Vm_Validator {
 		return $this->error;
 	}
 }
-?>

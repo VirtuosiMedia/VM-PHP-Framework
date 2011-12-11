@@ -1,11 +1,14 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: Checks for a database connection
-* Requirements: PHP 5.2 or higher
-*/
-class Tools_Db_Connect {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description Checks for a database connection
+ * @requirements PHP 5.2 or higher
+ * @namespace Tools\Db
+ */
+namespace Tools\Db;
+
+class Connect {
 	
 	protected $dbType;
 	protected $dbName;
@@ -36,17 +39,22 @@ class Tools_Db_Connect {
 			try {
 				switch($this->dbType) {
 					case 'mysql':
-						$db = new PDO('mysql:host='.$this->dbHost.';dbname='.$this->dbName, $this->dbUsername, $this->dbPassword);
+						$db = new PDO(
+							'mysql:host='.$this->dbHost.';dbname='.$this->dbName, 
+							$this->dbUsername, 
+							$this->dbPassword
+						);
 						break;
 				}
 				$this->status = TRUE;
 				$this->error = NULL;
 			} catch (PDOException $e) {
 				$this->status = FALSE;
-				$this->error = "Sorry, a database connection could not be established. Please check your access information and try again.";
+				$this->error = "Sorry, a database connection could not be established. Please check your access 
+					information and try again.";
 			}
 		} else {
-			$this->status = TRUE;
+			$this->status = FALSE;
 		}
 	}
 
@@ -64,4 +72,3 @@ class Tools_Db_Connect {
 		return $this->error;
 	}
 }
-?>

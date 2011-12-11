@@ -1,13 +1,16 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A unit test that tests if a file or directory exists, fails if it does not exist.
-*/
-class Test_Assert_ResourceExists extends Test_Assert {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A unit test that tests if a file or directory exists, fails if it does not exist.
+ * @namespace Test\Assert
+ */
+namespace Test\Assert;
+
+class ResourceExists extends \Test\Assert {
 	
 	/**
-	 * Tests if a file or directory exists, fails if it does not exist.
+	 * @description Tests if a file or directory exists, fails if it does not exist.
 	 * @param string $resourceName - Path to the file or directory.
 	 */
 	function __construct($resourceName){
@@ -17,4 +20,3 @@ class Test_Assert_ResourceExists extends Test_Assert {
 		}		
 	}	
 }
-?>

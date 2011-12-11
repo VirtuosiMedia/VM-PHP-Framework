@@ -4,13 +4,18 @@
  * @license: MIT License
  * @group: VM PHP Framework
  * @subgroup: Validators
- * @description: Tests the Vm_Validate_AlnumSlash class
- * Requirements: PHP 5.2 or higher
+ * @description: Tests the Vm\Validate\AlnumSlash class
+ * @requirements PHP 5.2 or higher
+ * @namespace Tests\Vm\Validate
  */
-class Tests_Vm_Validate_AlnumSlashTest extends Tests_Test {
+namespace Tests\Vm\Validate;
+
+use Vm\Validate\AlnumSlash;
+
+class AlnumSlashTest extends \Tests\Test {
 	
 	protected function testValidatesTrue(){
-		$this->fixture = new Vm_Validate_AlnumSlash('JohnDoe45/');
+		$this->fixture = new AlnumSlash('JohnDoe45/');
 		return $this->assertTrue($this->fixture->validates());
 	}
 
@@ -32,50 +37,52 @@ class Tests_Vm_Validate_AlnumSlashTest extends Tests_Test {
 	}	
 
 	protected function testError(){
-		$this->fixture = new Vm_Validate_AlnumSlash('JohnDoe45');
+		$this->fixture = new AlnumSlash('JohnDoe45');
 		trigger_error("This is a test error", E_USER_ERROR);
 		return $this->skip('This will never be seen.');
 	}
 
 	protected function testException(){
-		$this->fixture = new Vm_Validate_AlnumSlash('JohnDoe45');
+		$this->fixture = new AlnumSlash('JohnDoe45');
 		throw new Exception('Exception test');
 		return $this->skip('This will never be seen.');
 	}	
 	
 	protected function testErrorIsNull(){
-		$this->fixture = new Vm_Validate_AlnumSlash('JohnDoe45');
+		$this->fixture = new AlnumSlash('JohnDoe45');
 		return $this->assertNull($this->fixture->getError());
 	}
 	
 	protected function testDefaultError(){
-		$this->fixture = new Vm_Validate_AlnumSlash('JohnDoe14!');
-		return $this->assertEqual($this->fixture->getError(), 'This field may only contain letters, numbers, or forward slashes');
+		$this->fixture = new AlnumSlash('JohnDoe14!');
+		return $this->assertEqual(
+			$this->fixture->getError(), 
+			'This field may only contain letters, numbers, or forward slashes'
+		);
 	}
 	
 	protected function testValidatesFalse(){
-		$this->fixture = new Vm_Validate_AlnumSlash('JohnDoe14!');
+		$this->fixture = new AlnumSlash('JohnDoe14!');
 		return $this->assertFalse($this->fixture->validates());
 	}
 	
 	protected function testCustomError(){
-		$this->fixture = new Vm_Validate_AlnumSlash('JohnDoe14!4', 'What are you thinking?');
+		$this->fixture = new AlnumSlash('JohnDoe14!4', 'What are you thinking?');
 		return $this->assertEqual($this->fixture->getError(), 'What are you thinking?');
 	}
 
 	protected function testCharactersCauseError(){
-		$this->fixture = new Vm_Validate_AlnumSlash('!@#%><,`');
+		$this->fixture = new AlnumSlash('!@#%><,`');
 		return $this->assertFalse($this->fixture->validates());
 	}
 	
 	protected function testBackslashCauseError(){
-		$this->fixture = new Vm_Validate_AlnumSlash('JohnDoe45\\');
+		$this->fixture = new AlnumSlash('JohnDoe45\\');
 		return $this->assertFalse($this->fixture->validates());
 	}	
 	
 	protected function testWhiteSpaceCausesError(){
-		$this->fixture = new Vm_Validate_AlnumSlash(' 	   ');
+		$this->fixture = new AlnumSlash(' 	   ');
 		return $this->assertFalse($this->fixture->validates());
 	}			
 }
-?>

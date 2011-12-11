@@ -3,9 +3,12 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description Models the test coverage results for the test suite
- * @extends Vm_Model
+ * @extends Vm\Model
+ * @namespace Test\Model\Suite
  */
-class Test_Model_Suite_Coverage extends Vm_Model {
+namespace Test\Model\Suite;
+
+class Coverage extends Vm\Model {
 
 	protected $results;
 	protected $testData = array();

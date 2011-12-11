@@ -1,13 +1,15 @@
 <?php 
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* @description: Tests for a timeout of unit test.
-*/
+ * @author Virtuosi Media Inc.
+ * @license: MIT License
+ * @description: Tests for a timeout of unit test.
+ * @namespace Test
+ */
+namespace Test;
 
 declare(ticks=1);
 
-class Test_Timer {
+class Timer {
 
 	private static $startTime;
 	private static $timeLimit;
@@ -31,9 +33,8 @@ class Test_Timer {
 	
 	public static function checkTime(){
 		if ((microtime(TRUE) - self::$startTime) > self::$timeLimit){
-			throw new Exception("This test exceeded the alloted time limit of ".self::$timeLimit." seconds and was terminated.");
+			throw new Exception("This test exceeded the alloted time limit of ".self::$timeLimit." seconds 
+				and was terminated.");
 		}	
 	}	
 }
-
-?>

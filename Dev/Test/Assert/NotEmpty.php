@@ -1,13 +1,16 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A unit test that tests if x is not empty, fails if it is.
-*/
-class Test_Assert_NotEmpty extends Test_Assert {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A unit test that tests if x is not empty, fails if it is.
+ * @namespace Test\Assert
+ */
+namespace Test\Assert;
+
+class NotEmpty extends \Test\Assert {
 	
 	/**
-	 * Tests if x is not empty, fails if it is
+	 * @description Tests if x is not empty, fails if it is
 	 * @param mixed $x - The value to test
 	 */
 	function __construct($x){
@@ -17,4 +20,3 @@ class Test_Assert_NotEmpty extends Test_Assert {
 		}		
 	}	
 }
-?>

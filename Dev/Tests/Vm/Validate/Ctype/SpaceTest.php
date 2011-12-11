@@ -1,50 +1,55 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: Tests the Vm_Validate_Ctype_Space class
-* Requirements: PHP 5.2 or higher
-*/
-class Tests_Vm_Validate_Ctype_SpaceTest extends Tests_Test {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description Tests the Vm\Validate\Ctype\Space class
+ * @requirements PHP 5.3 or higher
+ * @namespace Tests\Vm\Validate\Ctype
+ * @uses Vm\Validate\Ctype\Space
+ */
+namespace Tests\Vm\Validate\Ctype;
+
+use Vm\Validate\Ctype\Space;
+
+class SpaceTest extends \Tests\Test {
 	
 	protected function testValidatesTrue(){
-		$this->fixture = new Vm_Validate_Ctype_Space("     \t \r\n\t");
+		$this->fixture = new Space("     \t \r\n\t");
 		return $this->assertTrue($this->fixture->validates());
 	}
 
 	protected function testErrorIsNull(){
-		$this->fixture = new Vm_Validate_Ctype_Space("     \t ");
+		$this->fixture = new Space("     \t ");
 		return $this->assertNull($this->fixture->getError());
 	}
 	
 	protected function testDefaultError(){
-		$this->fixture = new Vm_Validate_Ctype_Space("JohnDoe14\t\r\n");
+		$this->fixture = new Space("JohnDoe14\t\r\n");
 		return $this->assertEqual($this->fixture->getError(), 'This field must contain only whitespace characters');
 	}
 	
 	protected function testValidatesFalse(){
-		$this->fixture = new Vm_Validate_Ctype_Space("JohnDoe14\t\r\n");
+		$this->fixture = new Space("JohnDoe14\t\r\n");
 		return $this->assertFalse($this->fixture->validates());
 	}
 	
 	protected function testCustomError(){
-		$this->fixture = new Vm_Validate_Ctype_Space("JohnDoe14\t\r\n", 'What are you thinking?');
+		$this->fixture = new Space("JohnDoe14\t\r\n", 'What are you thinking?');
 		return $this->assertEqual($this->fixture->getError(), 'What are you thinking?');
 	}
 	
 	protected function testWhiteSpaceDoNotCauseError(){
-		$this->fixture = new Vm_Validate_Ctype_Space(' 	   ');
+		$this->fixture = new Space(' 	   ');
 		return $this->assertTrue($this->fixture->validates());
 	}
 
 	protected function testControlCharactersDoNotCauseError(){
-		$this->fixture = new Vm_Validate_Ctype_Space("\r\n\t");
+		$this->fixture = new Space("\r\n\t");
 		return $this->assertTrue($this->fixture->validates());
 	}
 
 	protected function testPunctuationCausesError(){
-		$this->fixture = new Vm_Validate_Ctype_Space("!@#$~%^&*()_+<>?,./");
+		$this->fixture = new Space("!@#$~%^&*()_+<>?,./");
 		return $this->assertFalse($this->fixture->validates());
 	}	
 }
-?>

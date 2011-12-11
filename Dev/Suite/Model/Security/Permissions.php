@@ -1,18 +1,24 @@
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * @description: The model for generating the security page folder permissions for VM PHP Framework Suite
+ * @license MIT License
+ * @description The model for generating the security page folder permissions for VM PHP Framework Suite
  * @requirements: PHP 5.2 or higher
+ * @namespace Suite\Model\Security
+ * @uses Vm\Folder
  */
-class Suite_Model_Security_Permissions extends Vm_Model {
+namespace Suite\Model\Security;
+
+use \Vm\Folder;
+
+class Permissions extends \Vm\Model {
 	
 	protected $params;
 	protected $settings;
 	
 	/**
-	 * 
-	 * @param array $params - An associative array of the URL parameters, with the parameter name as the key, it's value as the value
+	 * @param array $params - An associative array of the URL parameters, with the parameter name as the key, it's 
+	 * 		value as the value
 	 * @param array $settings - An associative settings array, with the setting name as the key, it's value as the value
 	 */	
 	function __construct($params, $settings){
@@ -22,13 +28,13 @@ class Suite_Model_Security_Permissions extends Vm_Model {
 	}
 	
 	protected function compileData(){
-		$dir = new Vm_Folder('../Includes');
+		$dir = new Folder('../Includes');
 		$dirs = $dir->getFolders(TRUE, TRUE);
 		asort($dirs);
 		$folders = array();
 
 		foreach ($dirs as $key=>$folderName){
-			$dir = new Vm_Folder($folderName);
+			$dir = new Folder($folderName);
 			$permissions = (int) $dir->getPermissions();
 			$folders[$key] = array();
 			

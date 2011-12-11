@@ -3,8 +3,11 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description Renders the code metrics for a class
+ * @namespace Test\Model
  */
-class Test_Model_Metrics {
+namespace Test\Model;
+
+class Metrics {
 	
 	protected $classMetrics;
 	protected $commentsLoc;
@@ -35,7 +38,7 @@ class Test_Model_Metrics {
 	protected function calculateMetrics(){
 		$this->calculateMethodMetrics();
 		
-		$class = new ReflectionClass($this->testedClassName);
+		$class = new \ReflectionClass($this->testedClassName);
 		$this->getParentClass($class);
 		
 		$this->classMetrics['parent'] = $this->parents;
@@ -93,7 +96,7 @@ class Test_Model_Metrics {
 	 * @description Analyzes the tested class methods and calculates various code metrics
 	 */	
 	protected function calculateMethodMetrics(){
-		$reflect = new ReflectionClass($this->testedClassName);
+		$reflect = new \ReflectionClass($this->testedClassName);
 		$methods = $reflect->getMethods();
 		$classMethods = array();
 		$methodLines = array();
@@ -105,7 +108,7 @@ class Test_Model_Metrics {
 		}
 
 		foreach ($classMethods as $methodName){
-			$method = new ReflectionMethod($this->testedClassName, $methodName);
+			$method = new \ReflectionMethod($this->testedClassName, $methodName);
 			$methodLines[$method->getStartLine()] = $methodName;
 			$this->methodMetrics[$methodName]['modifiers'] = implode(', ', Reflection::getModifierNames($method->getModifiers()));
 			$this->methodMetrics[$methodName]['params'] = $method->getNumberOfParameters();

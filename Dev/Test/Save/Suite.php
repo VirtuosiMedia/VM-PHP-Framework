@@ -3,8 +3,11 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description Renders the history of a filtered test suite
+ * @namespace Test\Save
  */
-class Test_Save_Suite {
+namespace Test\Save;
+
+class Suite {
 
 	protected $authors = array();
 	protected $excludedAuthors = array();

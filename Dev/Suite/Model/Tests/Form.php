@@ -4,8 +4,14 @@
  * @license MIT License
  * @description The model for generating the test suite form for VM PHP Framework Suite
  * @requirements PHP 5.2 or higher
+ * @namespace Suite\Model\Tests
+ * @uses Test\SelectionForm;
  */
-class Suite_Model_Tests_Form extends Vm_Model {
+namespace Suite\Model\Tests;
+
+use \Test\SelectionForm;
+
+class Form extends \Vm\Model {
 	
 	protected $form;
 	protected $params;
@@ -18,7 +24,7 @@ class Suite_Model_Tests_Form extends Vm_Model {
 	 * @param array $settings - An associative settings array, with the setting name as the key, it's value as the value
 	 * @param Test_Suite $testSuite - The Test_Suite object
 	 */
-	function __construct($params, $settings, Test_Suite $testSuite){
+	function __construct($params, $settings, \Test\Suite $testSuite){
 		$this->params = $params;
 		$this->settings = $settings;
 		$this->testSuite = $testSuite;
@@ -26,7 +32,7 @@ class Suite_Model_Tests_Form extends Vm_Model {
 	}
 	
 	protected function compileData(){
-		$this->form = new Test_SelectionForm($this->testSuite);
+		$this->form = new SelectionForm($this->testSuite);
 		$this->setData('testForm', $this->form->render());
 	}
 

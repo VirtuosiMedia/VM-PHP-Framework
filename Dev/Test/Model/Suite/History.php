@@ -3,9 +3,12 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description Loads the suite history files
- * @extends Vm_Model
+ * @extends Vm\Model
+ * @namespace Test\Model\Suite
  */
-class Test_Model_Suite_History extends Vm_Model {
+namespace Test\Model\Suite;
+
+class History extends Vm\Model {
 
 	protected $fileName = FALSE;
 	protected $historyExists = FALSE;

@@ -1,10 +1,13 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license MIT License
-* @description Renders the history of an individual unit test case
-*/
-class Test_Model_History {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description Models the history of an individual unit test case
+ * @namespace Test\Model
+ */
+namespace Test\Model;
+
+class History {
 	
 	protected $historyData = array();
 	protected $historyExists;

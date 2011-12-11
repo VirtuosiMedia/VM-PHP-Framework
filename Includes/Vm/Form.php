@@ -1,13 +1,19 @@
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * @description: A form rendering class that extends Validate_Validator and uses the same options in its constructor. Note: Does not 
- *	enforce valid HTML
- * @dependencies: Vm_Validate_Validator and Vm_Xml
+ * @license MIT License
+ * @description A form rendering class that extends Validate_Validator and uses the same options in its constructor.
+ * @dependencies Vm\Validate\Validator and Vm\Xml
  * @requirements: PHP 5.2 or higher
+ * @note Vm\Form generates but does not enforce valid HTML.
+ * @namespace Vm
+ * @uses Vm\Xml
  */
-class Vm_Form extends Vm_Validate {
+namespace Vm;
+
+use Vm\Xml;
+
+class Form extends Validate {
 
 	//@var array $fieldValues - An array of raw, unfiltered field values for each field
 	protected $fieldValues = array();	
@@ -74,7 +80,7 @@ class Vm_Form extends Vm_Validate {
 	}
 	
 	/**
-	 * Description: Creates a form element
+	 * @description Creates a form element
 	 * @param string $tagName - The tag name of the form element
 	 * @param string $fieldName - The field name of the form element	
 	 * @param array $attributesArray - The attributes of the form element, with the attribute name as a key, the value as a value
@@ -95,7 +101,11 @@ class Vm_Form extends Vm_Validate {
 		//Override the name value with the fieldName, just so no mismatches occur
 		$attributesArray['name'] = $fieldName;								
 		if ($this->errorsExist($fieldName)){
-			$attributesArray['class'] .= ' '.$this->options['inputErrorClass'];
+			if (isset($attributesArray['class'])){
+				$attributesArray['class'] .= ' '.$this->options['inputErrorClass'];
+			} else {
+				$attributesArray['class'] = $this->options['inputErrorClass'];
+			}
 		}
 
 		//Add so we don't repeat errors
@@ -122,11 +132,11 @@ class Vm_Form extends Vm_Validate {
 			$attributesArray['name'] .= '[]';
 		}
 						
-		return Vm_Xml::createTag($tagName, $attributesArray, $selfClosing)."\n";		
+		return Xml::createTag($tagName, $attributesArray, $selfClosing)."\n";		
 	}
 
 	/**
-	 * Description: Creates a label element
+	 * @description Creates a label element
 	 * @param string $fieldName - The field name of the label's form element	
 	 * @param array $labelArray - The attributes of the label element, with the attribute name as a key, the value as a value
 	 * @param string $formElementId - The id of the form element, if it exists
@@ -141,18 +151,23 @@ class Vm_Form extends Vm_Validate {
 					$labelArray['for'] = (isset($formElementId)) ? $formElementId : $fieldName;
 				}
 				if ($this->errorsExist($fieldName)){
-					$labelArray['class'] .= ' '.$this->options['labelErrorClass'];
+					if (isset($labelArray['class'])){
+						$labelArray['class'] .= ' '.$this->options['labelErrorClass'];
+					} else {
+						$labelArray['class'] = $this->options['labelErrorClass'];
+					}
 				}
-				$label = Vm_Xml::createTag('label', $labelArray)."\n";
+				$label = Xml::createTag('label', $labelArray)."\n";
 			} else {
-				throw new Vm_Form_Exception("The value of the 'label' key for '$fieldName' must be an array, with each array key as the attribute name and the value as the attribute value.");			
+				throw new Vm\Form\Exception("The value of the 'label' key for '$fieldName' must be an array, with each 
+						array key as the attribute name and the value as the attribute value.");			
 			}			
 		} 
 		return $label;
 	}
 
 	/**
-	 * Description: Creates an error list
+	 * @description Creates an error list
 	 * @param boolean $submittedCheck - Whether or not the form has been submitted
 	 * @param string $fieldName - optional - The field name to retrieve errors for. If empty, will fetch all errors for form
 	 * @return string - The compiled error list if errors exist, else NULL
@@ -169,21 +184,21 @@ class Vm_Form extends Vm_Validate {
 						'class'=>$this->options['errorListItemClass'], 
 						'innerHtml'=>$error
 					);
-					$errors .= Vm_Xml::createTag('li', $errorAttributes)."\n";
+					$errors .= Xml::createTag('li', $errorAttributes)."\n";
 				}
 				$errorListAttributes = array(
 					'id'=>$fieldName.'ErrorList', 
 					'class'=>$this->options['errorListClass'], 
 					'innerHtml'=>$errors
 				);
-				$errorList = Vm_Xml::createTag('ul', $errorListAttributes)."\n";
+				$errorList = Xml::createTag('ul', $errorListAttributes)."\n";
 			} 
 		}
 		return $errorList;
 	}
 	
 	/**
-	 * Description: Processes form elements and their options arrays
+	 * @description Processes form elements and their options arrays
 	 * @param string $fieldName - The name to be assigned the form field
 	 * @param array $selectOptions - The select options to be converted to HTML
 	 * @param array $selected - The values of the selected options that should be pre-selected 
@@ -202,26 +217,27 @@ class Vm_Form extends Vm_Validate {
 						if (in_array($optValue, $selected)){ 
 							$optionAttributes['selected'] = 'selected';
 						}							
-						$optGroup .= Vm_Xml::createTag('option', $optionAttributes)."\n";
+						$optGroup .= Xml::createTag('option', $optionAttributes)."\n";
 					}
 					$optGroupAttributes = array('label'=>$key, 'innerHtml'=>$optGroup);
-					$options .= Vm_Xml::createTag('optgroup', $optGroupAttributes)."\n";
+					$options .= Xml::createTag('optgroup', $optGroupAttributes)."\n";
 				} else { //No optgroup is present
 					$optionAttributes = array('value'=>$key, 'innerHtml'=>$value);
 					if ((($input == $key) || ((is_array($input)) && (in_array($key, $input)))) && (!empty($input))||(in_array($key, $selected))){ 
 						$optionAttributes['selected'] = 'selected';
 					}
-					$options .= Vm_Xml::createTag('option', $optionAttributes)."\n";
+					$options .= Xml::createTag('option', $optionAttributes)."\n";
 				}
 			}
 			return $options;
 		} else {
-			throw new Vm_Form_Exception("The '$fieldName' select box must have an array key entitled 'selectOptions' and its value must be an array.");
+			throw new Vm\Form\Exception("The '$fieldName' select box must have an array key entitled 'selectOptions' 
+				and its value must be an array.");
 		}
 	}
 
 	/**
-	 * Description: Adds label, form element, and error list in the proper order to the formRender string 
+	 * @description Adds label, form element, and error list in the proper order to the formRender string 
 	 * @param string $tagName - The HTML tag to create - limited to form elements
 	 * @param string $fieldName - The name to be assigned the form field
 	 * @param array $optionsArray - The options array to create the form element, its label, its validations, and its filters
@@ -231,7 +247,7 @@ class Vm_Form extends Vm_Validate {
 		$render = ($labelPos == 'beforeInput') ? $label.$formElement : $formElement.$label;		
 		if (($wrapperElement) && ($wrapperAttributes)){
 			$wrapperAttributes['innerHtml'] = $render;
-			$render = Vm_Xml::createTag($wrapperElement, $wrapperAttributes)."\n";
+			$render = Xml::createTag($wrapperElement, $wrapperAttributes)."\n";
 		}
 		
 		if ($this->options['errorPosition'] != 'beforeForm'){				
@@ -241,7 +257,7 @@ class Vm_Form extends Vm_Validate {
 	}
 
 	/**
-	 * Description: Runs filters for each form field
+	 * @description Runs filters for each form field
 	 * @param string $fieldName - The name to be assigned the form field
 	 * @param array $optionsArray - The options array to create the form validations
 	 */
@@ -258,49 +274,57 @@ class Vm_Form extends Vm_Validate {
 					$param2 = $value[1];
 					$numParams = sizeof($value); 						
 				} else if ((!is_int($key)) && (!is_array($value))){
-					throw new Vm_Form_Exception("The value of the '$key' key in the 'filters' array for '$fieldName' must be an array.");					
+					throw new Vm\Form\Exception("The value of the '$key' key in the 'filters' array for '$fieldName' 
+						must be an array.");					
 				}
 				
 				switch ($numParams){
 				case 0:
-					$filterName = 'Vm_Filter_'.$filterName;
+					$filterName = 'Vm\Filter\\'.$filterName;
 					$filter = new $filterName();
 					$this->filteredFieldValues[$fieldName] = $filter->filter($input);
 					break;
 				case 1:
-					$filterName = 'Vm_Filter_'.$filterName;
+					$filterName = 'Vm\Filter\\'.$filterName;
 					$filter = new $filterName();						
 					$this->filteredFieldValues[$fieldName] = $filter->filter($input, $param1);
 					break;
 				case 2:
-					$filterName = 'Vm_Filter_'.$filterName;
+					$filterName = 'Vm\Filter\\'.$filterName;
 					$filter = new $filterName();						
 					$this->filteredFieldValues[$fieldName] = $filter->filter($input, $param1, $param2);
 					break;											
 				}
 			}
 		} else {
-			throw new Vm_Form_Exception("The value of the 'filters' key for '$fieldName' must be an array for which each array key is the filter name and the value is an array of parameters for that filter, excluding the input parameter, which is included automatically. If that particular filter has only the input parameter, the filter name should be the array value rather than the key.");
+			throw new Vm\Form\Exception("The value of the 'filters' key for '$fieldName' must be an array for which 
+				each array key is the filter name and the value is an array of parameters for that filter, excluding 
+				the input parameter, which is included automatically. If that particular filter has only the input 
+				parameter, the filter name should be the array value rather than the key.");
 		}
 	} 
 
 	
 	/**
-	 * Description: Runs validators for each form field
+	 * @description Runs validators for each form field
 	 * @param string $fieldName - The name to be assigned the form field
 	 * @param array $optionsArray - The options array to create the form validations
 	 */
 	protected function runValidators($fieldName, $optionsArray){
-		$input = (isset($this->filteredFieldValues[$fieldName])) ? $this->filteredFieldValues[$fieldName] : $this->fieldValues[$fieldName];
+		$input = (isset($this->filteredFieldValues[$fieldName])) 
+			? $this->filteredFieldValues[$fieldName] 
+			: $this->fieldValues[$fieldName];
 		if (is_array($optionsArray['validators'])){
 			$this->addValidators($fieldName, $input, $optionsArray['validators']);
 		} else {
-			throw new Vm_Form_Exception("The value of the 'validators' key for '$fieldName' must be an array for which each array key is the validator name and the value is a custom error message. If no error message is specified, a default error message will be used and the validator name should be the array value.");
+			throw new Vm\Form\Exception("The value of the 'validators' key for '$fieldName' must be an array for which 
+				each array key is the validator name and the value is a custom error message. If no error message is 
+				specified, a default error message will be used and the validator name should be the array value.");
 		}
 	} 
 		
 	/**
-	 * Description: Processes form elements and their options arrays
+	 * @description Processes form elements and their options arrays
 	 * @param string $tagName - The HTML tag to create - limited to form elements
 	 * @param string $fieldName - The name to be assigned the form field
 	 * @param array $optionsArray - The options array to create the form element, its label, its validations, and its filters
@@ -356,7 +380,7 @@ class Vm_Form extends Vm_Validate {
 	}
 
 	/**
-	 * Description: Creates a text input and sets its options
+	 * @description Creates a text input and sets its options
 	 * @param string $fieldName - The name to be assigned the form field
 	 * @param array $optionsArray - The options array to create the form element, its label, its validations, and its filters
 	 * @return - returns the object for chaining	
@@ -368,7 +392,7 @@ class Vm_Form extends Vm_Validate {
 	}
 
 	/**
-	 * Description: Creates a password input and sets its options
+	 * @description Creates a password input and sets its options
 	 * @param string $fieldName - The name to be assigned the form field
 	 * @param array $optionsArray - The options array to create the form element, its label, its validations, and its filters
 	 * @return - returns the object for chaining	
@@ -380,7 +404,7 @@ class Vm_Form extends Vm_Validate {
 	}
 
 	/**
-	 * Description: Creates a file input and sets its options. Also automatically sets the form enctype to accept forms
+	 * @description Creates a file input and sets its options. Also automatically sets the form enctype to accept forms
 	 * 	and the method to post
 	 * @param string $fieldName - The name to be assigned the form field
 	 * @param array $optionsArray - The options array to create the form element, its label, its validations, and its filters
@@ -395,7 +419,7 @@ class Vm_Form extends Vm_Validate {
 	}	
 	
 	/**
-	 * Description: Creates a checkbox input and sets its options
+	 * @description Creates a checkbox input and sets its options
 	 * @param string $fieldName - The name to be assigned the form field
 	 * @param array $optionsArray - The options array to create the form element, its label, its validations, and its filters
 	 * @return - returns the object for chaining	
@@ -407,7 +431,7 @@ class Vm_Form extends Vm_Validate {
 	}	
 
 	/**
-	 * Description: Creates a radio input and sets its options
+	 * @description Creates a radio input and sets its options
 	 * @param string $fieldName - The name to be assigned the form field
 	 * @param array $optionsArray - The options array to create the form element, its label, its validations, and its filters
 	 * @return - returns the object for chaining	
@@ -419,7 +443,7 @@ class Vm_Form extends Vm_Validate {
 	}
 
 	/**
-	 * Description: Creates a hidden input and sets its options
+	 * @description Creates a hidden input and sets its options
 	 * @param string $fieldName - The name to be assigned the form field
 	 * @param array $optionsArray - The options array to create the form element, its label, its validations, and its filters
 	 * @return - returns the object for chaining	
@@ -431,7 +455,7 @@ class Vm_Form extends Vm_Validate {
 	}		
 
 	/**
-	 * Description: Creates a textarea and sets its options
+	 * @description Creates a textarea and sets its options
 	 * @param string $fieldName - The name to be assigned the form field
 	 * @param array $optionsArray - The options array to create the form element, its label, its validations, and its filters
 	 * @return - returns the object for chaining	
@@ -445,7 +469,7 @@ class Vm_Form extends Vm_Validate {
 	}
 
 	/**
-	 * Description: Creates a select box and sets its options
+	 * @description Creates a select box and sets its options
 	 * @param string $fieldName - The name to be assigned the form field
 	 * @param array $optionsArray - The options array to create the form element, its label, its validations, and its filters
 	 * @return - returns the object for chaining	
@@ -457,64 +481,64 @@ class Vm_Form extends Vm_Validate {
 	}				
 
 	/**
-	 * Description: Creates a reset button and sets its options
+	 * @description Creates a reset button and sets its options
 	 * @param array $resetAttributes - The options array to create the form element
 	 * @return - returns the object for chaining	
 	 */	
 	public function reset(array $resetAttributes = NULL){
 		$resetAttributes['type'] = 'reset';
 		$resetAttributes['value'] = (!isset($resetAttributes['value'])) ? 'Reset' : $resetAttributes['value'];
-		$this->formRender .= Vm_Xml::createTag('input', $resetAttributes, TRUE)."\n";
+		$this->formRender .= Xml::createTag('input', $resetAttributes, TRUE)."\n";
 		return $this;			
 	}
 
 	/**
-	 * Description: Creates a submit button and sets its options
+	 * @description Creates a submit button and sets its options
 	 * @param array $submitAttributes - The options array to create the form element
 	 * @return - returns the object for chaining	
 	 */	
 	public function submit(array $submitAttributes = NULL){
 		$submitAttributes['type'] = 'submit';
 		$submitAttributes['value'] = (!isset($submitAttributes['value'])) ? 'Submit' : $submitAttributes['value'];
-		$this->formRender .= Vm_Xml::createTag('input', $submitAttributes, TRUE)."\n";
+		$this->formRender .= Xml::createTag('input', $submitAttributes, TRUE)."\n";
 		return $this;			
 	}
 
 	/**
-	 * Description: Creates a button and sets its options
+	 * @description Creates a button and sets its options
 	 * @param array $buttonAttributes - The options array to create the form element
 	 * @return - returns the object for chaining	
 	 */		
 	public function button(array $buttonAttributes = NULL){
 		$buttonAttributes['type'] = 'button';
-		$this->formRender .= Vm_Xml::createTag('input', $buttonAttributes, TRUE)."\n";
+		$this->formRender .= Xml::createTag('input', $buttonAttributes, TRUE)."\n";
 		return $this;			
 	}
 
 	/**
-	 * Description: Creates a image button and sets its options
+	 * @description Creates a image button and sets its options
 	 * @param array $imageAttributes - The options array to create the form element
 	 * @return - returns the object for chaining	
 	 */		
 	public function image(array $imageAttributes = NULL){
 		$imageAttributes['type'] = 'image';
-		$this->formRender .= Vm_Xml::createTag('input', $imageAttributes, TRUE)."\n";
+		$this->formRender .= Xml::createTag('input', $imageAttributes, TRUE)."\n";
 		return $this;			
 	}
 
 	/**
-	 * Description: Creates a label element and sets its options
+	 * @description Creates a label element and sets its options
 	 * @param array $labelAttributes - The options array to create the label
 	 * @return - returns the object for chaining	
 	 */		
 	public function label($labelText, array $labelAttributes = NULL){
 		$labelAttributes['innerHtml'] = $labelText;
-		$this->formRender .=  Vm_Xml::createTag('label', $labelAttributes)."\n";
+		$this->formRender .=  Xml::createTag('label', $labelAttributes)."\n";
 		return $this;			
 	}			
 
 	/** 
-	 * Description: Creates an HTML element to be inserted into the form
+	 * @description Creates an HTML element to be inserted into the form
 	 * @param string $tagName - The name of the tag to be created
 	 * @param array $attributes - optional - An array of each attribute/value pair for the tag, with the attribute name 
 	 *	as the array key, its value as the array value. NOTE: The array key of 'innerHTML' has special meaning: It is the
@@ -524,34 +548,34 @@ class Vm_Form extends Vm_Validate {
 	 * @return - returns the object for chaining	
 	 */
 	public function createTag($tagName, array $attributes = array(), $selfClosing = FALSE){
-		$this->formRender .=  Vm_Xml::createTag($tagName, $attributes, $selfClosing)."\n";	
+		$this->formRender .=  Xml::createTag($tagName, $attributes, $selfClosing)."\n";	
 		return $this;
 	}
 
 	/** 
-	 * Description: Creates the beginnning of a wrapper tag
+	 * @description Creates the beginnning of a wrapper tag
 	 * @param string $tagName - The name of the tag to be created
 	 * @param array $attributes - optional - An array of each attribute/value pair for the tag, with the attribute name 
 	 *	as the array key, its value as the array value. NOTE: The array key of 'innerHTML' is ignored
 	 * @return - returns the object for chaining	
 	 */
 	public function startTag($tagName, array $attributes = array()){
-		$this->formRender .=  Vm_Xml::startTag($tagName, $attributes)."\n";	
+		$this->formRender .=  Xml::startTag($tagName, $attributes)."\n";	
 		return $this;
 	}
 
 	/** 
-	 * Description: Closes a wrapper tag
+	 * @description Closes a wrapper tag
 	 * @param string $tagName - The name of the tag to be created
 	 * @return - returns the object for chaining	
 	 */	
 	public function endTag($tagName){
-		$this->formRender .=  Vm_Xml::endTag($tagName)."\n";
+		$this->formRender .=  Xml::endTag($tagName)."\n";
 		return $this;
 	}	
 
 	/** 
-	 * Description: Adds data to the form
+	 * @description Adds data to the form
 	 * @param string $data - The data to be appended to the form
 	 * @return - returns the object for chaining	
 	 */		
@@ -592,7 +616,7 @@ class Vm_Form extends Vm_Validate {
 	}
 	
 	/** 
-	 * Description: Renders the complete form
+	 * @description Renders the complete form
 	 * @return string - Returns the compiled form
 	 */	
 	public function render(){
@@ -602,12 +626,12 @@ class Vm_Form extends Vm_Validate {
 		}
 		if ($this->options['strictDoctype']) {
 			$this->options['strictContainerAttributes']['innerHtml'] = $this->formRender;
-			$formRender = Vm_Xml::createTag($this->options['strictContainerTag'], $this->options['strictContainerAttributes'])."\n";
+			$formRender = Xml::createTag($this->options['strictContainerTag'], $this->options['strictContainerAttributes'])."\n";
 		} else {
 			$formRender = $this->formRender;
 		}		
 		$this->formAttributes['innerHtml'] = $formRender;
-		$form = Vm_Xml::createTag('form', $this->formAttributes)."\n";
+		$form = Xml::createTag('form', $this->formAttributes)."\n";
 		if ($this->options['errorPosition'] == 'beforeForm') {
 			$form = $this->createErrorList().$form;
 		}
@@ -621,7 +645,7 @@ class Vm_Form extends Vm_Validate {
 	 */
 	public function renderSnippet(){
 		$submittedAttributes = array('type'=>'hidden', 'name'=>$this->options['submittedCheckName'], 'value'=>'TRUE');
-		$submittedField = Vm_Xml::createTag('input', $submittedAttributes, TRUE)."\n";
+		$submittedField = Xml::createTag('input', $submittedAttributes, TRUE)."\n";
 		$this->formRender .= $submittedField;
 		return $this->formRender;
 	}

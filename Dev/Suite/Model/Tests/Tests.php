@@ -3,8 +3,14 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description Models the results of an individual unit test case
+ * @namespace Suite\Model\Tests
+ * @uses Test\Model
  */
-class Suite_Model_Tests_Tests extends Vm_Model {
+namespace Suite\Model\Tests;
+
+use \Test\Model;
+
+class Tests extends \Vm\Model {
 	
 	protected $allData = array();
 	protected $coverage;
@@ -71,7 +77,7 @@ class Suite_Model_Tests_Tests extends Vm_Model {
 	 * @description Compiles the test results, coverage, metrics and history
 	 */
 	protected function compileTestData(){
-		$this->results = new Test_Model_Results(
+		$this->results = new Model\Results(
 			$this->testedClassName, 
 			$this->testData, 
 			$this->testResults, 
@@ -80,18 +86,18 @@ class Suite_Model_Tests_Tests extends Vm_Model {
 		$this->allData = array_merge($this->testData, $this->results->getData());
 		
 		if ($this->includeCoverage){
-			$this->coverage = new Test_Model_Coverage($this->testedClassName, $this->file, $this->coverageResults);
+			$this->coverage = new Model\Coverage($this->testedClassName, $this->file, $this->coverageResults);
 			$this->allData = array_merge($this->allData, $this->coverage->getData());
 		}
 		
 		if ($this->includeMetrics){
 			$coveredMethods = ($this->includeCoverage) ? $this->coverage->getCoveredMethods() : array();
-			$this->metrics = new Test_Model_Metrics($this->testedClassName, $this->file, $coveredMethods);
+			$this->metrics = new Model\Metrics($this->testedClassName, $this->file, $coveredMethods);
 			$this->allData = array_merge($this->allData, $this->metrics->getData());
 		}
 		
 		if ($this->saveResults){
-			$save = new Test_Save_Test(
+			$save = new \Test\Save\Test(
 				$this->testedClassName, 
 				$this->file, 
 				$this->allData, 
@@ -100,7 +106,7 @@ class Suite_Model_Tests_Tests extends Vm_Model {
 			);
 		}
 		
-		$this->history = new Test_Model_History($this->testedClassName);
+		$this->history = new Model\History($this->testedClassName);
 		$this->allData = array_merge($this->allData, $this->history->getData());
 	}
 

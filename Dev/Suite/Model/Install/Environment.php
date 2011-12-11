@@ -1,11 +1,17 @@
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * @description: The model for generating the server environment variables for VM PHP Framework Suite
- * @requirements: PHP 5.2 or higher
+ * @license MIT License
+ * @description The model for generating the server environment variables for VM PHP Framework Suite
+ * @requirements PHP 5.2 or higher
+ * @namespace Suite\Model\Install
+ * @uses Tools\Installer
+ * @uses Vm\Folder
+ * @uses Vm\Form
  */
-class Suite_Model_Install_Environment extends Vm_Model {
+namespace Suite\Model\Install;
+
+class Environment extends \Vm\Model {
 	
 	function __construct(){
 		$this->compileData();		

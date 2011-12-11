@@ -1,10 +1,13 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A unit testing class, inspired in part by simpletest and PHPUnit
-*/
-class Tests_Test {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A unit testing class, inspired in part by simpletest and PHPUnit
+ * @namespace Tests
+ */
+namespace Tests;
+
+class Test {
 
 	protected $className;
 	protected $coverage = array();
@@ -15,7 +18,8 @@ class Tests_Test {
 	protected $testSuite = array();
 	
 	/**
-	 * @param boolean $includeCoverage - optional - Whether or not to include code coverage statistics (it will run slower), defaults FALSE
+	 * @param boolean $includeCoverage - optional - Whether or not to include code coverage statistics (it will run 
+	 * 		slower), defaults FALSE
 	 */
 	function __construct($includeCoverage = FALSE){
 		$this->includeCoverage = $includeCoverage;
@@ -30,14 +34,17 @@ class Tests_Test {
 	}
 
 	/**
-	 * Loads a test assertion class using magic methods, with the method name as the class name and the parameters in an array for the test class
+	 * @description Loads a test assertion class using magic methods, with the method name as the class name and the 
+	 * 		parameters in an array for the test class
 	 * @param string $className - the class name to be loaded - Note: should not be the full class name
 	 * @param array $params - The parameters to be loaded into the class. Note: Up to 4 parameters are allowed
 	 * @return boolean - TRUE if the test passes, FALSE otherwise
 	 */
 	function __call($className, $params) {
-		$className = (strstr($className, 'assert')) ? str_replace('assert', 'Test_Assert_', $className) : 'Test_'.$className;
-		$reflect = new ReflectionMethod($className, '__construct');
+		$className = (strstr($className, 'assert')) 
+			? str_replace('assert', '\Test\Assert\\', $className) 
+			: '\Test\\'.$className;
+		$reflect = new \ReflectionMethod($className, '__construct');
 		$numParams = sizeof($reflect->getParameters());
 
 		switch ($numParams){
@@ -61,21 +68,21 @@ class Tests_Test {
 	}	
 	
 	/**
-	 * A function run before every test, meant to be overwritten
+	 * @description A function run before every test, meant to be overwritten
 	 */
 	protected function setUp(){	}
 
 	/**
-	 * A function run after every test, it calls the clearFixture function, but can be overwritten
+	 * @description A function run after every test, it calls the clearFixture function, but can be overwritten
 	 */
 	protected function tearDown(){
 		$this->fixture = NULL;
 	}
 	
 	/**
-	 * Adds a test to the test suite for the class
-	 * @param string $testName - The name of the test method, this should correspond to the name of the class method being tested,
-	 * 	prepended with the word 'test'
+	 * @description Adds a test to the test suite for the class
+	 * @param string $testName - The name of the test method, this should correspond to the name of the class method 
+	 * 		being tested, prepended with the word 'test'
 	 * @return - The object for chaining
 	 */
 	protected function addTest($testName){
@@ -84,7 +91,7 @@ class Tests_Test {
 	}
 	
 	/**
-	 * Loads the tested class, if the autoload function is not defined
+	 * @description Loads the tested class, if the autoload function is not defined
 	 */
 	protected function loadTestedClass(){
 		$this->testedClassName = preg_replace('#(Test)$#', '', $this->className);
@@ -119,7 +126,8 @@ class Tests_Test {
 	}
 	
 	/**
-	 * @return array - An multi-dimensional array with the test name as the key, an array of line number/number of executions times pairs as the value
+	 * @return array - An multi-dimensional array with the test name as the key, an array of line number/number of 
+	 * 		executions times pairs as the value
 	 */
 	public function getCoverage(){
 		return $this->coverage;
@@ -140,7 +148,7 @@ class Tests_Test {
 	}
 	
 	/**
-	 * Runs a single test for the class
+	 * @description Runs a single test for the class
 	 * @param string $testName - The name of the test that should be run
 	 * @return - The object for chaining
 	 */
@@ -171,25 +179,29 @@ class Tests_Test {
 				
 			} catch (Exception $e){
 				$exception = $e->getMessage();
-				$status = new Test_Assert();
+				$status = new \Test\Assert();
 				$status->setResult(FALSE);
 				$status->setError($exception);
 			} 
 			
-			$this->executedTests[$testName] = array('pass'=>$status->getResult(), 'error'=>$status->getError(), 'profile'=>$profile);
+			$this->executedTests[$testName] = array(
+				'pass'=>$status->getResult(), 
+				'error'=>$status->getError(), 
+				'profile'=>$profile
+			);
 			restore_error_handler();
 		} else {
-			throw new Tests_Test_Exception("$testName does not exist or is not a valid test.");
+			throw new \Test\Exception("$testName does not exist or is not a valid test.");
 		}
 		return $this;
 	}
 			
 	public function exceptionErrorHandler($errno, $errstr, $errfile, $errline ) {
-    	throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+    	throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
 	}	
 	
 	/**
-	 * Runs multiple tests for the class
+	 * @description Runs multiple tests for the class
 	 * @param array $testNames - The names of each test to be run
 	 * @return - The object for chaining
 	 */
@@ -201,7 +213,7 @@ class Tests_Test {
 	}
 	
 	/**
-	 * Runs all tests for the class
+	 * @description Runs all tests for the class
 	 * @return - The object for chaining
 	 */
 	public function runAllTests(){
@@ -212,7 +224,7 @@ class Tests_Test {
 	}
 
 	/**
-	 * Gets the name of the test class that is being run
+	 * @description Gets the name of the test class that is being run
 	 * @return string - The test class name
 	 */
 	public function getName(){
@@ -220,7 +232,7 @@ class Tests_Test {
 	}	
 	
 	/**
-	 * Gets the names of the tests in the test suite
+	 * @description Gets the names of the tests in the test suite
 	 * @return array - The test suite
 	 */
 	public function getTestSuite(){
@@ -228,7 +240,7 @@ class Tests_Test {
 	}
 
 	/**
-	 * Gets the number of tests in the test suite
+	 * @description Gets the number of tests in the test suite
 	 * @return int - The number of tests
 	 */
 	public function getNumTests(){
@@ -236,7 +248,7 @@ class Tests_Test {
 	}
 	
 	/**
-	 * Gets the results of each test run
+	 * @description Gets the results of each test run
 	 * @return array - The test results
 	 */
 	public function getResults(){

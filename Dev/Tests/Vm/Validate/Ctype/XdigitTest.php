@@ -1,60 +1,65 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: Tests the Vm_Validate_Ctype_Xdigit class
-* Requirements: PHP 5.2 or higher
-*/
-class Tests_Vm_Validate_Ctype_XdigitTest extends Tests_Test {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description Tests the Vm\Validate\Ctype\Xdigit class
+ * @requirements PHP 5.3 or higher
+ * @namespace Tests\Vm\Validate\Ctype
+ * @uses Vm\Validate\Ctype\Xdigit
+ */
+namespace Tests\Vm\Validate\Ctype;
+
+use Vm\Validate\Ctype\Xdigit;
+
+class XdigitTest extends \Tests\Test {
 
 	protected function testDefaultError(){
-		$this->fixture = new Vm_Validate_Ctype_Xdigit('JohnDoe14');
+		$this->fixture = new Xdigit('JohnDoe14');
 		return $this->assertEqual($this->fixture->getError(), 'This field must contain only hexidecimal digits');
 	}	
 	
 	protected function testZeroToNineValid(){
-		$this->fixture = new Vm_Validate_Ctype_Xdigit(0123456789);
+		$this->fixture = new Xdigit(0123456789);
 		return $this->assertTrue($this->fixture->validates());
 	}	
 	
 	protected function testStringZeroToNineValid(){
-		$this->fixture = new Vm_Validate_Ctype_Xdigit('0123456789');
+		$this->fixture = new Xdigit('0123456789');
 		return $this->assertTrue($this->fixture->validates());
 	}
 
 	protected function testDecimalInvalid(){
-		$this->fixture = new Vm_Validate_Ctype_Xdigit('0.123456789');
+		$this->fixture = new Xdigit('0.123456789');
 		return $this->assertFalse($this->fixture->validates());
 	}
 
 	protected function testNegativeNumberInvalid(){
-		$this->fixture = new Vm_Validate_Ctype_Xdigit('-89');
+		$this->fixture = new Xdigit('-89');
 		return $this->assertFalse($this->fixture->validates());
 	}
 
 	protected function testScientificNotationInvalid(){
-		$this->fixture = new Vm_Validate_Ctype_Xdigit('5.72�109');
+		$this->fixture = new Xdigit('5.72�109');
 		return $this->assertFalse($this->fixture->validates());
 	}
 
 	protected function testENotationInvalid(){
-		$this->fixture = new Vm_Validate_Ctype_Xdigit('6.0221415E23');
+		$this->fixture = new Xdigit('6.0221415E23');
 		return $this->assertFalse($this->fixture->validates());
 	}
 
 	protected function testHexLettersValid(){
-		$this->fixture = new Vm_Validate_Ctype_Xdigit('ABCDEFabcdef');
+		$this->fixture = new Xdigit('ABCDEFabcdef');
 		return $this->assertTrue($this->fixture->validates());
 	}	
 	
 	protected function testNonHexLettersInvalid(){
-		$this->fixture = new Vm_Validate_Ctype_Xdigit('GHIJKLMNOPQRSTUVWXYZghijklmnopqrstuvwxyz');
+		$this->fixture = new Xdigit('GHIJKLMNOPQRSTUVWXYZghijklmnopqrstuvwxyz');
 		return $this->assertFalse($this->fixture->validates());
 	}
 
 	protected function testCharactersInvalid(){
-		$this->fixture = new Vm_Validate_Ctype_Xdigit('!@#><,.');
+		$this->fixture = new Xdigit('!@#><,.');
 		return $this->assertFalse($this->fixture->validates());
 	}	
 }
-?>

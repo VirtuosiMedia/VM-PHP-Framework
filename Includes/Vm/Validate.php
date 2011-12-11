@@ -1,17 +1,20 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A basic validation class that constructs validators and collects errors
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Validate extends Vm_Klass {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A basic validation class that constructs validators and collects errors
+ * @requirements PHP 5.2 or higher
+ * @namespace Vm
+ */
+namespace Vm;
+
+class Validate extends Klass {
 
 	protected $allErrors = array();
 	protected $inputErrors = array();	
 
 	/**
- 	 * Description: Protected method: Updates error and input values and checks if $input should be auto-santitized
+ 	 * @description Protected method: Updates error and input values and checks if $input should be auto-santitized
 	 * @param string $fieldName - The field name to be sanitized
 	 */	
 	protected function update($validator, $fieldName){	
@@ -22,16 +25,17 @@ class Vm_Validate extends Vm_Klass {
 	}	
 
 	/**
-	 * Description: Validates an input against a validator
+	 * @description Validates an input against a validator
 	 * @param string $fieldName - The field name to be validated
 	 * @param string $input - The input to be validated
 	 * @param string $validatorName - The name of the validator to be used
-	 * @param array $error - optional - If no custom error message is given, then the default validator message is returned.
+	 * @param array $error - optional - If no custom error message is given, then the default validator message is 
+	 * 		returned.
 	 * @param mixed $param1 - optional - If the validator calls for an additional parameter, include it here
 	 * @param mixed $param1 - optional - If the validator calls for a second additional parameter, include it here
 	 */
 	public function addValidator($fieldName, $input, $validatorName, $error = NULL, $param1 = NULL, $param2 = NULL){
-		$validatorName = 'Vm_Validate_'.$validatorName;
+		$validatorName = 'Vm\Validate\\'.$validatorName;
 		if (($param1) && ($param2)) {
 			$validator = new $validatorName($input, $error, $param1, $param2); 
 		} else if ($param1) {
@@ -43,13 +47,14 @@ class Vm_Validate extends Vm_Klass {
 	}
 
 	/**
-	 * Description: Validates an input against an array of validators
+	 * @description Validates an input against an array of validators
 	 * @param string $fieldName - The field name to be validated
 	 * @param string $input - The input to be validated
-	 * @param array $validators - The validators to validate the input against, with the validator as the key, the custom error 
-	 * 	message as the value. If no custom error message is given, then a default message is returned. If the validator includes 
-	 * 	additional parameters, the value should be an array with the first item as the error message, the second as the first
-	 * 	additional paramter, and the third as an optional second parameter. Note: A validator cannot be named after an integer
+	 * @param array $validators - The validators to validate the input against, with the validator as the key, the 
+	 * 		custom error message as the value. If no custom error message is given, then a default message is returned. 
+	 * 		If the validator includes additional parameters, the value should be an array with the first item as the 
+	 * 		error message, the second as the first additional paramter, and the third as an optional second parameter. 
+	 * 		Note: A validator cannot be named after an integer
 	 */
 	public function addValidators($fieldName, $input, array $validators){
 		foreach ($validators as $key => $value) {
@@ -96,12 +101,14 @@ class Vm_Validate extends Vm_Klass {
 	}
 	
 	/**
-	 * @param string $fieldName - optional - If a field name is specified, function checks if errors exist for that field, else it will check all fields
+	 * @param string $fieldName - optional - If a field name is specified, function checks if errors exist for that 
+	 * 		field, else it will check all fields
 	 * @return boolean - Returns TRUE if errors exist, FALSE if they do not
 	 */	
 	public function errorsExist($fieldName = NULL){
-		$errors = (($fieldName)&&(isset($this->inputErrors[$fieldName]))) ? $this->inputErrors[$fieldName] : $this->allErrors;
+		$errors = (($fieldName)&&(isset($this->inputErrors[$fieldName]))) 
+			? $this->inputErrors[$fieldName] 
+			: $this->allErrors;
 		return (sizeof($errors) > 0) ? TRUE : FALSE;
 	}	
 }
-?>

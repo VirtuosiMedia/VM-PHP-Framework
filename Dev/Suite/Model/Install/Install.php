@@ -4,8 +4,18 @@
  * @license: MIT License
  * @description: The model for generating the install form for VM PHP Framework Suite
  * @requirements: PHP 5.2 or higher
+ * @namespace Suite\Model\Install
+ * @uses Tools\Installer
+ * @uses Vm\Folder
+ * @uses Vm\Form
  */
-class Suite_Model_Install_Install extends Vm_Model {
+namespace Suite\Model\Install;
+
+use \Tools\Installer;
+use \Vm\Folder;
+use \Vm\Form;
+
+class Install extends \Vm\Model {
 	
 	protected $form;
 	
@@ -20,7 +30,7 @@ class Suite_Model_Install_Install extends Vm_Model {
 	}
 	
 	protected function createForm(){
-		$this->form = new Vm_Form(array());
+		$this->form = new Form(array());
 		$this->form->text('fullAppName', array(
 			'label' => array(
 				'innerHtml'=>'Full Application Name'
@@ -51,7 +61,8 @@ class Suite_Model_Install_Install extends Vm_Model {
 			),
 			'filters'=>array('AddSlashes')	
 		));
-		$this->form->append('<p>If you\'ve already created a database for your app, enter your connection information below. Otherwise, leave blank to enter it manually in the Config.php file later.</p>');
+		$this->form->append('<p>If you\'ve already created a database for your app, enter your connection information 
+			below. Otherwise, leave blank to enter it manually in the Config.php file later.</p>');
 		$this->form->select('dbType', array(
 			'selectOptions'=>array('mysql'=>'mysql'),
 			'label' => array(
@@ -66,7 +77,7 @@ class Suite_Model_Install_Install extends Vm_Model {
 		$dbPassword = (isset($_POST['dbPassword'])) ? $_POST['dbPassword'] : NULL;
 		$dbHost = (isset($_POST['dbHost'])) ? $_POST['dbHost'] : NULL;
 		
-		$connect = new Tools_Db_Connect($dbType, $dbName, $dbUsername, $dbPassword, $dbHost);
+		$connect = new \Tools\Db\Connect($dbType, $dbName, $dbUsername, $dbPassword, $dbHost);
 		if (!$connect->getStatus()){
 			$this->form->addError('dbName', $connect->getError());
 		}
@@ -103,7 +114,7 @@ class Suite_Model_Install_Install extends Vm_Model {
 			$shortAppName = ucfirst(strtolower($this->form->getValue('shortAppName')));
 			
 			//Create app folders
-			$folder = new Vm_Folder('.');
+			$folder = new Folder('.');
 			$folder->createDir('admin');
 			$folder->createDir('css');
 			$folder->createDir('images');
@@ -113,7 +124,7 @@ class Suite_Model_Install_Install extends Vm_Model {
 			$folder->createDir('Dev/Tests/'.$shortAppName);
 			$folder->createDir('Dev/Tests/Db');
 			
-			$vmFolder = new Vm_Folder('Vm');
+			$vmFolder = new Folder('Vm');
 			$vmFolders = $vmFolder->getFolders(TRUE, TRUE);
 			foreach ($vmFolders as $sourceFolder){
 				if (!is_dir('includes/'.$sourceFolder)){
@@ -141,13 +152,25 @@ class Suite_Model_Install_Install extends Vm_Model {
 			$installTable .= $xml->tr($xml->td("VM Framework copied into $shortAppName.", array('class'=>'pass')));
 			
 			//Generate the application files
-			$autoloader = new Tools_Installer_AutoloadGen($shortAppName);
-			$connect = new Tools_Installer_ConnectMySqlGen($shortAppName);
-			$config = new Tools_Installer_ConfigGen($shortAppName, $this->form->getValue('dbType'), $this->form->getValue('dbName'), $this->form->getValue('dbUsername'), $this->form->getValue('dbPassword'), $this->form->getValue('dbHost'));
-			$bootstrap = new Tools_Installer_BootstrapGen($shortAppName);
-			$version = new Tools_Installer_VersionGen($shortAppName, $fullAppName, $this->form->getValue('appDesc'), $this->form->getValue('developer'));
-			$adminIndex = new Tools_Installer_AdminIndexGen($shortAppName);
-			$index = new Tools_Installer_IndexGen($shortAppName);
+			$autoloader = new Installer\AutoloadGen($shortAppName);
+			$connect = new Installer\ConnectMySqlGen($shortAppName);
+			$config = new Installer\ConfigGen(
+				$shortAppName, 
+				$this->form->getValue('dbType'), 
+				$this->form->getValue('dbName'), 
+				$this->form->getValue('dbUsername'), 
+				$this->form->getValue('dbPassword'), 
+				$this->form->getValue('dbHost')
+			);
+			$bootstrap = new Installer\BootstrapGen($shortAppName);
+			$version = new Installer\VersionGen(
+				$shortAppName, 
+				$fullAppName, 
+				$this->form->getValue('appDesc'), 
+				$this->form->getValue('developer')
+			);
+			$adminIndex = new Installer\AdminIndexGen($shortAppName);
+			$index = new Installer\IndexGen($shortAppName);
 				
 			$installTable .= $autoloader->getTableRow();
 			$installTable .= $connect->getTableRow();

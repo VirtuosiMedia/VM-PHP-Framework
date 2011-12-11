@@ -1,10 +1,13 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license MIT License
-* @description Models the unit test coverage results of an individual unit test case.
-*/
-class Test_Model_Coverage {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description Models the unit test coverage results of an individual unit test case.
+ * @namespace Test\Model
+ */
+namespace Test\Model;
+
+class Coverage {
 	
 	protected $coverageResults;
 	protected $coveredMethods = array();
@@ -82,7 +85,7 @@ class Test_Model_Coverage {
 	 * @description Calculates stats for which public methods are covered by a test
 	 */		
 	protected function calculateFunctionCoverage(){
-		$reflect = new ReflectionClass($this->testedClassName);
+		$reflect = new \ReflectionClass($this->testedClassName);
 		$methods = $reflect->getMethods(ReflectionMethod::IS_PUBLIC);
 		$classMethods = array();
 		
@@ -93,7 +96,7 @@ class Test_Model_Coverage {
 		}
 
 		foreach ($classMethods as $methodName){
-			$method = new ReflectionMethod($this->testedClassName, $methodName);
+			$method = new \ReflectionMethod($this->testedClassName, $methodName);
 			$startLine = $method->getStartLine();
 			$lines = array($startLine, $startLine+1, $startLine+2, $startLine+3);
 			$executedLines = (isset($this->coverageResults['all'])&&(is_array($this->coverageResults['all']))) 

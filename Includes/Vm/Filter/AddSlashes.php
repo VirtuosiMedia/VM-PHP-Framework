@@ -1,13 +1,16 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A filter class that adds slashes to input
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Filter_AddSlashes extends Vm_Filter {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A filter class that adds slashes to input
+ * @requirements PHP 5.2 or higher
+ * @namspace Vm\Filter
+ */
+namespace Vm\Filter;
 
-	/*
+class AddSlashes extends \Vm\Filter {
+
+	/**
 	 * @param string $input - The input to be filtered
 	 * @return string - The filtered input
 	 */
@@ -17,4 +20,3 @@ class Vm_Filter_AddSlashes extends Vm_Filter {
 		return $this->filteredValue;
 	}
 }
-?>

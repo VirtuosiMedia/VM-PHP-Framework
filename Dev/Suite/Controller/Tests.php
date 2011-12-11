@@ -4,8 +4,18 @@
  * @license MIT License
  * @description The test suite page controller for the VM PHP Framework Suite.
  * @requirements PHP 5.2 or higher
+ * @namespace Suite\Controller
+ * @uses \Suite\Model
+ * @uses \Vm\Version
+ * @uses \Vm\View
  */
-class Suite_Controller_Tests extends Vm_Controller {
+namespace Suite\Controller;
+
+use \Suite\Model;
+use \Vm\Version;
+use \Vm\View;
+
+class Tests extends \Vm\Controller {
 	
 	protected $params;
 	protected $settings;
@@ -21,12 +31,12 @@ class Suite_Controller_Tests extends Vm_Controller {
 	}
 	
 	public function load(){	
-		$topNav = new Suite_Model_TopNav($this->params, $this->settings);
-		$testSuite = new Suite_Model_Tests_Suite($this->settings);
-		$testForm = new Suite_Model_Tests_Form($this->params, $this->settings, $testSuite->getSuite());
+		$topNav = new Model\TopNav($this->params, $this->settings);
+		$testSuite = new Model\Tests\Suite($this->settings);
+		$testForm = new Model\Tests\Form($this->params, $this->settings, $testSuite->getSuite());
 		$testSuite->setForm($testForm->getForm());
 		
-		$view = new Vm_View($this->defaultPath, $this->overridePath);		
+		$view = new View($this->defaultPath, $this->overridePath);		
 		$view->setViewspace('Header');
 		$view->pageTitle = 'VM PHP Framework Test Suite';
 		$view->scripts = array(
@@ -63,7 +73,7 @@ class Suite_Controller_Tests extends Vm_Controller {
 		
 		$view->setViewspace('Footer');
 		$view->removeFilters(array('StripTags'));
-		$version = new Vm_Version();
+		$version = new Version();
 		$view->version = $version->get('version');
 		$view->copyright = $version->get('copyright');			
 		$view->loadTemplate('Footer.php');

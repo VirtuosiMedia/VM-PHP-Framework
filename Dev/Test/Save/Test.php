@@ -3,8 +3,11 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description Saves the history of an individual unit test case.
+ * @namespace Test\Save
  */
-class Test_Save_Test {
+namespace Test\Save;
+
+class Test {
 	
 	protected $file;
 	protected $includeCoverage;

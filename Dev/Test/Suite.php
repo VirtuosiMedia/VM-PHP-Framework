@@ -3,8 +3,11 @@
  * @author Virtuosi Media Inc.
  * @license MIT License
  * @description Builds a unit testing suite by scanning a given directory.
+ * @namespace Test
  */
-class Test_Suite {
+namespace Test;
+
+class Suite {
 	
 	protected $authors = array();
 	protected $coverage = array();
@@ -28,13 +31,23 @@ class Test_Suite {
 	protected $testResults = array();
 	
 	/**
-	 * @param string $rootDir - The root directory to be scanned, relative to the file calling this class, defaults to 'Vm'
-	 * @param string $testDir - The test directory to be scanned, relative to the file calling this class, defaults to 'Tests/Vm'
-	 * @param boolean $includeCoverage - optional - Whether or not to include code coverage statistics (it will run slower), defaults FALSE 
+	 * @param string $rootDir - The root directory to be scanned, relative to the file calling this class, defaults 
+	 * 		to 'Vm'
+	 * @param string $testDir - The test directory to be scanned, relative to the file calling this class, defaults 
+	 * 		to 'Tests/Vm'
+	 * @param boolean $includeCoverage - optional - Whether or not to include code coverage statistics (it will run 
+	 * 		slower), defaults FALSE 
 	 * @param boolean $includeMetrics - optional - Whether or not to include code analysis metrics, defaults FALSE
-	 * @param boolean $saveResults - optional - Whether or not to save the test results to track over time, defaults FALSE
+	 * @param boolean $saveResults - optional - Whether or not to save the test results to track over time, 
+	 * 		defaults FALSE
 	 */
-	function __construct($rootDir = '../Includes/Vm', $testDir = 'Tests/Vm', $includeCoverage = FALSE, $includeMetrics = FALSE, $saveResults = FALSE){
+	function __construct(
+		$rootDir = '../Includes/Vm', 
+		$testDir = 'Tests/Vm', 
+		$includeCoverage = FALSE, 
+		$includeMetrics = FALSE, 
+		$saveResults = FALSE
+	){
 		$this->includeCoverage = $includeCoverage;
 		$this->includeMetrics = $includeMetrics;
 		$this->saveResults = $saveResults;
@@ -42,8 +55,8 @@ class Test_Suite {
 	}
 
 	/**
-	 * Recursively scans the root directory and finds and categorizes both files and tests
-	 * This function modified from http://ca2.php.net/manual/en/function.scandir.php#88006
+	 * @description Recursively scans the root directory and finds and categorizes both files and tests
+	 * 		This function modified from http://ca2.php.net/manual/en/function.scandir.php#88006
 	 * @param string $rootDir - The root directory to be scanned, relative to the file calling this class
 	 * @param string $testDir - The test directory to be scanned, relative to the file calling this class
 	 */
@@ -58,8 +71,8 @@ class Test_Suite {
 				$resourceTest = str_replace('.php', 'Test.php', $resource);
 				if (is_file($testDir.'/'.$resourceTest)){
 					$this->numTests = $this->numTests + 1;
-	        		$testName = preg_replace('#/#', '_', $testDir);
-	        		$testName = $testName.'_'.$resourceTest;
+	        		$testName = preg_replace('#/#', '\\', $testDir);
+	        		$testName = $testName.'\\'.$resourceTest;
 	        		$testName = preg_replace('#(\.php)$#', '', $testName);
 	        		$this->testNames[] = $testName;
 	        		$this->populateTestData($testName);
@@ -75,7 +88,7 @@ class Test_Suite {
 	}
 
 	/**
-	 * Sets the list of authors whose tests should be included
+	 * @description Sets the list of authors whose tests should be included
 	 * @param array $authors - An array of test authors
 	 */
 	public function setAuthors(array $authors){
@@ -90,7 +103,7 @@ class Test_Suite {
 	}
 	
 	/**
-	 * Sets the list of authors whose tests should be excluded
+	 * @description Sets the list of authors whose tests should be excluded
 	 * @param array $authors - An array of test authors
 	 */
 	public function setExcludedAuthors(array $authors){
@@ -105,7 +118,7 @@ class Test_Suite {
 	}	
 
 	/**
-	 * Sets the list of groups for which tests should be included
+	 * @description Sets the list of groups for which tests should be included
 	 * @param array $groups - An array of test groups
 	 */
 	public function setGroups(array $groups){
@@ -120,7 +133,7 @@ class Test_Suite {
 	}
 	
 	/**
-	 * Sets the list of groups for which tests should be excluded
+	 * @description Sets the list of groups for which tests should be excluded
 	 * @param array $groups - An array of test groups
 	 */
 	public function setExcludedGroups(array $groups){
@@ -135,7 +148,7 @@ class Test_Suite {
 	}	
 
 	/**
-	 * Sets the list of subgroups for which tests should be included
+	 * @description Sets the list of subgroups for which tests should be included
 	 * @param array $subgroups - An array of test subgroups
 	 */
 	public function setSubgroups(array $subgroups){
@@ -150,7 +163,7 @@ class Test_Suite {
 	}
 	
 	/**
-	 * Sets the list of subgroups for which tests should be excluded
+	 * @description Sets the list of subgroups for which tests should be excluded
 	 * @param array $subgroups - An array of test subgroups
 	 */
 	public function setExcludedSubgroups(array $subgroups){
@@ -165,7 +178,7 @@ class Test_Suite {
 	}	
 	
 	/**
-	 * Gets the files that have a unit test associated to them
+	 * @description Gets the files that have a unit test associated to them
 	 * @return array - Unit tested file names
 	 */
 	public function getTestedFiles(){
@@ -173,7 +186,7 @@ class Test_Suite {
 	}
 
 	/**
-	 * Gets the files that do not have a unit test associated to them
+	 * @description Gets the files that do not have a unit test associated to them
 	 * @return array - Non-unit tested file names
 	 */
 	public function getUntestedFiles(){
@@ -181,15 +194,16 @@ class Test_Suite {
 	}
 	
 	/**
-	 * Gets the metadata for all tests
-	 * @return array - A multi-dimensional array: array(testName=>array(author=>authorName, group=>groupName, subgroup=>subgroupName, description=>description))
+	 * @description Gets the metadata for all tests
+	 * @return array - A multi-dimensional array: array(testName=>array(author=>authorName, group=>groupName, 
+	 * 		subgroup=>subgroupName, description=>description))
 	 */
 	public function getTestData(){
 		return $this->testData;
 	}	
 
 	/**
-	 * Gets the tested class names and number of methods for for all tests
+	 * @description Gets the tested class names and number of methods for for all tests
 	 * @return array - A multi-dimensional array: array(testName=>array(name=>className, numMethods=>int))
 	 */	
 	public function getTestedClasses(){
@@ -197,7 +211,7 @@ class Test_Suite {
 	}
 
 	/**
-	 * Gets the coverage for each test
+	 * @description Gets the coverage for each test
 	 * @return array - A multi-dimensional array
 	 */
 	public function getCoverage(){
@@ -205,7 +219,7 @@ class Test_Suite {
 	}
 	
 	/**
-	 * Runs a test and logs its results
+	 * @description Runs a test and logs its results
 	 * @param string $testName - The name of the test to be run
 	 */
 	protected function runTest($testName){
@@ -214,11 +228,14 @@ class Test_Suite {
 		
 		$this->coverage[$testName] = $test->getCoverage();	
 		$this->testResults[$testName] = $test->getResults();
-		$this->testedClasses[$testName] = array('name'=>$test->getTestedClassName(), 'numMethods'=>$test->getNumMethodsTestedClass()); 
+		$this->testedClasses[$testName] = array(
+			'name'=>$test->getTestedClassName(), 
+			'numMethods'=>$test->getNumMethodsTestedClass()
+		); 
 	}
 	
 	/**
-	 * Runs all tests in indicated directory
+	 * @description Runs all tests in indicated directory
 	 */
 	public function runAllTests(){
 		foreach ($this->testNames as $testName){
@@ -229,11 +246,11 @@ class Test_Suite {
 	}
 
 	/**
-	 * Retrieves test meta data from the test class
+	 * @description Retrieves test meta data from the test class
 	 * @param string $testName - The name of the test to be run
 	 */
 	protected function populateTestData($testName){
-		$testClass = new ReflectionClass($testName);
+		$testClass = new \ReflectionClass($testName);
 		$testData = $testClass->getDocComment();
 		$testData = explode('*', $testData);
 		$this->testData[$testName] = array();
@@ -274,7 +291,7 @@ class Test_Suite {
 	}
 	
 	/**
-	 * Determines whether or not a test should be run
+	 * @description Determines whether or not a test should be run
 	 * @param string $testName - The name of the test to be run
 	 * @return boolean - TRUE if the test should be run, FALSE otherwise
 	 */

@@ -1,13 +1,16 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A unit test that tests if x is not equal to y with type comparison, fails if they are equal.
-*/
-class Test_Assert_NotEqualStrict extends Test_Assert {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A unit test that tests if x is not equal to y with type comparison, fails if they are equal.
+ * @namespace Test\Assert
+ */
+namespace Test\Assert;
+
+class NotEqualStrict extends \Test\Assert {
 	
 	/**
-	 * Tests if x is not equal to y with type comparison, fails if they are equal
+	 * @description Tests if x is not equal to y with type comparison, fails if they are equal
 	 * @param mixed $x - The first parameter
 	 * @param mixed $y - The second parameter
 	 */
@@ -18,4 +21,3 @@ class Test_Assert_NotEqualStrict extends Test_Assert {
 		}			
 	}	
 }
-?>

@@ -1,11 +1,14 @@
 <?php
 /**
-* @author Virtuosi Media Inc.
-* @license: MIT License
-* Description: A basic XML class that simply returns the passed in parameters in XML tag format
-* Requirements: PHP 5.2 or higher
-*/
-class Vm_Xml {
+ * @author Virtuosi Media Inc.
+ * @license MIT License
+ * @description A basic XML class that simply returns the passed in parameters in XML tag format
+ * @requirements PHP 5.2 or higher
+ * @namespace Vm
+ */
+namespace Vm;
+
+class Xml {
 
 	protected $lowercase;
 	
@@ -35,10 +38,11 @@ class Vm_Xml {
 	/** 
 	 * @param string $tagName - The name of the tag to be created
 	 * @param array $attributes - optional - An array of each attribute/value pair for the tag, with the attribute name 
-	 *	as the array key, its value as the array value. NOTE: The array key of 'innerHTML' has special meaning: It is the
-	 *	actual content of the tag, including any child tags or text, and will only be applied to non-self-closing tags
+	 * 		as the array key, its value as the array value. NOTE: The array key of 'innerHTML' has special meaning: It 
+	 * 		is the actual content of the tag, including any child tags or text, and will only be applied to 
+	 * 		non-self-closing tags
 	 * @param boolean $selfClosing - TRUE means no closing tag will be added, FALSE means a closing tag will be added
-	 * 	Defaults to FALSE
+	 * 		Defaults to FALSE
 	 */
 	public function createTag($tagName, array $attributes = array(), $selfClosing = FALSE){
 		$tag = "<$tagName";
@@ -67,7 +71,7 @@ class Vm_Xml {
 	/**
 	 * @param string $tagName - The name of the opening tag to be created
 	 * @param array $attributes - optional - An array of each attribute/value pair for the tag, with the attribute name 
-	 *	as the array key, its value as the array value.	Note: innerHtml is ignored
+	 * 		as the array key, its value as the array value.	Note: innerHtml is ignored
 	 */
 	public function startTag($tagName, array $attributes = array()){
 		$tag = "<$tagName";
