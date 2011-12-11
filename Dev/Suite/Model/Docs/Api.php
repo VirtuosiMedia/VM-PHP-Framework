@@ -124,6 +124,7 @@ class Api extends \Vm\Model {
 		$docs = explode('@', trim(str_replace('@', '@^%', str_replace('*', '', str_replace('/**', '', $comments)))));
 		$docsData = array();
 		$tags = array(
+			'Attribution'=>'@attribution',
 			'Author'=>'@author',
 			'Copyright'=>'@copyright',
 			'Deprecated'=>'@deprecated',
