@@ -7,8 +7,11 @@
  * 		is for use with a MySQL	PDO driver.
  * @requires A database connection script that uses the MySQL PDO extension
  * @namespace Vm\Db\MySql
+ * @uses Vm\Db\Exception
  */
 namespace Vm\Db\MySql;
+
+use \Vm\Db\Exception;
 
 class Dml {
 
@@ -40,7 +43,7 @@ class Dml {
 	 * @param $prefix - optional - A prefix for the table
 	 * @return The object for chaining 
 	 */
-	function __construct(PDO $db, $table, array $fields, $schema, $prefix = NULL){
+	function __construct(\PDO $db, $table, array $fields, $schema, $prefix = NULL){
 		$this->db = $db;
 		$this->prefix = $prefix;
 		$this->tablePrefix = ($prefix) ? $prefix.$table : $table;
@@ -71,7 +74,7 @@ class Dml {
 			$exception = 'The "'.$key.'" column is not detected for the "'.$this->table.'" table and cannot be assigned 
 				a value. Please verify that "'.$key.'" exists as both a column in your database and as a field in your
 				database class for this table.';
-			throw new Vm_Db_Exception($exception);
+			throw new Exception($exception);
 		}
 	}
 	
@@ -167,7 +170,7 @@ class Dml {
 				$this->joins[] = " FULL JOIN $joinName AS $joinAlias ON $expr";
 				break;
 			default:
-				throw new Vm_Db_Exception("'$joinType' is not a supported join type.");
+				throw new Exception("'$joinType' is not a supported join type.");
 		}
 		return $this;
 	}
@@ -251,7 +254,7 @@ class Dml {
 	 */
 	public function limit($limit) {
 		if (!is_int($limit)){
-			throw new Vm_Db_Exception('Limit must be an integer');
+			throw new Exception('Limit must be an integer');
 		}
 		$this->limit = ($limit != 0) ? $limit : NULL;
 		return $this;
@@ -263,14 +266,14 @@ class Dml {
 	 */
 	public function offset($offset) {
 		if (!is_int($offset)){
-			throw new Vm_Db_Exception('Offset must be an integer');
+			throw new Exception('Offset must be an integer');
 		}
 		$this->offset = ($offset != 0) ? $offset : NULL;
 		return $this;
 	}
 
 	/**
-	 * @attribution Credit for the ranking formula: Ryan Campbell http://particletree.com/notebook/ranked-searches-with-sql/
+	 * @attribution Credit for the ranking formula: <a href="http://particletree.com/notebook/ranked-searches-with-sql/">Ryan Campbell</a> 
 	 * @param array $columns - The columns to be searched
 	 * @param array $terms - The terms to be searched for as an array of strings. Note: Wildcard characters may be included (%, _)
 	 * @param array $excludedTerms - optional - The terms to be excluded as an array of strings. Note: Wildcard characters may be included (%, _)
@@ -545,7 +548,7 @@ class Dml {
 					$valueTypes['array'] = TRUE;
 				}
 				if ($valueTypes['single']) {
-					throw new Vm_Db_Exception('Insert values must be either arrays of the same length or a single value');
+					throw new Exception('Insert values must be either arrays of the same length or a single value');
 				}	
 				$i = 0;
 				foreach ($value as $inputValue){
@@ -558,7 +561,7 @@ class Dml {
 					$valueTypes['single'] = TRUE;
 				}
 				if ($valueTypes['array']) {
-					throw new Vm_Db_Exception('Insert values must be either arrays of the same length or a single value');
+					throw new Exception('Insert values must be either arrays of the same length or a single value');
 				}
 				$params[0][] = '?';
 				$values[0][] = $value;
@@ -575,7 +578,7 @@ class Dml {
 		$boundValues = array();
 		foreach ($values as $value){
 			if (sizeof($value) != $numValues){
-				throw new Vm_Db_Exception('Insert values must be either arrays of the same length or a single value');
+				throw new Exception('Insert values must be either arrays of the same length or a single value');
 			}
 			foreach ($value as $boundValue){
 				$boundValues[] = $boundValue;
