@@ -62,28 +62,30 @@ class Suite {
 	 */
 	protected function scanDirectory($rootDir, $testDir){
 	    $dirs = array_diff(scandir($rootDir), array(".", ".."));
-	    $testDirs = array_diff(scandir($testDir), array(".", ".."));
-	    $dirArray = array();
-	    foreach($dirs as $resource){
-	        if (is_dir($rootDir."/".$resource)) {
-	        	$this->scanDirectory($rootDir."/".$resource, $testDir."/".$resource);
-	        } else if (substr(strrchr($resource, '.'), 1) == 'php'){
-				$resourceTest = str_replace('.php', 'Test.php', $resource);
-				if (is_file($testDir.'/'.$resourceTest)){
-					$this->numTests = $this->numTests + 1;
-	        		$testName = preg_replace('#/#', '\\', $testDir);
-	        		$testName = $testName.'\\'.$resourceTest;
-	        		$testName = preg_replace('#(\.php)$#', '', $testName);
-	        		$this->testNames[] = $testName;
-	        		$this->populateTestData($testName);
-	        		$tested = preg_replace('#(Test.php)$#', '.php', $resource);
-	        		$this->testedFileNames[] = $rootDir.'/'.$tested;
-	        		$this->numFiles = $this->numFiles + 1;
-	        	} else if (preg_match('#(\.php)$#', $resource)){ //Unit tests won't exist for non-php files
-	        		$this->fileNames[] = $rootDir.'/'.$resource;
-	        		$this->numFiles = $this->numFiles + 1;
-	        	}
-	        }
+	    if (is_dir($testDir)){
+		    $testDirs = array_diff(scandir($testDir), array(".", ".."));
+		    $dirArray = array();
+		    foreach($dirs as $resource){
+		        if (is_dir($rootDir."/".$resource)) {
+		        	$this->scanDirectory($rootDir."/".$resource, $testDir."/".$resource);
+		        } else if (substr(strrchr($resource, '.'), 1) == 'php'){
+					$resourceTest = str_replace('.php', 'Test.php', $resource);
+					if (is_file($testDir.'/'.$resourceTest)){
+						$this->numTests = $this->numTests + 1;
+		        		$testName = preg_replace('#/#', '\\', $testDir);
+		        		$testName = $testName.'\\'.$resourceTest;
+		        		$testName = preg_replace('#(\.php)$#', '', $testName);
+		        		$this->testNames[] = $testName;
+		        		$this->populateTestData($testName);
+		        		$tested = preg_replace('#(Test.php)$#', '.php', $resource);
+		        		$this->testedFileNames[] = $rootDir.'/'.$tested;
+		        		$this->numFiles = $this->numFiles + 1;
+		        	} else if (preg_match('#(\.php)$#', $resource)){ //Unit tests won't exist for non-php files
+		        		$this->fileNames[] = $rootDir.'/'.$resource;
+		        		$this->numFiles = $this->numFiles + 1;
+		        	}
+		        }
+		    }
 	    }
 	}
 
