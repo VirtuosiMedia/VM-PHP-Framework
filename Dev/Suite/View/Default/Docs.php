@@ -25,7 +25,7 @@
 					<?php foreach ($this->$app as $columns):?>
 						<div class="column">
 						<?php foreach ($columns as $namespace=>$classes):?>
-							<h4><?php echo $namespace;?></h4>
+							<h4><a class="namespaces" href="index.php?p=docs&amp;n=<?php echo $namespace;?>"><?php echo $namespace;?></a></h4>
 							<ul>
 							<?php foreach ($classes as $class):?>
 								<li><a href="<?php echo $class['url']; ?>"><?php echo $class['name']?></a></li>	
@@ -57,7 +57,7 @@
 			<?php foreach ($this->Vm as $columns):?>
 				<div class="column">
 				<?php foreach ($columns as $namespace=>$classes):?>
-					<h4><?php echo $namespace;?></h4>
+					<h4><a class="namespaces" href="index.php?p=docs&amp;n=<?php echo $namespace;?>"><?php echo $namespace;?></a></h4>
 					<ul>
 					<?php foreach ($classes as $class):?>
 						<li><a href="<?php echo $class['url']; ?>"><?php echo $class['name']?></a></li>	
