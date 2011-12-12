@@ -152,7 +152,7 @@ class Dml {
 	 * @param string $tableAlias - optional - The alias of the joined table. If not set, alias defaults to the table name
 	 * @return The object for chaining
 	 */
-	public function addJoin($joinType, $table, $column, $operator, $value, $tableAlias=NULL){
+	public function join($joinType, $table, $column, $operator, $value, $tableAlias=NULL){
 		$joinAlias = ($tableAlias) ? $tableAlias : $table;
 		$joinName = ($this->prefix) ? $this->prefix.$table : $table;
 		$expr = "$column $operator $value";	
@@ -175,6 +175,66 @@ class Dml {
 		return $this;
 	}
 
+	/**
+	 * @description A convenience method for creating left joins. Joins will be added to the join array and processed 
+	 * 		in their array order and use the ON syntax rather than USING. Optional for query build.
+	 * @param string $table - The name of the table to be joined with the current table
+	 * @param string $column - The column(s) to be compared to the value
+	 * @param string $operator - The operator to be used in the comparison
+	 * @param string $value - The value to which $column is compared
+	 * @param string $tableAlias - optional - The alias of the joined table. If not set, alias defaults to the table name
+	 * @return The object for chaining
+	 */	
+	public function leftJoin($table, $column, $operator, $value, $tableAlias=NULL){
+		$this->join('left', $table, $column, $operator, $value, $tableAlias);
+		return $this;
+	}
+
+	/**
+	 * @description A convenience method for creating inner joins. Joins will be added to the join array and processed
+	 * 		in their array order and use the ON syntax rather than USING. Optional for query build.
+	 * @param string $table - The name of the table to be joined with the current table
+	 * @param string $column - The column(s) to be compared to the value
+	 * @param string $operator - The operator to be used in the comparison
+	 * @param string $value - The value to which $column is compared
+	 * @param string $tableAlias - optional - The alias of the joined table. If not set, alias defaults to the table name
+	 * @return The object for chaining
+	 */
+	public function innerJoin($table, $column, $operator, $value, $tableAlias=NULL){
+		$this->join('inner', $table, $column, $operator, $value, $tableAlias);
+		return $this;
+	}	
+
+	/**
+	 * @description A convenience method for creating full joins. Joins will be added to the join array and processed
+	 * 		in their array order and use the ON syntax rather than USING. Optional for query build.
+	 * @param string $table - The name of the table to be joined with the current table
+	 * @param string $column - The column(s) to be compared to the value
+	 * @param string $operator - The operator to be used in the comparison
+	 * @param string $value - The value to which $column is compared
+	 * @param string $tableAlias - optional - The alias of the joined table. If not set, alias defaults to the table name
+	 * @return The object for chaining
+	 */
+	public function fullJoin($table, $column, $operator, $value, $tableAlias=NULL){
+		$this->join('full', $table, $column, $operator, $value, $tableAlias);
+		return $this;
+	}
+	
+	/**
+	 * @description A convenience method for creating right joins. Joins will be added to the join array and processed
+	 * 		in their array order and use the ON syntax rather than USING. Optional for query build.
+	 * @param string $table - The name of the table to be joined with the current table
+	 * @param string $column - The column(s) to be compared to the value
+	 * @param string $operator - The operator to be used in the comparison
+	 * @param string $value - The value to which $column is compared
+	 * @param string $tableAlias - optional - The alias of the joined table. If not set, alias defaults to the table name
+	 * @return The object for chaining
+	 */
+	public function rightJoin($table, $column, $operator, $value, $tableAlias=NULL){
+		$this->join('right', $table, $column, $operator, $value, $tableAlias);
+		return $this;
+	}	
+	
 	/**
 	 * @description Creates a where clause.  Optional for query build.
 	 * @param string $column - The column(s) to be compared to the value
