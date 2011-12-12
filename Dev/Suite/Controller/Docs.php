@@ -37,7 +37,12 @@ class Docs extends \Vm\Controller {
 			$subController = new Docs\File($this->params, $this->settings);
 			$subController->setViewPath('Suite/View/Default/', $this->settings['overridePath']);
 			$subController->load();
-			$this->setView($subController->render());			
+			$this->setView($subController->render());
+		} else if (isset($this->params['n'])){
+			$subController = new Docs\Namespaces($this->params, $this->settings);
+			$subController->setViewPath('Suite/View/Default/', $this->settings['overridePath']);
+			$subController->load();
+			$this->setView($subController->render());					
 		} else {
 			$topNav = new Model\TopNav($this->params, $this->settings);
 			$main = new Model\Docs($this->params, $this->settings);
