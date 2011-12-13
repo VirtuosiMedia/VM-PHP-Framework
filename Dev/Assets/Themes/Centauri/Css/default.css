@@ -145,6 +145,10 @@ body {
 	padding:20px;
 	width:660px;
 }
+.content {
+	padding:30px;
+	width:640px;
+}
 .tabContent, .testContent {
 	border-radius:0px 0px 6px 6px;
 }
