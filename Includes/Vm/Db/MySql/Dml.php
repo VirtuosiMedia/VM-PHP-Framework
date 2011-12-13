@@ -444,6 +444,24 @@ class Dml {
 	} 
 
 	/**
+	 * @description Gets the PDO bound parameter data type.
+	 * @param mixed $value - The bound value
+	 * @return Returns the PDO bound parameter data type constant. If the value's data type is not a null, a bool, or a 
+	 * 		an int, the data type will be returned as a string.
+	 */
+	protected function getBoundType($value) {
+		if (is_null($value)) {
+			return \PDO::PARAM_NULL;
+		} else if (is_bool($value)) {
+			return \PDO::PARAM_BOOL;
+		} else if (is_int($value)) {
+			return \PDO::PARAM_INT;
+		} else {
+			return \PDO::PARAM_STR;
+		}		
+	}
+	
+	/**
 	 * @description Compiles the given data into a select query and returns a result set based on the query
 	 * @param string (optional) $mode - 
 	 * If set to 'single', returns a single result set which may be accessed through magic methods.
@@ -538,9 +556,9 @@ class Dml {
 		}
 		$result = $this->db->prepare($query);
 		
-		if ((is_array($this->boundValues))&&(!in_array($mode, array('subquery', 'union')))){
+		if ((is_array($this->boundValues))&&(!in_array($mode, array('subquery', 'union')))) {
 			foreach ($this->boundValues as $name=>$value) {
-				$result->bindValue($name, $value);
+				$result->bindValue($name, null, $this->getBoundType($value));
 			}
 		}
 		
@@ -658,7 +676,7 @@ class Dml {
 			$i = 0;
 			foreach ($boundValues as $value){
 				$boundValues[$i] = $boundValues[$i];
-				$result->bindValue(($i+1), $boundValues[$i]);
+				$result->bindValue(($i+1), $boundValues[$i], $this->getBoundType($value));
 				$i++;
 			}
 			$result->execute();
@@ -706,7 +724,7 @@ class Dml {
 			$i = 0;
 			foreach ($boundValues as $value){
 				$boundValues[$i] = $boundValues[$i];
-				$result->bindValue($i+1, $boundValues[$i]);
+				$result->bindValue($i+1, $boundValues[$i], $this->getBoundType($value));
 				$i++;
 			}
 			$result->execute();
@@ -728,7 +746,7 @@ class Dml {
 			return preg_replace($this->patterns, $this->getSpacedBoundValues(), $result->queryString, 1);
 		} else {
 			foreach ($this->boundValues as $name=>$value) {
-				$result->bindValue($name, $value);
+				$result->bindValue($name, null, $this->getBoundType($value));
 			}
 			$result->execute();
 			return $result->rowCount();
