@@ -70,7 +70,7 @@ class Api extends \Vm\Model {
 		$files = $folder->getFiles(TRUE, 'php');
 		
 		foreach ($files as $path=>$file){
-			$name = str_replace('/', '_', str_replace('../Includes/', '', str_replace('.php', '', $path)));
+			$name = str_replace('/', '\\', str_replace('../Includes/', '', str_replace('.php', '', $path)));
 			$this->appClasses[] = $name;
 		}
 	}
@@ -81,13 +81,32 @@ class Api extends \Vm\Model {
 	 */
 	protected function getClassLink($class){
 		if (in_array($class, $this->phpClasses)){
-			return '<a href="http://php.net/manual/en/class.'.strtolower(str_replace('_', '-', $class)).'.php" target="_blank">'.$class.'</a> (external link)';
+			return '<a href="http://php.net/manual/en/class.'.strtolower(str_replace('_', '-', $class)).
+				'.php" target="_blank">'.$class.'</a> (external link)';
 		} else if (in_array($class, $this->appClasses)){
 			return '<a href="index.php?p=docs&amp;f='.$class.'">'.$class.'</a>';
 		} else {
 			return 'See Parent Class';
 		}
 	}
+
+	/**
+	 * @param string $namespace - The name of the namespace
+	 * @return string - A link to the namespace documentation, if it can be found
+	 */
+	protected function getNamespaceLink($namespace){
+		$namespaceLink = '<i class="noValue">Namespace not detected.</i>';
+	
+		if (!empty($namespace)){
+			$includes = '..'.DIRECTORY_SEPARATOR.'Includes'.DIRECTORY_SEPARATOR;
+			if (is_dir($includes.str_replace('\\', DIRECTORY_SEPARATOR, trim($namespace)))){
+				$namespaceLink = '<a href="index.php?p=docs&amp;n='.$namespace.'">'.$namespace.'</a>';
+			} else {
+				$namespaceLink = '<i class="failText">Namespace ('.$namespace.') is not a valid directory.</i>';
+			}
+		} 
+		return $namespaceLink;	
+	}	
 	
 	protected function compileData(){
 		$fileParts = explode('_', str_replace('/', '', str_replace('.', '', $this->params['f'])));
@@ -153,16 +172,19 @@ class Api extends \Vm\Model {
 			$data = trim(str_replace('^%', '@', $data));
 			if (strpos($data, '@description') !== FALSE){
 				$data = rtrim(trim(str_replace('@description', '', $data)), '/');
-				$docsData['Description'] = (!empty($data))? $data : '<i class="noValue">No description given.</i>';
+				$docsData['Description'] = (!empty($data)) ? $data : '<i class="noValue">No description given.</i>';
 			} else if (strpos($data, '@example') !== FALSE){
 				$data = rtrim(trim(str_replace('@example', '', $data)), '/');
-				$docsData['Example'] = (!empty($data))? $data : '<i class="noValue">No example given.</i>';
+				$docsData['Example'] = (!empty($data)) ? $data : '<i class="noValue">No example given.</i>';
 			} else if (strpos($data, '@note') !== FALSE){
 				$data = rtrim(trim(str_replace('@note', '', $data)), '/');
-				$docsData['Note'][] = (!empty($data))? $data : '<i class="noValue">No note given.</i>';
+				$docsData['Note'][] = (!empty($data)) ? $data : '<i class="noValue">No note given.</i>';
 			} else if (strpos($data, '@security') !== FALSE){
 				$data = rtrim(trim(str_replace('@security', '', $data)), '/');
-				$docsData['Security'][] = (!empty($data))? $data : '<i class="noValue">No security notice given.</i>';				
+				$docsData['Security'][] = (!empty($data)) ? $data : '<i class="noValue">No security notice given.</i>';
+			} else if (strpos($data, '@namespace') !== FALSE){
+				$data = rtrim(trim(str_replace('@namespace', '', $data)), '/');
+				$docsData['Namespace'][] = $this->getNamespaceLink($data);
 			} else {
 				foreach ($tags as $name=>$tag){
 					if (strpos($data, $tag) !== FALSE){
@@ -170,6 +192,7 @@ class Api extends \Vm\Model {
 						$docsData[$name][] = (!empty($data))? $data : '<i class="noValue">Unspecified</i>';
 					} 
 				}
+				
 				foreach ($classTags as $name=>$tag){
 					if (strpos($data, $tag) !== FALSE){
 						$data = rtrim(trim(str_replace('/', '', str_replace($tag, '', $data))), '/');
@@ -197,7 +220,9 @@ class Api extends \Vm\Model {
 			$params = array();
 			foreach ($args as $arg){
 				$paramName = '$'.$arg->getName(); 
-				$params[] = ($arg->isOptional()) ? '<span class="tips" title="This parameter is optional">['.$paramName.']</span>' : $paramName;
+				$params[] = ($arg->isOptional()) 
+					? '<span class="tips" title="This parameter is optional">['.$paramName.']</span>' 
+					: $paramName;
 			}
 			$params = (sizeof($params) == 0) ? array('<i class="noValue">No Parameters</i>') : $params;
 			$names[$method->getName()] = implode(', ', $params);
@@ -230,8 +255,8 @@ class Api extends \Vm\Model {
 		$class = $method->getDeclaringClass()->getName();
 		if ($class != $this->class->getName()){
 			if (in_array($class, $this->phpClasses)){
-				$comments['Defined'][0] = '<a href="http://php.net/manual/en/class.'.strtolower(str_replace('_', '-', $class))
-					.'.php" target="_blank">'.$class.'</a> (external link)';
+				$comments['Defined'][0] = '<a href="http://php.net/manual/en/class.'
+					.strtolower(str_replace('_', '-', $class)).'.php" target="_blank">'.$class.'</a> (external link)';
 			} else if (in_array($class, $this->appClasses)){
 				$comments['Defined'][0] = '<a href="index.php?p=docs&amp;f='.$class.
 					'#source">Line '.$method->getStartLine().' of '.$class.'</a>';
