@@ -25,6 +25,10 @@ class Dml {
 	protected $limit = NULL;
 	protected $numBoundValues = 0;
 	protected $offset = NULL;
+	protected $operators = array(
+		'=', '!=', '<>', '>', '<', '>=', '<=', '!<', '!>',
+		'ALL', 'AND', 'ANY', 'BETWEEN', 'EXISTS', 'IN', 'LIKE', 'NOT', 'OR', 'IS NULL', 'UNIQUE' 
+	);
 	protected $orderBy = NULL;
 	protected $patterns = array();
 	protected $prefix;	
@@ -247,6 +251,10 @@ class Dml {
 	 * @return The object for chaining
 	 */
 	public function where($column, $operator, $value, $antecedent=NULL, $paren=NULL, $caseSensitive = TRUE, $bind = TRUE){
+		if (!in_array($operator, $this->operators)) {
+			throw new Exception('"'.$operator.'" is not a supported operator.');
+		}
+		
 		$value = ($bind) ? $this->addBoundValue($value) : $value;
 		$value = (is_array($value)) ? '( '.implode(', ', $value).')' : $value;
 		$operator = ($caseSensitive) ? $operator : 'COLLATE UTF8_GENERAL_CI '.$operator;
@@ -287,6 +295,10 @@ class Dml {
 	 * @return The object for chaining 
 	 */
 	public function having($column, $operator, $value, $antecedent=NULL, $function=NULL) {
+		if (!in_array($operator, $this->operators)) {
+			throw new Exception('"'.$operator.'" is not a supported operator.');
+		}
+		
 		$column = $this->addBoundValue($column);
 		$column = ($function) ? "$function( $column)" : $column;
 		$value = $this->addBoundValue($value);
