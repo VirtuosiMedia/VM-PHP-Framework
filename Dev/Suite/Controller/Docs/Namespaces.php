@@ -30,6 +30,7 @@ class Namespaces extends \Vm\Controller {
 	
 	public function load(){
 		$topNav = new Model\TopNav($this->params, $this->settings);
+		$breadcrumb = new Model\Docs\Breadcrumb($this->params, $this->settings);
 		$namespaces = new Model\Docs\Namespaces($this->params, $this->settings);
 		$view = new View($this->defaultPath, $this->overridePath);
 				
@@ -48,6 +49,7 @@ class Namespaces extends \Vm\Controller {
 		
 		$view->setViewspace('Body');
 		$view->removeFilters(array('StripTags'));
+		$view->map($breadcrumb->getViewData());
 		$view->map($namespaces->getViewData());
 		$view->loadTemplate('Docs/Namespaces.php');
 		$view->loadTemplate('Footer.php');

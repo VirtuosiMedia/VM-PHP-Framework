@@ -1,5 +1,14 @@
 <div class="contentContainer firstContentContainer">
-	<ul id="docsTab" class="tabMenu firstTabMenu">
+	<?php if ($this->breadcrumbExists):?>
+		<ul id="breadcrumb" class="breadcrumbTab">
+			<li class="breadcrumbLi"><a href="index.php?p=docs">Docs</a></li>
+			<?php foreach ($this->breadcrumbLinks as $name=>$link):?>
+				<li class="breadcrumbLi"><a href="<?php echo $link;?>"><?php echo $name; ?></a></li>
+			<?php endforeach;?>
+			<li><?php echo $this->breadcrumbTitle;?></li>
+		</ul>
+	<?php endif;?>
+	<ul id="docsTab" class="tabBar firstTabMenu">
 		<?php foreach ($this->tabs as $tab):?>
 			<li>
 				<a class="<?php echo $tab['class']; ?>" href="<?php echo $tab['hash']; ?>"><?php echo $tab['name']?></a>

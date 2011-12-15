@@ -30,6 +30,7 @@ class Tutorial extends \Vm\Controller {
 	
 	public function load(){
 		$topNav = new Model\TopNav($this->params, $this->settings);
+		$breadcrumb = new Model\Docs\Breadcrumb($this->params, $this->settings);
 		$tutorial = new Model\Docs\Tutorial($this->params, $this->settings);
 		$view = new View($this->defaultPath, $this->overridePath);
 				
@@ -52,6 +53,7 @@ class Tutorial extends \Vm\Controller {
 		
 		$view->setViewspace('Body');
 		$view->removeFilters(array('StripTags'));
+		$view->map($breadcrumb->getViewData());
 		$view->map($tutorial->getViewData());
 		$view->loadTemplate('Docs/Tutorial.php');
 		$view->loadTemplate('Footer.php');

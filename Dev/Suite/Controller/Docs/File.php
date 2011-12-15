@@ -30,6 +30,7 @@ class File extends \Vm\Controller {
 	
 	public function load(){
 		$topNav = new Model\TopNav($this->params, $this->settings);
+		$breadcrumb = new Model\Docs\Breadcrumb($this->params, $this->settings);
 		$tabs = new Model\Docs\Tabs($this->params, $this->settings);
 		$tutorial = new Model\Docs\Tutorial($this->params, $this->settings);
 		$api = new Model\Docs\Api($this->params, $this->settings);
@@ -57,6 +58,7 @@ class File extends \Vm\Controller {
 		
 		$view->setViewspace('Body');
 		$view->fileName = $fileName;
+		$view->map($breadcrumb->getViewData());
 		$view->map($tabs->getViewData());
 		$view->map($code->getViewData());
 		$view->removeFilters(array('StripTags'));
