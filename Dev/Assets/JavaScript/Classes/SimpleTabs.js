@@ -1,13 +1,12 @@
 /**
-* @author Virtuosi Media
-* @link http://www.virtuosimedia.com
-* @version 1.0
-* @copyright Copyright (c) 2010, Virtuosi Media
-* @License: MIT License
-* Description: A simple tabs class
-* Documentation: http://www.virtuosimedia.com
-* Requirements: MooTools 1.2 Core - See http://mootools.net
-*/
+ * @author Virtuosi Media
+ * @link http://www.virtuosimedia.com
+ * @version 1.0
+ * @copyright Copyright (c) 2010, Virtuosi Media
+ * @license MIT License
+ * @description A simple tabs class
+ * @requirements: MooTools 1.4+ Core - See http://mootools.net
+ */
 var SimpleTabs = new Class({
 
 	Implements: [Events, Options],
