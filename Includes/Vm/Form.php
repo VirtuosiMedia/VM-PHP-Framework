@@ -13,6 +13,7 @@
  */
 namespace Vm;
 
+use Vm\Form\Exception;
 use Vm\Xml;
 
 class Form extends Validate {
@@ -51,6 +52,8 @@ class Form extends Validate {
 	 * @param array $options - optional - Sets the options for the class
 	 */	
 	function __construct(array $formAttributes = array(), $options = NULL){
+		$this->xml = new Xml();
+		
 		//The default action should be the current page
 		if (!isset($formAttributes['action'])){
 			$this->formAttributes['action'] = htmlentities($_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']);
@@ -135,7 +138,7 @@ class Form extends Validate {
 			$attributesArray['name'] .= '[]';
 		}
 						
-		return Xml::createTag($tagName, $attributesArray, $selfClosing)."\n";		
+		return $this->xml->createTag($tagName, $attributesArray, $selfClosing)."\n";		
 	}
 
 	/**
@@ -161,9 +164,9 @@ class Form extends Validate {
 						$labelArray['class'] = $this->options['labelErrorClass'];
 					}
 				}
-				$label = Xml::createTag('label', $labelArray)."\n";
+				$label = $this->xml->createTag('label', $labelArray)."\n";
 			} else {
-				throw new Vm\Form\Exception("The value of the 'label' key for '$fieldName' must be an array, with each 
+				throw new Exception("The value of the 'label' key for '$fieldName' must be an array, with each 
 						array key as the attribute name and the value as the attribute value.");			
 			}			
 		} 
@@ -189,14 +192,14 @@ class Form extends Validate {
 						'class'=>$this->options['errorListItemClass'], 
 						'innerHtml'=>$error
 					);
-					$errors .= Xml::createTag('li', $errorAttributes)."\n";
+					$errors .= $this->xml->createTag('li', $errorAttributes)."\n";
 				}
 				$errorListAttributes = array(
 					'id'=>$fieldName.'ErrorList', 
 					'class'=>$this->options['errorListClass'], 
 					'innerHtml'=>$errors
 				);
-				$errorList = Xml::createTag('ul', $errorListAttributes)."\n";
+				$errorList = $this->xml->createTag('ul', $errorListAttributes)."\n";
 			} 
 		}
 		return $errorList;
@@ -222,21 +225,21 @@ class Form extends Validate {
 						if (in_array($optValue, $selected)){ 
 							$optionAttributes['selected'] = 'selected';
 						}							
-						$optGroup .= Xml::createTag('option', $optionAttributes)."\n";
+						$optGroup .= $this->xml->createTag('option', $optionAttributes)."\n";
 					}
 					$optGroupAttributes = array('label'=>$key, 'innerHtml'=>$optGroup);
-					$options .= Xml::createTag('optgroup', $optGroupAttributes)."\n";
+					$options .= $this->xml->createTag('optgroup', $optGroupAttributes)."\n";
 				} else { //No optgroup is present
 					$optionAttributes = array('value'=>$key, 'innerHtml'=>$value);
 					if ((($input == $key) || ((is_array($input)) && (in_array($key, $input)))) && (!empty($input))||(in_array($key, $selected))){ 
 						$optionAttributes['selected'] = 'selected';
 					}
-					$options .= Xml::createTag('option', $optionAttributes)."\n";
+					$options .= $this->xml->createTag('option', $optionAttributes)."\n";
 				}
 			}
 			return $options;
 		} else {
-			throw new Vm\Form\Exception("The '$fieldName' select box must have an array key entitled 'selectOptions' 
+			throw new Exception("The '$fieldName' select box must have an array key entitled 'selectOptions' 
 				and its value must be an array.");
 		}
 	}
@@ -252,7 +255,7 @@ class Form extends Validate {
 		$render = ($labelPos == 'beforeInput') ? $label.$formElement : $formElement.$label;		
 		if (($wrapperElement) && ($wrapperAttributes)){
 			$wrapperAttributes['innerHtml'] = $render;
-			$render = Xml::createTag($wrapperElement, $wrapperAttributes)."\n";
+			$render = $this->xml->createTag($wrapperElement, $wrapperAttributes)."\n";
 		}
 		
 		if ($this->options['errorPosition'] != 'beforeForm'){				
@@ -281,7 +284,7 @@ class Form extends Validate {
 					$params = array_unshift($value, $input);
 					
 					if (!is_array($value)){
-						throw new Vm\Form\Exception("The value of the '$key' key in the 'filters' array for '$fieldName'
+						throw new Exception("The value of the '$key' key in the 'filters' array for '$fieldName'
 								must be an array.");
 					}					
 				}
@@ -291,7 +294,7 @@ class Form extends Validate {
 				$this->filteredFieldValues[$fieldName] = call_user_func_array(array($filter, 'filter'), $params);
 			}
 		} else {
-			throw new Vm\Form\Exception("The value of the 'filters' key for '$fieldName' must be an array for which 
+			throw new Exception("The value of the 'filters' key for '$fieldName' must be an array for which 
 				each array key is the filter name and the value is an array of parameters for that filter, excluding 
 				the input parameter, which is included automatically. If that particular filter has only the input 
 				parameter, the filter name should be the array value rather than the key.");
@@ -310,7 +313,7 @@ class Form extends Validate {
 		if (is_array($optionsArray['validators'])){
 			$this->addValidators($fieldName, $input, $optionsArray['validators']);
 		} else {
-			throw new Vm\Form\Exception("The value of the 'validators' key for '$fieldName' must be an array for which 
+			throw new Exception("The value of the 'validators' key for '$fieldName' must be an array for which 
 				each array key is the validator name and the value is a custom error message. If no error message is 
 				specified, a default error message will be used and the validator name should be the array value.");
 		}
@@ -481,7 +484,7 @@ class Form extends Validate {
 	public function reset(array $resetAttributes = NULL){
 		$resetAttributes['type'] = 'reset';
 		$resetAttributes['value'] = (!isset($resetAttributes['value'])) ? 'Reset' : $resetAttributes['value'];
-		$this->formRender .= Xml::createTag('input', $resetAttributes, TRUE)."\n";
+		$this->formRender .= $this->xml->createTag('input', $resetAttributes, TRUE)."\n";
 		return $this;			
 	}
 
@@ -493,7 +496,7 @@ class Form extends Validate {
 	public function submit(array $submitAttributes = NULL){
 		$submitAttributes['type'] = 'submit';
 		$submitAttributes['value'] = (!isset($submitAttributes['value'])) ? 'Submit' : $submitAttributes['value'];
-		$this->formRender .= Xml::createTag('input', $submitAttributes, TRUE)."\n";
+		$this->formRender .= $this->xml->createTag('input', $submitAttributes, TRUE)."\n";
 		return $this;			
 	}
 
@@ -504,7 +507,7 @@ class Form extends Validate {
 	 */		
 	public function button(array $buttonAttributes = NULL){
 		$buttonAttributes['type'] = 'button';
-		$this->formRender .= Xml::createTag('input', $buttonAttributes, TRUE)."\n";
+		$this->formRender .= $this->xml->createTag('input', $buttonAttributes, TRUE)."\n";
 		return $this;			
 	}
 
@@ -515,7 +518,7 @@ class Form extends Validate {
 	 */		
 	public function image(array $imageAttributes = NULL){
 		$imageAttributes['type'] = 'image';
-		$this->formRender .= Xml::createTag('input', $imageAttributes, TRUE)."\n";
+		$this->formRender .= $this->xml->createTag('input', $imageAttributes, TRUE)."\n";
 		return $this;			
 	}
 
@@ -526,7 +529,7 @@ class Form extends Validate {
 	 */		
 	public function label($labelText, array $labelAttributes = NULL){
 		$labelAttributes['innerHtml'] = $labelText;
-		$this->formRender .=  Xml::createTag('label', $labelAttributes)."\n";
+		$this->formRender .=  $this->xml->createTag('label', $labelAttributes)."\n";
 		return $this;			
 	}			
 
@@ -541,7 +544,7 @@ class Form extends Validate {
 	 * @return - returns the object for chaining	
 	 */
 	public function createTag($tagName, array $attributes = array(), $selfClosing = FALSE){
-		$this->formRender .=  Xml::createTag($tagName, $attributes, $selfClosing)."\n";	
+		$this->formRender .=  $this->xml->createTag($tagName, $attributes, $selfClosing)."\n";	
 		return $this;
 	}
 
@@ -619,12 +622,12 @@ class Form extends Validate {
 		}
 		if ($this->options['strictDoctype']) {
 			$this->options['strictContainerAttributes']['innerHtml'] = $this->formRender;
-			$formRender = Xml::createTag($this->options['strictContainerTag'], $this->options['strictContainerAttributes'])."\n";
+			$formRender = $this->xml->createTag($this->options['strictContainerTag'], $this->options['strictContainerAttributes'])."\n";
 		} else {
 			$formRender = $this->formRender;
 		}		
 		$this->formAttributes['innerHtml'] = $formRender;
-		$form = Xml::createTag('form', $this->formAttributes)."\n";
+		$form = $this->xml->createTag('form', $this->formAttributes)."\n";
 		if ($this->options['errorPosition'] == 'beforeForm') {
 			$form = $this->createErrorList().$form;
 		}
@@ -638,7 +641,7 @@ class Form extends Validate {
 	 */
 	public function renderSnippet(){
 		$submittedAttributes = array('type'=>'hidden', 'name'=>$this->options['submittedCheckName'], 'value'=>'TRUE');
-		$submittedField = Xml::createTag('input', $submittedAttributes, TRUE)."\n";
+		$submittedField = $this->xml->createTag('input', $submittedAttributes, TRUE)."\n";
 		$this->formRender .= $submittedField;
 		return $this->formRender;
 	}
