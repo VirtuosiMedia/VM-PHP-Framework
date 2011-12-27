@@ -8,6 +8,8 @@
  * @note Vm\Form generates but does not enforce valid HTML.
  * @namespace Vm
  * @uses Vm\Xml
+ * @extends Vm\Validate
+ * @extends Vm\Klass
  */
 namespace Vm;
 
@@ -267,37 +269,26 @@ class Form extends Validate {
 	protected function runFilters($fieldName, $optionsArray){
 		if (is_array($optionsArray['filters'])){
 			foreach ($optionsArray['filters'] as $key => $value) {
-				$input = (isset($this->filteredFieldValues[$fieldName])) ? $this->filteredFieldValues[$fieldName] : $this->fieldValues[$fieldName];
-				$filterName = (is_int($key)) ? $value : $key;
-				$numParams = 0;
+				$input = (isset($this->filteredFieldValues[$fieldName])) 
+					? $this->filteredFieldValues[$fieldName] 
+					: $this->fieldValues[$fieldName];
 				
-				//TODO: Make the number of params dynamic
-				if ((!is_int($key)) && (is_array($value))){
-					$param1 = $value[0];
-					$param2 = $value[1];
-					$numParams = sizeof($value); 						
-				} else if ((!is_int($key)) && (!is_array($value))){
-					throw new Vm\Form\Exception("The value of the '$key' key in the 'filters' array for '$fieldName' 
-						must be an array.");					
+				if (is_int($key)){
+					$filterName = $value;
+					$params = array($input);
+				} else {
+					$filterName = $key;
+					$params = array_unshift($value, $input);
+					
+					if (!is_array($value)){
+						throw new Vm\Form\Exception("The value of the '$key' key in the 'filters' array for '$fieldName'
+								must be an array.");
+					}					
 				}
-				
-				switch ($numParams){
-				case 0:
-					$filterName = 'Vm\Filter\\'.$filterName;
-					$filter = new $filterName();
-					$this->filteredFieldValues[$fieldName] = $filter->filter($input);
-					break;
-				case 1:
-					$filterName = 'Vm\Filter\\'.$filterName;
-					$filter = new $filterName();						
-					$this->filteredFieldValues[$fieldName] = $filter->filter($input, $param1);
-					break;
-				case 2:
-					$filterName = 'Vm\Filter\\'.$filterName;
-					$filter = new $filterName();						
-					$this->filteredFieldValues[$fieldName] = $filter->filter($input, $param1, $param2);
-					break;											
-				}
+								
+				$filterName = 'Vm\Filter\\'.$filterName;
+				$filter = new $filterName;
+				$this->filteredFieldValues[$fieldName] = call_user_func_array(array($filter, 'filter'), $params);
 			}
 		} else {
 			throw new Vm\Form\Exception("The value of the 'filters' key for '$fieldName' must be an array for which 
@@ -306,7 +297,6 @@ class Form extends Validate {
 				parameter, the filter name should be the array value rather than the key.");
 		}
 	} 
-
 	
 	/**
 	 * @description Runs validators for each form field
