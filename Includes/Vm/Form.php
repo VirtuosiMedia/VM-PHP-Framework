@@ -52,7 +52,7 @@ class Form extends Validate {
 	 */	
 	function __construct(array $formAttributes = array(), $options = NULL){
 		//The default action should be the current page
-		if (!isset($this->formAttributes['action'])){
+		if (!isset($formAttributes['action'])){
 			$this->formAttributes['action'] = htmlentities($_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']);
 		}
 		
