@@ -33,14 +33,14 @@ class Ddl {
 	 * 		executing the query
 	 * @param string $query - The query to be run
 	 * @param boolean $debug - Whether or not to return a debugging statement, defaults FALSE
-	 * @return mixed - The debug statement if debug is set TRUE, else returns nothing
+	 * @return mixed - The debug statement if debug is set TRUE, else boolean depending on query success
 	 */
 	protected function executeQuery($query, $debug=FALSE) {
 		if ($debug) {
 			return $query;		
 		} else {
 			$result = $this->db->prepare($query);
-			$result->execute();
+			return $result->execute();
 		}	
 	}
 
@@ -268,6 +268,7 @@ class Ddl {
 	 * @param string $table_name - The name of the table to be created. The prefix will be prepended automatically
 	 * @param string optional $comments - Table comments
 	 * @param boolean $debug - Whether or not to return a debugging statement, defaults FALSE
+	 * @return mixed - The debug statement if debug is set TRUE, else boolean depending on query success
 	 */
 	public function createTable($tableName, $schema=NULL, $comments=NULL, $debug=FALSE) {
 		$table = $this->prefix.$tableName;
@@ -283,11 +284,12 @@ class Ddl {
 	 * @description Drops a table
 	 * @param string $tableName - The table name to be dropped
 	 * @param boolean $debug - Whether or not to return a debugging statement, defaults FALSE
+	 * @return mixed - The debug statement if debug is set TRUE, else boolean depending on query success
 	 */
 	public function dropTable($tableName, $debug=FALSE) {
 		$table = $this->prefix.$tableName;
 		$query = "DROP TABLE $table";
-		$this->executeQuery($query, $debug);
+		return $this->executeQuery($query, $debug);
 	}
 
 	/**
@@ -295,24 +297,26 @@ class Ddl {
 	 * @param string $tableName - The table name to be dropped
 	 * @param string $newName - The new name of the table
 	 * @param boolean $debug - Whether or not to return a debugging statement, defaults FALSE
+	 * @return mixed - The debug statement if debug is set TRUE, else boolean depending on query success
 	 */
 	public function renameTable($tableName, $newName, $debug=FALSE) {
 		$table = $this->prefix.$tableName;
 		$newName = $this->prefix.$newName;
 		$query = "ALTER TABLE $table RENAME TO $newName";
-		$this->executeQuery($query, $debug);
+		return $this->executeQuery($query, $debug);
 	}
 	
 	/**
 	 * @description Adds a column to a table
 	 * @param string $tableName - The table name to which the column is added
 	 * @param boolean $debug - Whether or not to return a debugging statement, defaults FALSE
+	 * @return mixed - The debug statement if debug is set TRUE, else boolean depending on query success
 	 */
 	public function addColumn($tableName, $debug=FALSE) {
 		$table = $this->prefix.$tableName;
 		$query = "ALTER TABLE $table ADD COLUMN ";
 		$query .= join(", ", $this->columns);
-		$this->executeQuery($query, $debug);	
+		return $this->executeQuery($query, $debug);	
 	}
 	
 	/**
@@ -320,11 +324,12 @@ class Ddl {
 	 * @param string $tableName - The table from which the column is dropped
 	 * @param string $columnName - The column to be dropped
 	 * @param boolean $debug - Whether or not to return a debugging statement, defaults FALSE
+	 * @return mixed - The debug statement if debug is set TRUE, else boolean depending on query success
 	 */
 	public function dropColumn($tableName, $columnName, $debug=FALSE) {
 		$table = $this->prefix.$tableName;
 		$query = "ALTER TABLE $table DROP COLUMN $columnName";
-		$this->executeQuery($query, $debug);	
+		return $this->executeQuery($query, $debug);	
 	}
 
 	/**
