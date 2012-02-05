@@ -16,6 +16,7 @@ abstract class Dml {
 	
 	/**
 	 * @param object $db - The PDO database connection object
+	 * @param $driverType - The type of database driver: ie, mysql
 	 * @param string $table - The name of the table
 	 * @param array $fields - The names of each field in the table
 	 * @param string $schema - The schema
