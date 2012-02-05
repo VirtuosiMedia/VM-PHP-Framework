@@ -43,16 +43,6 @@ class TopNav extends \Vm\Model {
 		$docsClass = ($activePage == 'Docs') ? ' class="active"' : NULL;
 		$menu[] = array('page'=>'Docs', 'href'=>' href="index.php?p=docs"', 'id'=>NULL, 'class'=>$docsClass);
 
-		if (!$this->settings['installed']){
-			$installClass = ($activePage == 'Install') ? ' class="active"' : NULL;
-			$menu[] = array(
-				'page'=>'Install', 
-				'href'=>' href="index.php?p=install"', 
-				'id'=>NULL, 
-				'class'=>$installClass
-			);			
-		}
-		
 		$securityClass = ($activePage == 'Security') ? ' class="active"' : NULL;
 		$menu[] = array(
 			'page'=>'Security', 
