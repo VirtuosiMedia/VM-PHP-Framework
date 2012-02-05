@@ -15,7 +15,7 @@ class Version extends \Vm\Klass {
 	 */
 	function __construct($options = NULL){
 		$defaultOptions = array(
-			'copyright' => 'Copyright &copy; 2011, Virtuosi Media Inc.',
+			'copyright' => 'Copyright &copy; 2011-2012, Virtuosi Media Inc.',
 			'license' => 'MIT license',
 			'licenseUrl' => 'http://www.opensource.org/licenses/mit-license.php',
 			'version' => '0.9.0',
