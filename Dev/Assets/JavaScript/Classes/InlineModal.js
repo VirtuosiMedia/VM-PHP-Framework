@@ -56,6 +56,9 @@ var InlineModal = new Class({
 	createContainer: function(){
 		var titleText = this.title.get('html');
 		var content = this.content.get('html');
+		titleText = (titleText) ? titleText : 'Help';
+		content = (content) ? content : 'No help content is available for this page.';
+		
 		var title = new Element('h3', {html:titleText});
 		var titleBar = new Element('div', {'class': 'titleBar'}).adopt(title);
 		var contentBox = new Element('div', {html: content, 'class': 'content'});
