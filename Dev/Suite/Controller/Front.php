@@ -20,10 +20,15 @@ class Front extends \Vm\Controller\Front {
 	}
 	
 	protected function loadControllers(){
-		$controller = isset($this->params['p']) ? ucfirst($this->params['p']) : 'Index';
+		if ($this->settings['installed']) {
+			$controller = isset($this->params['p']) ? ucfirst($this->params['p']) : 'Index';
+		} else {
+			$controller = 'Install';
+		}
+		
 		$controllerFile = "Suite/Controller/$controller.php";
 		$controllerClass = (file_exists($controllerFile)) ? "\\Suite\\Controller\\$controller" : '\\Suite\Controller\Error';
-
+		
 		$subController = new $controllerClass($this->params, $this->settings);
 		$subController->setViewPath('Suite/View/Default/', $this->settings['overridePath']);
 		$subController->load();
