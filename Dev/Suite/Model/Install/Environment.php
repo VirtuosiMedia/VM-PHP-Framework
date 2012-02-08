@@ -49,8 +49,13 @@ class Environment extends \Vm\Model {
 			: 'Reflection extension is disabled. Unit testing suite will not function properly.';
 		$xdebugClass = (function_exists('xdebug_start_code_coverage')) ? 'pass' : 'warning';
 		$xdebug = ($xdebugClass == 'pass') 
-			? 'Xdebug extension is enabled' 
+			? 'Xdebug extension is enabled.' 
 			: 'Xdebug extension is disabled. Code coverage analysis will not be available.';
+		$conditionsList = array(
+				$phpVersionClass, $gdLibraryClass, $zlibClass, $zlibClass, $pdoClass, $mysqlPdoClass, $ctypeClass,
+				$reflectionClass, $xdebugClass
+		);
+		$conditions = (!in_array('fail', $conditionsList)) ? TRUE : FALSE;
 		
 		$this->setData('phpVersionClass', $phpVersionClass);
 		$this->setData('phpVersion', $phpVersion);
@@ -67,6 +72,7 @@ class Environment extends \Vm\Model {
 		$this->setData('reflectionClass', $reflectionClass);
 		$this->setData('reflection', $reflection);
 		$this->setData('xdebugClass', $xdebugClass);
-		$this->setData('xdebug', $xdebug);		
+		$this->setData('xdebug', $xdebug);
+		$this->setData('conditions', $conditions);		
 	}
 }
