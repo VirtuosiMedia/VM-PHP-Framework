@@ -15,7 +15,7 @@
 		<div class="content">
 			<ul class="counter">
 				<li><a href="#" class="<?php echo $this->environmentClass;?>">Environment Check</a></li>
-				<li><a href="#" class="<?php echo $this->dataClass;?>">Install Database</a></li>
+				<li><a href="#" class="<?php echo $this->databaseClass;?>">Install Database</a></li>
 				<li><a href="#" class="<?php echo $this->adminClass;?>">Create Admin User</a></li>
 				<li><a href="#"class="<?php echo $this->appClass;?>">Enter App Data</a></li>
 			</ul>	
