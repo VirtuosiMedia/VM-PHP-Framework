@@ -14,10 +14,10 @@
 		</div>
 		<div class="content">
 			<ul class="counter">
-				<li><a href="#" class="<?php echo $this->environmentClass;?>">Environment Check</a></li>
-				<li><a href="#" class="<?php echo $this->databaseClass;?>">Install Database</a></li>
-				<li><a href="#" class="<?php echo $this->adminClass;?>">Create Admin User</a></li>
-				<li><a href="#"class="<?php echo $this->appClass;?>">Enter App Data</a></li>
+				<li class="<?php echo $this->environmentClass;?>">Environment Check</li>
+				<li class="<?php echo $this->databaseClass;?>">Install Database</li>
+				<li class="<?php echo $this->adminClass;?>">Create Admin User</li>
+				<li class="<?php echo $this->appClass;?>">Enter App Data</li>
 			</ul>	
 		</div>
 	</div>
