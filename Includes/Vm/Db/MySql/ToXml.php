@@ -2,7 +2,7 @@
 /**
  * @author Virtuosi Media Inc.
  * @license MIT License
- * @description Creates an XML file based on a database table structure (not contents) using DbOperations
+ * @description Creates an XML file based on a database table structure
  * @extends Vm\Db\MySql\Ddl
  * @namespace Vm\Db\MySql
  */
