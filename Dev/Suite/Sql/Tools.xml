@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tables>
+	<table name="tools" schema="public" collation="utf8_general_ci">
+		<comments />
+		<structure>
+			<columns>
+				<column name="id" datatype="int" null="false" collation="">
+					<value1>5</value1>
+					<extra>auto_increment</extra>
+				</column>
+				<column name="name" datatype="varchar" null="false"
+					collation="utf8_general_ci">
+					<value1>250</value1>
+				</column>
+				<column name="description" datatype="text" null="false"
+					collation="utf8_general_ci" />
+				<column name="shortname" datatype="varchar" null="false"
+					collation="utf8_general_ci">
+					<value1>250</value1>
+				</column>
+				<column name="author" datatype="varchar" null="false"
+					collation="utf8_general_ci">
+					<value1>250</value1>
+				</column>
+				<column name="url" datatype="varchar" null="false" collation="utf8_general_ci">
+					<value1>250</value1>
+				</column>
+				<column name="email" datatype="varchar" null="false"
+					collation="utf8_general_ci">
+					<value1>250</value1>
+				</column>
+				<column name="license" datatype="varchar" null="false"
+					collation="utf8_general_ci">
+					<value1>250</value1>
+				</column>
+			</columns>
+			<keys>
+				<key type="primary">id</key>
+			</keys>
+		</structure>
+		<data>
+			<rows />
+		</data>
+	</table>
+</tables>

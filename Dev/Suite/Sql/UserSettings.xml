@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tables>
+	<table name="usersettings" schema="public" collation="utf8_general_ci">
+		<comments />
+		<structure>
+			<columns>
+				<column name="id" datatype="int" null="false" collation="">
+					<value1>5</value1>
+					<extra>auto_increment</extra>
+				</column>
+				<column name="userId" datatype="int" null="false" collation="">
+					<value1>5</value1>
+				</column>
+				<column name="templatePath" datatype="varchar" null="false"
+					collation="utf8_general_ci">
+					<value1>250</value1>
+				</column>
+				<column name="timezone" datatype="varchar" null="false"
+					collation="utf8_general_ci">
+					<value1>250</value1>
+				</column>
+			</columns>
+			<keys>
+				<key type="primary">id</key>
+				<key type="foreign">userId</key>
+				<key type="foreign">templatePath</key>
+			</keys>
+		</structure>
+		<data>
+			<rows />
+		</data>
+	</table>
+</tables>

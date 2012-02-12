@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tables>
+	<table name="messages" schema="public" collation="utf8_general_ci">
+		<comments />
+		<structure>
+			<columns>
+				<column name="id" datatype="int" null="false" collation="">
+					<value1>11</value1>
+					<extra>auto_increment</extra>
+				</column>
+				<column name="userId" datatype="int" null="false" collation="">
+					<value1>11</value1>
+				</column>
+				<column name="subject" datatype="varchar" null="false"
+					collation="utf8_general_ci">
+					<value1>250</value1>
+				</column>
+				<column name="content" datatype="text" null="false"
+					collation="utf8_general_ci" />
+				<column name="creationDate" datatype="timestamp" null="false"
+					collation="">
+					<default>CURRENT_TIMESTAMP</default>
+					<extra>on update CURRENT_TIMESTAMP</extra>
+				</column>
+			</columns>
+			<keys>
+				<key type="primary">id</key>
+				<key type="foreign">userId</key>
+			</keys>
+		</structure>
+		<data>
+			<rows />
+		</data>
+	</table>
+</tables>

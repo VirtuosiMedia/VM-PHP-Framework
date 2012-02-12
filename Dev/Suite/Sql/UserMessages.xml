@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tables>
+	<table name="usermessages" schema="public" collation="ucs2_general_ci">
+		<comments />
+		<structure>
+			<columns>
+				<column name="id" datatype="int" null="false" collation="">
+					<value1>10</value1>
+					<extra>auto_increment</extra>
+				</column>
+				<column name="fromUserId" datatype="int" null="false"
+					collation="">
+					<value1>5</value1>
+				</column>
+				<column name="toUserId" datatype="int" null="false"
+					collation="">
+					<value1>5</value1>
+				</column>
+				<column name="status" datatype="varchar" null="false"
+					collation="ucs2_general_ci">
+					<value1>250</value1>
+				</column>
+			</columns>
+			<keys>
+				<key type="primary">id</key>
+				<key type="foreign">fromUserId</key>
+				<key type="foreign">toUserId</key>
+			</keys>
+		</structure>
+		<data>
+			<rows />
+		</data>
+	</table>
+</tables>

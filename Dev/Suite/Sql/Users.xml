@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tables>
+	<table name="users" schema="public" collation="utf8_general_ci">
+		<comments />
+		<structure>
+			<columns>
+				<column name="id" datatype="int" null="false" collation="">
+					<value1>5</value1>
+					<extra>auto_increment</extra>
+				</column>
+				<column name="name" datatype="varchar" null="false"
+					collation="utf8_general_ci">
+					<value1>150</value1>
+				</column>
+				<column name="email" datatype="varchar" null="false"
+					collation="utf8_general_ci">
+					<value1>150</value1>
+				</column>
+				<column name="password" datatype="varchar" null="false"
+					collation="utf8_general_ci">
+					<value1>250</value1>
+				</column>
+				<column name="bio" datatype="text" null="false" collation="utf8_general_ci" />
+				<column name="creationDate" datatype="timestamp" null="false"
+					collation="">
+					<default>CURRENT_TIMESTAMP</default>
+					<extra>on update CURRENT_TIMESTAMP</extra>
+				</column>
+				<column name="picPath" datatype="varchar" null="false"
+					collation="utf8_general_ci">
+					<value1>250</value1>
+				</column>
+				<column name="lastActivity" datatype="datetime" null="false"
+					collation="" />
+			</columns>
+			<keys>
+				<key type="primary">id</key>
+				<key type="unique">name</key>
+				<key type="unique">email</key>
+			</keys>
+		</structure>
+		<data>
+			<rows />
+		</data>
+	</table>
+</tables>
