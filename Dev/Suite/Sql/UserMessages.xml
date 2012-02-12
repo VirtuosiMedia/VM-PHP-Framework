@@ -9,15 +9,15 @@
 					<extra>auto_increment</extra>
 				</column>
 				<column name="fromUserId" datatype="int" null="false"
-					collation="">
+					collation="utf8_general_ci">
 					<value1>5</value1>
 				</column>
 				<column name="toUserId" datatype="int" null="false"
-					collation="">
+					collation="utf8_general_ci">
 					<value1>5</value1>
 				</column>
 				<column name="status" datatype="varchar" null="false"
-					collation="ucs2_general_ci">
+					collation="utf8_general_ci">
 					<value1>250</value1>
 				</column>
 			</columns>
