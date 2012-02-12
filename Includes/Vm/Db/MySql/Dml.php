@@ -8,10 +8,12 @@
  * @requires A database connection script that uses the MySQL PDO extension
  * @namespace Vm\Db\MySql
  * @uses Vm\Db\Exception
+ * @uses PDO
  */
 namespace Vm\Db\MySql;
 
 use \Vm\Db\Exception;
+use \PDO;
 
 class Dml {
 
