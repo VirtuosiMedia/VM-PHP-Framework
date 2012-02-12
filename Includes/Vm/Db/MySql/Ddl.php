@@ -277,8 +277,18 @@ class Ddl {
 		$query .= ($this->uniques) ? ', '.$this->uniques : NULL;
 		$query .= ($this->foreignKeys) ? ', '.$this->foreignKeys : NULL;
 		$query .= ")$tableComments";
+		$this->clear();
 		return $this->executeQuery($query, $debug);		 
 	} 
+
+	/**
+	 * @description Clears the compiled table properties so another table can be created.
+	 */
+	protected function clear(){
+		$this->columns = array();
+		$this->uniques = array();
+		$this->foreignKeys = array();
+	}
 	
 	/**
 	 * @description Drops a table
