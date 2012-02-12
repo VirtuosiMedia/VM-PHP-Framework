@@ -185,7 +185,8 @@ class Form extends Validate {
 		if ($this->submittedCheck){
 			$getErrors = ($fieldName) ? $this->getErrors($fieldName) : $this->getAllErrors();
 			$errorsExist = ($this->options['errorPosition'] != 'beforeForm') ? $this->errorsExist($fieldName) : $this->errorsExist();
-			if ($errorsExist){		
+			
+			if (($errorsExist) && (sizeof($this->getErrors($fieldName)))){		
 				$errors = '';
 				foreach($getErrors as $error){
 					$errorAttributes = array(
@@ -366,9 +367,16 @@ class Form extends Validate {
 		$wrapperAttributes = (isset($optionsArray['wrapperAttributes'])) ? $optionsArray['wrapperAttributes'] : NULL;
 		$label = $this->createLabel($fieldName, $optionsArray['label'], $optionsArray['attributes']['id']);
 		$labelPos = (isset($optionsArray['labelPosition'])) ? $optionsArray['labelPosition'] : $this->options['labelPosition'];
-		$errorList = ((isset($optionsArray['attributes']['type']))&&($optionsArray['attributes']['type'] == 'radio') && (in_array($fieldName, $this->radioFields)))
-			? NULL 
-			: $this->createErrorList($fieldName, $tagName);
+		
+		if ((isset($optionsArray['attributes']['type'])) && 
+			($optionsArray['attributes']['type'] == 'radio') && 
+			(in_array($fieldName, $this->radioFields))
+		){
+			$errorList = NULL;
+		} else {
+			$errorList = $this->createErrorList($fieldName, $tagName);
+		}
+		
 		$selectOptions = ((isset($optionsArray['selectOptions']))&&(is_array($optionsArray['selectOptions']))) ? $optionsArray['selectOptions'] : NULL; 	
 		$formElement = $this->createFormElement($tagName, $fieldName, $optionsArray['attributes'], $selfClosing, $selectOptions);
 				
