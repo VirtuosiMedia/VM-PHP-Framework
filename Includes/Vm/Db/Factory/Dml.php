@@ -9,7 +9,7 @@
  */
 namespace Vm\Db\Factory;
 
-abstract class Dml {
+class Dml {
 
 	protected $driver;
 	protected $driverType;
@@ -24,8 +24,8 @@ abstract class Dml {
 	 * @return The object for chaining 
 	 */
 	public function __construct(\PDO $db, $driverType, $table, array $fields, $schema, $prefix = NULL){
-		$driverType = strtolower($driverType);
-		switch ($driverType){
+		$this->driverType = strtolower($driverType);
+		switch ($this->driverType){
 			case 'mysql':
 				$driverName = '\Vm\Db\MySql\Dml';
 				break;
