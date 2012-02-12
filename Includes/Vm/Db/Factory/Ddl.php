@@ -29,7 +29,7 @@ class Ddl {
 				throw new \Vm\Db\Exception('Database driver type "'.$driverType.'" is not supported.');
 		}
 		
-		$this->driver = new $driverName($db, $table, $fields, $schema, $prefix);
+		$this->driver = new $driverName($db, $prefix);
 		return $this;
 	}
 
