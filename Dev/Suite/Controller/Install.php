@@ -31,24 +31,20 @@ class Install extends \Vm\Controller {
 	}
 	
 	public function load(){
-		$topNav = new Model\TopNav($this->params, $this->settings);
-		$environment = new Model\Install\Environment();
-		$install = new Model\Install\Install();
+		$sidebar = new Model\Install\Sidebar($this->params);
 		$view = new View($this->defaultPath, $this->overridePath);
 		
 		$view->setViewspace('Header');
 		$view->pageTitle = 'Install VM PHP Framework';
 		$view->scripts = array(
 			'Assets/JavaScript/mootools.js', 
-			'Assets/JavaScript/Classes/SimpleTabs.js', 
+			'Assets/JavaScript/Classes/InlineModal.js',
+			'Assets/JavaScript/Classes/Notification.js',
+			'Assets/JavaScript/Classes/Select.js',				
 			'Assets/JavaScript/Pages/install.js'
 		);
 		$view->styles = array('Assets/Themes/'.$this->settings['suiteTheme'].'/Css/default.css');
 		$view->loadTemplate('Header.php');
-		
-		$view->setViewspace('TopNav');
-		$view->map($topNav->getViewData());
-		$view->loadTemplate('TopNav.php');
 		
 		$view->setViewspace('Body');
 		
@@ -56,10 +52,23 @@ class Install extends \Vm\Controller {
 		$view->version = $version->get('version');
 		$view->copyright = $version->get('copyright');			
 		
-		$view->map($environment->getViewData());
-		$view->removeFilters(array('StripTags'));
-		$view->map($install->getViewData());
-		$view->loadTemplate('Install.php');
+		$page = (isset($this->params['p'])) ? $this->params['p'] : NULL;
+		
+		switch ($page){
+			case 'install-database':
+				$install = new Model\Install\Database();
+				$view->removeFilters(array('StripTags'));
+				$view->map($sidebar->getViewData());
+				$view->map($install->getViewData());
+				$view->loadTemplate('Install/Database.php');
+				break;
+			default:
+				$environment = new Model\Install\Environment();
+				$view->map($environment->getViewData());
+				$view->map($sidebar->getViewData());
+				$view->loadTemplate('Install/Environment.php');
+		}
+			
 		$view->loadTemplate('Footer.php');
 
 		$this->setView($view->render(array('Header', 'TopNav', 'Body')));
