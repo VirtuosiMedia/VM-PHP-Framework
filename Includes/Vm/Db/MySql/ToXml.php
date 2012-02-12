@@ -85,7 +85,7 @@ class ToXml extends \Vm\Db\MySql\Ddl {
 		}
 		$numFields = sizeof($fields);
 		
-		$db = new DbObject($this->db, $tableName, $fields, 'public', $this->prefix);
+		$db = new \Vm\Db\MySql\Dml($this->db, $tableName, $fields, 'public', $this->prefix);
 		$rows = $db->select();
 		$rowsContent = '';
 		
@@ -109,7 +109,7 @@ class ToXml extends \Vm\Db\MySql\Ddl {
 	 */
 	public function render($tableNames, $fileName = NULL, $mode = 'both'){
 		$tableNames = (is_array($tableNames)) ? $tableNames : array($tableNames);
-		$this->xml = new Vm_Xml(FALSE);
+		$this->xml = new \Vm\Xml(FALSE);
 		$fileContents = '<tables>';
 		foreach ($tableNames as $tableName){
 			$tableStatus = $this->showTableStatus($tableName);
@@ -127,7 +127,7 @@ class ToXml extends \Vm\Db\MySql\Ddl {
 		}
 		$fileContents .= '</tables>';
 		
-		$file = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>'.$fileContents);
-		return $file->asXML($fileName);
+		$file = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?>'.$fileContents);
+		return ($fileName) ? $file->asXML($fileName) : $file->asXML();
 	}
 }
