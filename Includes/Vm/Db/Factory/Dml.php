@@ -30,7 +30,7 @@ abstract class Dml {
 				$driverName = '\Vm\Db\MySql\Dml';
 				break;
 			default:
-				throw new Vm_Db_Exception('Database driver type "'.$driverType.'" is not supported.');
+				throw new \Vm\Db\Exception('Database driver type "'.$driverType.'" is not supported.');
 		}
 		
 		$this->driver = new $driverName($db, $table, $fields, $schema, $prefix);
