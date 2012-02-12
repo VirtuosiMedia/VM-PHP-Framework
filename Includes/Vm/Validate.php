@@ -105,8 +105,8 @@ class Validate extends Klass {
 	 * @return boolean - Returns TRUE if errors exist, FALSE if they do not
 	 */	
 	public function errorsExist($fieldName = NULL){
-		$errors = (($fieldName)&&(isset($this->inputErrors[$fieldName]))) 
-			? $this->inputErrors[$fieldName] 
+		$errors = (($fieldName) && (isset($this->inputErrors[$fieldName]))) 
+			? $this->getErrors($fieldName) 
 			: $this->allErrors;
 		return (sizeof($errors) > 0) ? TRUE : FALSE;
 	}	
