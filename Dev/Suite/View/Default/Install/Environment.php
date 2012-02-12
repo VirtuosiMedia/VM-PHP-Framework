@@ -66,7 +66,7 @@
 				<?php if ($this->conditions):?>
 					<form method="get">
 						<input type="hidden" name="p" value="install-database"/>
-						<input type="submit" value="Next" class="primary button"/>
+						<input type="submit" value="Next Step" class="primary button"/>
 					</form> 
 				<?php else:?>
 					<form method="get">
