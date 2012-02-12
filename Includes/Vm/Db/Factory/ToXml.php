@@ -31,7 +31,7 @@ class ToXml extends Ddl {
 				throw new Vm_Db_Exception('Database driver type "'.$driverType.'" is not supported.');
 		}
 		
-		$this->driver = new $driverName($db, $table, $fields, $schema, $prefix);
+		$this->driver = new $driverName($db, $prefix);
 		return $this;
 	}
 	
