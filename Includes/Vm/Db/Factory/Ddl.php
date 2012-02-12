@@ -10,8 +10,10 @@ namespace Vm\Db\Factory;
 
 class Ddl {
 
+	protected $db;
 	protected $driver;
 	protected $driverType;
+	protected $prefix;
 		
 	/**
 	 * @param object $db - The PDO database connection object
@@ -20,8 +22,8 @@ class Ddl {
 	 * @return The object for chaining 
 	 */
 	function __construct(\PDO $db, $driverType, $prefix = NULL) {
-		$driverType = strtolower($driverType);
-		switch ($driverType){
+		$this->driverType = strtolower($driverType);
+		switch ($this->driverType){
 			case 'mysql':
 				$driverName = '\Vm\Db\MySql\Ddl';
 				break;
@@ -29,6 +31,8 @@ class Ddl {
 				throw new \Vm\Db\Exception('Database driver type "'.$driverType.'" is not supported.');
 		}
 		
+		$this->db = $db;
+		$this->prefix = $prefix;
 		$this->driver = new $driverName($db, $prefix);
 		return $this;
 	}
