@@ -40,7 +40,7 @@ class Connect {
 			try {
 				switch($this->dbType) {
 					case 'mysql':
-						$this->db = new PDO(
+						$this->db = new \PDO(
 							'mysql:host='.$this->dbHost.';dbname='.$this->dbName, 
 							$this->dbUsername, 
 							$this->dbPassword
@@ -49,10 +49,10 @@ class Connect {
 				}
 				$this->status = TRUE;
 				$this->error = NULL;
-			} catch (PDOException $e) {
+			} catch (\PDOException $e) {
 				$this->status = FALSE;
-				$this->error = "Sorry, a database connection could not be established. The following error occurred: $e.
-					Please check your access information and try again.";
+				$this->error = "Sorry, a database connection could not be established. Please check your access 
+					information and try again.";
 			}
 		} else {
 			$this->status = FALSE;
