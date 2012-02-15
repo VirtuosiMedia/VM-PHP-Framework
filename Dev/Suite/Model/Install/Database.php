@@ -3,7 +3,7 @@
  * @author Virtuosi Media Inc.
  * @license: MIT License
  * @description: The model for generating the install form for VM PHP Framework Suite
- * @requirements: PHP 5.2 or higher
+ * @requirements: PHP 5.3 or higher
  * @namespace Suite\Model\Install
  * @uses Vm\Db\Connect
  * @uses Vm\Form
@@ -86,28 +86,72 @@ class Database extends \Vm\Model {
 	
 	protected function processForm(){
 		if ($this->form->submitted() && (!$this->form->errorsExist())){
-//			$connect = new \Vm\Db\Factory\ToXml($this->db, $this->form->getValue('dbType'));
 			$database = new \Vm\Db\FromXml($this->db, $this->form->getValue('dbType'));
 			$database->install(array(
+				'Suite/Sql/Groups.xml',
 				'Suite/Sql/Messages.xml',
 				'Suite/Sql/Notifications.xml',
 				'Suite/Sql/Tools.xml',
 				'Suite/Sql/Users.xml',
+				'Suite/Sql/UserGroups.xml',
+				'Suite/Sql/UserSessions.xml',
 				'Suite/Sql/UserSettings.xml',
 				'Suite/Sql/UserMessages.xml'
 			), 'structure');
 			
-/*
-			$connect->render('messages', 'Suite/Sql/Messages.xml');
-			$connect->render('notifications', 'Suite/Sql/Notifications.xml');
-			$connect->render('tools', 'Suite/Sql/Tools.xml');
-			$connect->render('users', 'Suite/Sql/Users.xml');
-			$connect->render('usersettings', 'Suite/Sql/UserSettings.xml');
-			$connect->render('usermessages', 'Suite/Sql/UserMessages.xml');
-//*/				
-						
-						
+			$files = new \Vm\Db\File\Generator($this->db, $this->form->getValue('dbType'));
+			$files->generateAll($this->form->getValue('dbType'), 'Db');			
+
+			$this->createConfigFile();
+			
 			$this->setData('databaseForm', "<p>Database Created!</p>");
 		}
+	}
+	
+	protected function createConfigFile(){
+		$dbType = $this->form->getValue('dbType');
+		$dbName = $this->form->getValue('dbName');
+		$dbUsername = $this->form->getValue('dbUsername');
+		$dbPassword = $this->form->getValue('dbPassword');
+		$dbHost = $this->form->getValue('dbHost');
+		$salt = md5(time());
+		
+		$fileContents = <<<EOT
+<?php
+/**
+ * @author Virtuosi Media Inc.
+ * @license: MIT License
+ * @description: The config file for the VM PHP Framework Development Suite
+ * @requirements: PHP 5.3 or higher
+ * @namespace Suite
+ */
+namespace Suite;
+
+class Config {
+
+	private \$configSettings = array(
+		'dbType'=>'$dbType',				//The database type
+		'dbName'=>'$dbName',				//The database name
+		'username'=>'$dbUsername',			//The database username
+		'password'=>'$dbPassword',			//The database password
+		'host'=>'$dbHost',					//The host name, usually localhost
+		'port'=>'',							//The database port
+		'charset'=>'',						//The database charset
+		'salt'=>'$salt'						//The application salt for passwords
+	);
+
+	/**
+	 * @description A magic method that returns the desired config setting string. Ex: \$config = new \Suite\Config(); 
+	 * 		\$host = \$config->host;
+	 * @param string \$key - The key of the setting that should be retrieved 
+	 */
+	function __get(\$key) {
+		return \$this->configSettings[\$key];
+	}
+}
+EOT;
+		
+		$file = new \Vm\File('Config.php', 'Suite');
+		$file->write($fileContents);		
 	}
 }
