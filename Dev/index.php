@@ -14,4 +14,3 @@ $settings = array(
 
 $suite = new Suite\Controller\Front($settings);
 echo $suite->render();
-?>
