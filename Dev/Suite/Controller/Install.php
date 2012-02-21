@@ -21,12 +21,10 @@ class Install extends \Vm\Controller {
 	protected $settings;
 	
 	/**
-	 * @param array $params - An associative array of the URL parameters, with the parameter name as the key, it's 
-	 * 		value as the value
 	 * @param array $settings - An associative settings array, with the setting name as the key, it's value as the value
 	 */
-	function __construct(array $params, array $settings){
-		$this->params = $params;
+	function __construct(array $settings){
+		$this->params = $_GET;
 		$this->settings = $settings;
 	}
 	
