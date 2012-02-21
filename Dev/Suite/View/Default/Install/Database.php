@@ -1,7 +1,7 @@
 <div id="topNavWrapper">
 	<nav id="topNavContainer">
 		<ul id="topNav">
-			<li><a id="logo" href="index.php"></a></li>
+			<li><a id="logo" href="install.php"></a></li>
 			<li>VM PHP Framework Installation</li>
 			<li><a id="helpLink" href="#help">(Help)</a></li>
 		</ul>
