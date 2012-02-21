@@ -4,6 +4,11 @@ error_reporting(E_ALL);
 
 require_once('Assets/Autoload.php');
 
+if (!file_exists('Suite/Config.php')){
+	$url = new Vm\Url();
+	$url->redirect('install.php');
+}
+
 $settings = array(
 	'excludeFoldersFromDocs'=>array('Vm'),
 	'fluxCapacitor'=>FALSE,
