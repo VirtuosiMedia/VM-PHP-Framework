@@ -120,9 +120,9 @@ class Database extends \Vm\Model {
 <?php
 /**
  * @author Virtuosi Media Inc.
- * @license: MIT License
- * @description: The config file for the VM PHP Framework Development Suite
- * @requirements: PHP 5.3 or higher
+ * @license MIT License
+ * @description The config file for the VM PHP Framework Development Suite
+ * @requirements PHP 5.3 or higher
  * @namespace Suite
  */
 namespace Suite;
@@ -130,13 +130,13 @@ namespace Suite;
 class Config {
 
 	private \$configSettings = array(
-		'dbType'=>'$dbType',				//The database type
-		'dbName'=>'$dbName',				//The database name
-		'username'=>'$dbUsername',			//The database username
-		'password'=>'$dbPassword',			//The database password
-		'host'=>'$dbHost',					//The host name, usually localhost
-		'port'=>'',							//The database port
-		'charset'=>'',						//The database charset
+		'dbType'=>'$dbType',												//The database type
+		'dbName'=>'$dbName',												//The database name
+		'username'=>'$dbUsername',												//The database username
+		'password'=>'$dbPassword',												//The database password
+		'host'=>'$dbHost',											//The host name, usually localhost
+		'port'=>'',														//The database port
+		'charset'=>'',													//The database charset
 		'salt'=>'$salt'						//The application salt for passwords
 	);
 
