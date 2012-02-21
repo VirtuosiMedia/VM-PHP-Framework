@@ -23,7 +23,8 @@ class Front extends \Vm\Controller\Front {
 		if ($this->settings['installed']) {
 			$controller = isset($this->params['p']) ? ucfirst($this->params['p']) : 'Index';
 		} else {
-			$controller = 'Install';
+			$url = new \Vm\Url();
+			$url->redirect('install.php');
 		}
 		
 		$controllerFile = "Suite/Controller/$controller.php";
