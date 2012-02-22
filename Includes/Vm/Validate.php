@@ -61,7 +61,7 @@ class Validate extends Klass {
 			if ((is_array($value)) && (!is_int($key))) {
 				$validatorError = $value[0]; 
 				$param1 = $value[1];
-				$param2 = ($value[2]) ? $value[2] : NULL;
+				$param2 = (isset($value[2])) ? $value[2] : NULL;
 			} else if (!is_int($key)) {
 				$validatorError = $value;
 				$param1 = NULL;
