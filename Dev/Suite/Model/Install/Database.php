@@ -89,6 +89,7 @@ class Database extends \Vm\Model {
 			$database = new \Vm\Db\FromXml($this->db, $this->form->getValue('dbType'));
 			$database->install(array(
 				'Suite/Sql/Groups.xml',
+				'Suite/Sql/GroupPermissions.xml',
 				'Suite/Sql/Messages.xml',
 				'Suite/Sql/Notifications.xml',
 				'Suite/Sql/Tools.xml',
@@ -104,7 +105,8 @@ class Database extends \Vm\Model {
 
 			$this->createConfigFile();
 			
-			$this->setData('databaseForm', "<p>Database Created!</p>");
+			$url = new \Vm\Url();
+			$url->redirect('install.php?p=admin-user');
 		}
 	}
 	
