@@ -60,6 +60,13 @@ class Install extends \Vm\Controller {
 				$view->map($install->getViewData());
 				$view->loadTemplate('Install/Database.php');
 				break;
+			case 'install-admin-user':
+				$install = new Model\Install\Admin();
+				$view->removeFilters(array('StripTags'));
+				$view->map($sidebar->getViewData());
+				$view->map($install->getViewData());
+				$view->loadTemplate('Install/Admin.php');
+				break;				
 			default:
 				$environment = new Model\Install\Environment();
 				$view->map($environment->getViewData());
