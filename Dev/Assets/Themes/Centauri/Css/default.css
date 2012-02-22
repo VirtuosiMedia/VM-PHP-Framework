@@ -510,7 +510,7 @@ label {
 	text-shadow:1px 1px 0px #FFF;
 	margin-top:13px;
 }
-input[type=text], textarea {
+input[type=text], input[type=password], textarea {
 	border:1px solid;
 	border-color:#999 #FFF #FFF #999;
 	border-radius:6px;
