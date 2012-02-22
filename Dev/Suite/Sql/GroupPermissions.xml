@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tables>
+	<table name="grouppermissions" schema="public" collation="utf8_general_ci">
+		<comments />
+		<structure>
+			<columns>
+				<column name="id" datatype="int" null="false" collation="">
+					<value1>11</value1>
+					<extra>auto_increment</extra>
+				</column>
+				<column name="groupId" datatype="int" null="false" collation="">
+					<value1>5</value1>
+				</column>
+				<column name="toolId" datatype="int" null="false" collation="">
+					<value1>5</value1>
+				</column>
+				<column name="read" datatype="int" null="false" collation="">
+					<value1>1</value1>
+					<default>0</default>
+				</column>
+				<column name="write" datatype="int" null="false" collation="">
+					<value1>1</value1>
+					<default>0</default>
+				</column>
+				<column name="admin" datatype="int" null="false" collation="">
+					<value1>1</value1>
+					<default>0</default>
+				</column>								
+			</columns>
+			<keys>
+				<key type="primary">id</key>
+				<key type="foreign">groupId</key>
+				<key type="foreign">toolId</key>
+			</keys>
+		</structure>
+		<data>
+			<rows />
+		</data>
+	</table>
+</tables>
