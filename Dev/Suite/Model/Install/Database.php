@@ -106,7 +106,7 @@ class Database extends \Vm\Model {
 			$this->createConfigFile();
 			
 			$url = new \Vm\Url();
-			$url->redirect('install.php?p=admin-user');
+			$url->redirect('install.php?p=install-admin-user');
 		}
 	}
 	
