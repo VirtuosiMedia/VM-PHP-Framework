@@ -23,7 +23,7 @@
 	</div>
 	<div class="contentContainer firstContentContainer">
 		<div class="titleBar">
-			<h3>PHP Development Environment</h3>
+			<h3>Database Information</h3>
 		</div>		
 		<div class="content">
 			<div id="environment">
