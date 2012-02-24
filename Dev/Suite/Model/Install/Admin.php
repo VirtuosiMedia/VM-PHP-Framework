@@ -31,7 +31,7 @@ class Admin extends \Vm\Model {
 		$password = (isset($_POST['password'])) ? $_POST['password'] : 1;
 
 		$this->form = new Form(array());
-		$this->form->text('username', array(
+		$this->form->text('name', array(
 			'label' => array(
 				'innerHtml'=>'Username'
 			),
@@ -71,20 +71,40 @@ class Admin extends \Vm\Model {
 	
 	protected function processForm(){
 		if ($this->form->submitted() && (!$this->form->errorsExist())){
-			$this->connectDb();
+			$config = \Suite\Config();
+			$this->connectDb($config);
 			
-
+			$salt = md5($this->form->getValue('password').$config->salt.$this->form->getValue('email'));
+			$passHash = hash("sha512", (string) $salt);
+			
+			$users = new \Db\Users($this->db);
+			$users->name = $this->form->getValue('name');
+			$users->email = $this->form->getValue('email');
+			$users->password = $this->form->getValue('password');
+			$users->insert();
+			
+			$groups = new \Db\Groups($this->db);
+			$groups->name = 'Admins';
+			$groups->insert();
+			
+			$userGroups = new \Db\Groups($this->db);
+			$userGroups->userId = 1;
+			$userGroups->groupId = 1;
+			$userGroups->insert();
+			
+			$url = new \Vm\Url();
+			$url->redirect('install.php?p=install-app-data');
 		}
 	}
 	
-	protected function connectDb(){
-		$dbType = (isset($_POST['dbType'])) ? $_POST['dbType'] : NULL;
-		$dbName = (isset($_POST['dbName'])) ? $_POST['dbName'] : NULL;
-		$dbUsername = (isset($_POST['dbUsername'])) ? $_POST['dbUsername'] : NULL;
-		$dbPassword = (isset($_POST['dbPassword'])) ? $_POST['dbPassword'] : NULL;
-		$dbHost = (isset($_POST['dbHost'])) ? $_POST['dbHost'] : NULL;		
-		
-		$connect = new Connect($dbType, $dbName, $dbUsername, $dbPassword, $dbHost);
+	protected function connectDb($config){
+		$connect = new Connect(
+			$config->dbType, 
+			$config->dbName, 
+			$config->dbUsername, 
+			$config->dbPassword, 
+			$config->dbHost
+		);
 		$this->db = $connect->getDb();	
 	}
 	
