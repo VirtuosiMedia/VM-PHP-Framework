@@ -597,6 +597,8 @@ class Dml {
 					return $result->fetch(PDO::FETCH_LAZY);
 				case "obj":
 					return $result->fetchAll(PDO::FETCH_OBJ);
+				case "json":	
+					return json_encode($result->fetchAll(PDO::FETCH_OBJ));
 				case "single":
 					$rows = $result->fetch(PDO::FETCH_ASSOC);
 					if (is_array($rows)){
