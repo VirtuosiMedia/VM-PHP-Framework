@@ -2,12 +2,14 @@
 /**
  * @author Virtuosi Media Inc.
  * @license: MIT License
- * @description: The model for creating reusable forms
+ * @description: The model for creating forms
  * @requirements: PHP 5.3 or higher
  * @namespace Vm\Form
  * @uses Vm\Form
  */
 namespace Vm\Form;
+
+use \Vm\Form\Exception;
 
 abstract class Model {
 
@@ -23,12 +25,6 @@ abstract class Model {
 	 * @throws \Vm\Form\Exception
 	 */
 	function construct($formType, $db = NULL){
-		if (!in_array(strtolower($formType), array('create', 'update', 'destroy'))){
-			throw new \Vm\Form\Exception("'$formType' is an invalid form type. Only 'create', 'update', and 'destroy' 
-					are permitted."
-			);
-		}
-		
 		$this->db = $db;
 		$this->formType = strtolower($formType);
 	}
@@ -57,8 +53,10 @@ abstract class Model {
 			$this->createForm();
 		} else if ($this->formType == 'update'){
 			$this->updateForm();
-		} else {
+		} else if ($this->formType == 'delete'){
 			$this->deleteForm();
+		} else {
+			$this->defaultForm();
 		}
 		return $this->form->render();		
 	}
@@ -70,21 +68,31 @@ abstract class Model {
 	public function process(){
 		if ($this->form->submitted() && (!$this->form->errorsExist())){
 			if ($this->formType == 'create'){
-				return $this->create();
+				return $this->processCreate();
 			} else if ($this->formType == 'update'){
-				return $this->update();
+				return $this->processUpdate();
+			} else if ($this->formType == 'delete'){
+				$this->processDelete();
 			} else {
-				return $this->delete();
+				$this->processDefault();
 			}
 		}
 	}
 
 	/**
+	 * @description A placeholder method which should be overwritten by the extending class and contain a form that
+	 * 		does not create, update, or delete a resource
+	 */
+	protected function defaultForm(){
+		throw new Exception("The defaultForm method has not been overwritten and cannot be executed.");
+	}	
+	
+	/**
 	 * @description A placeholder method which should be overwritten by the extending class and contain the form that
 	 * 		creates a resource
 	 */ 	
 	protected function createForm(){
-		throw new \Vm\Form\Exception("The createForm method has not been overwritten and cannot be executed.");
+		throw new Exception("The createForm method has not been overwritten and cannot be executed.");
 	}
 
 	/**
@@ -92,7 +100,7 @@ abstract class Model {
 	 * 		updates a resource
 	 */	
 	protected function updateForm(){
-		throw new \Vm\Form\Exception("The updateForm method has not been overwritten and cannot be executed.");
+		throw new Exception("The updateForm method has not been overwritten and cannot be executed.");
 	}
 
 	/**
@@ -100,30 +108,38 @@ abstract class Model {
 	 * 		deletes a resource
 	 */	
 	protected function deleteForm(){
-		throw new \Vm\Form\Exception("The deleteForm method has not been overwritten and cannot be executed.");
+		throw new Exception("The deleteForm method has not been overwritten and cannot be executed.");
 	}	
 
+	/**
+	 * @description A placeholder method which should be overwritten by the extending class and process a form that
+	 * 		does not create, update, or delete a resource
+	 */
+	protected function processDefault(){
+		throw new Exception("The processDefault method has not been overwritten and cannot be executed.");
+	}	
+	
 	/**
 	 * @description A placeholder method which should be overwritten by the extending class and process the form that
 	 * 		creates a resource
 	 */	
-	protected function create(){
-		throw new \Vm\Form\Exception("The create method has not been overwritten and cannot be executed.");
+	protected function processCreate(){
+		throw new Exception("The processCreate method has not been overwritten and cannot be executed.");
 	}	
 
 	/**
 	 * @description A placeholder method which should be overwritten by the extending class and process the form that
 	 * 		updates a resource
 	 */	
-	protected function update(){
-		throw new \Vm\Form\Exception("The update method has not been overwritten and cannot be executed.");		
+	protected function processUpdate(){
+		throw new Exception("The processUpdate method has not been overwritten and cannot be executed.");		
 	}
 
 	/**
 	 * @description A placeholder method which should be overwritten by the extending class and process the form that
 	 * 		deletes a resource
 	 */	
-	protected function delete(){
-		throw new \Vm\Form\Exception("The delete method has not been overwritten and cannot be executed.");		
+	protected function processDelete(){
+		throw new Exception("The processDelete method has not been overwritten and cannot be executed.");		
 	}
 }
