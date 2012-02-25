@@ -2,7 +2,7 @@
 /**
  * @author Virtuosi Media Inc.
  * @license: MIT License
- * @description: The model for creating forms
+ * @description: An abstract model specifically for containing forms
  * @requirements: PHP 5.3 or higher
  * @namespace Vm\Form
  * @uses Vm\Form
@@ -20,7 +20,8 @@ abstract class Model {
 	protected $formType;
 	
 	/**
-	 * @param string $formType - The type of form to render and process. Accepts 'create', 'update', and 'destroy'.
+	 * @param string $formType -  optional The type of form to render and process. Accepts 'create', 'update', and 
+	 * 		'destroy'. If no form type is passed in, it defaults to 'default'.
 	 * @param PDO $db - optional - The PDO connection, if it is needed for the form
 	 * @throws \Vm\Form\Exception
 	 */
