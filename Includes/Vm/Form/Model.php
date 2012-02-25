@@ -24,7 +24,7 @@ abstract class Model {
 	 * @param PDO $db - optional - The PDO connection, if it is needed for the form
 	 * @throws \Vm\Form\Exception
 	 */
-	function construct($formType, $db = NULL){
+	function construct($formType = NULL, $db = NULL){
 		$this->db = $db;
 		$this->formType = strtolower($formType);
 	}
