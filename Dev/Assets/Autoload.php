@@ -15,6 +15,6 @@ function __autoload($className) {
 		$uris[$key] = ucfirst($uri);
 	}
 	$className = implode(DIRECTORY_SEPARATOR, $uris);
-	$prefix = (in_array($uris[0], array('Suite', 'Test', 'Tests', 'Tools'))) ? './' : '../Includes/';
+	$prefix = (in_array($uris[0], array('Db', 'Suite', 'Test', 'Tests', 'Tools'))) ? './' : '../Includes/';
 	require_once($prefix.$className.'.php');
 }
