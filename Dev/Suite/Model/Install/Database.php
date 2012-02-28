@@ -134,11 +134,11 @@ class Config {
 	private \$configSettings = array(
 		'dbType'=>'$dbType',												//The database type
 		'dbName'=>'$dbName',												//The database name
-		'username'=>'$dbUsername',												//The database username
-		'password'=>'$dbPassword',												//The database password
-		'host'=>'$dbHost',											//The host name, usually localhost
-		'port'=>'',														//The database port
-		'charset'=>'',													//The database charset
+		'dbUsername'=>'$dbUsername',											//The database username
+		'dbPassword'=>'$dbPassword',												//The database password
+		'dbHost'=>'$dbHost',											//The host name, usually localhost
+		'dbPort'=>'',														//The database port
+		'dbCharset'=>'',													//The database charset
 		'salt'=>'$salt'						//The application salt for passwords
 	);
 
