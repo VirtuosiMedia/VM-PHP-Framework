@@ -37,26 +37,26 @@ class Dml {
 	protected $selectList = NULL;
 	protected $table;
 	protected $tablePrefix = NULL;
+	protected $tableSingular;
 	protected $unions = array();
 	protected $valueStorage = array();
 	protected $where = NULL;
 		
 	/**
 	 * @param object $db - The PDO database connection object
-	 * @param string $table - The name of the table
+	 * @param array $table - The plural (actual) name of the table as the key, the singular name as the value
 	 * @param array $fields - The names of each field in the table
 	 * @param string $schema - The schema
 	 * @param $prefix - optional - A prefix for the table
 	 * @return The object for chaining 
 	 */
-	function __construct(\PDO $db, $table, array $fields, $schema, $prefix = NULL){
+	function __construct(\PDO $db, array $table, array $fields, $schema, $prefix = NULL){
 		$this->db = $db;
 		$this->prefix = $prefix;
-		$this->tablePrefix = ($prefix) ? $prefix.$table : $table;
-		$this->table = $table;		
- 		foreach($fields as $key) {
-			$this->fields[$key] = NULL;
-		}
+		$this->table = key($table);
+		$this->tablePrefix = ($prefix) ? $prefix.$this->table : $this->table;
+		$this->tableSingular = $table[$this->table];
+		$this->fields = $fields;		
 		return $this;
 	}
 
@@ -74,14 +74,38 @@ class Dml {
 	 * @return boolean - TRUE if the key exists, FALSE otherwise
 	 */
 	function __set($key, $value){
-		if (array_key_exists($key, $this->fields)){
+		if (in_array($key, $this->fields)){
 			$this->valueStorage[$key] = $value;
 		} else {
-			$exception = 'The "'.$key.'" column is not detected for the "'.$this->table.'" table and cannot be assigned 
-				a value. Please verify that "'.$key.'" exists as both a column in your database and as a field in your
-				database class for this table.';
-			throw new Exception($exception);
+			throw new Exception('The "'.$key.'" column is not detected for the "'.$this->table.'" table and cannot be 
+				assigned a value. Please verify that "'.$key.'" exists as both a column in your database and as a field 
+				in your	database class for this table.');
 		}
+	}
+
+	/**
+	 * @description Gets the plural form of the table name. This should correspond to the actual name of the table in 
+	 * 		the database.
+	 * return The plural name of the table as a string.
+	 */
+	public function getPluralName(){
+		return $this->table;
+	}
+
+	/**
+	 * @description Gets the singular form of the table name.
+	 * return The singular name of the table as a string.
+	 */
+	public function getSingularName(){
+		return $this->tableSingular;
+	}	
+	
+	/**
+	 * @description Gets the fields (columns) for the table
+	 * @return An array of the table fields.
+	 */
+	public function getFields(){
+		return $this->fields;
 	}
 	
 	/**
@@ -180,64 +204,125 @@ class Dml {
 		}
 		return $this;
 	}
-
+	
+	/**
+	 * @description A convenience method for creating joins. Joins will be added to the join array and processed
+	 * 		in their array order and use the ON syntax rather than USING. Optional for query build.
+	 * @param string $joinType - The type of join: 'left', 'right', 'inner', 'full'.
+	 * @param string $finalTable - The name of the table to be joined with the current table. For 2 table joins, this
+	 * 		will simply be the second table. For 3 table joins, it will be the third table, which is joined to the
+	 * 		current table through an intermediary table.
+	 * @param string $throughTable - optional - The name of the intermediary table in a 3 table join. Do not use for a
+	 * 		2 table join.
+	 * @note In order to use the autoJoin method, your database must follow a strict naming pattern.
+	 * 		Database tables must named using plural forms of whatever nouns they represent. Foreign keys refering to
+	 * 		the id of any table must be camel-cased and use the singular form of the noun. So, for a table named
+	 * 		'users', any foreign key reffering to the users table must be named 'userId'. <strong>Because VM PHP
+	 * 		Framework does not contain a pluralization dictionary, if your noun has irregular pluralization, ie.
+	 * 		'person/people', you will not be able to use the autoJoin method and should instead construct your query
+	 * 		manually using the join method.</strong>
+	 */	
+	protected function autoJoin($joinType, $finalTable, $throughTable = NULL){
+		$finalTableName = rtrim($finalTable, 's');
+		
+		if ($throughTable){
+			$throughTableName = rtrim($throughTable, 's');
+			$this->join($joinType, $throughTable, $this->table.'.id', '=', $throughTable.'.'.$this->tableSingular.'Id');
+			$this->join($joinType, $finalTable, $throughTable.'.'.$finalTableName.'Id', '=', $finalTable.'.id');
+		} else {
+			if (in_array($finalTableName.'Id', $this->fields)){
+				$this->join($joinType, $finalTable, $this->table.'.'.$finalTableName.'Id', '=', $finalTable.'.id');
+			} else {
+				$this->join($joinType, $finalTable, $this->table.'.id', '=', $finalTable.'.'.$this->tableSingular.'Id');
+			}
+		}		
+	}
+	
 	/**
 	 * @description A convenience method for creating left joins. Joins will be added to the join array and processed 
 	 * 		in their array order and use the ON syntax rather than USING. Optional for query build.
-	 * @param string $table - The name of the table to be joined with the current table
-	 * @param string $column - The column(s) to be compared to the value
-	 * @param string $operator - The operator to be used in the comparison
-	 * @param string $value - The value to which $column is compared
-	 * @param string $tableAlias - optional - The alias of the joined table. If not set, alias defaults to the table name
+	 * @param string $finalTable - The name of the table to be joined with the current table. For 2 table joins, this 
+	 * 		will simply be the second table. For 3 table joins, it will be the third table, which is joined to the 
+	 * 		current table through an intermediary table.
+	 * @param string $throughTable - optional - The name of the intermediary table in a 3 table join. Do not use for a
+	 * 		2 table join.
 	 * @return The object for chaining
+	 * @note In order to use the leftJoin method, your database must follow a strict naming pattern. 
+	 * 		Database tables must named using plural forms of whatever nouns they represent. Foreign keys refering to
+	 * 		the id of any table must be camel-cased and use the singular form of the noun. So, for a table named 
+	 * 		'users', any foreign key reffering to the users table must be named 'userId'. <strong>Because VM PHP
+	 * 		Framework does not contain a pluralization dictionary, if your noun has irregular pluralization, ie. 
+	 * 		'person/people', you will not be able to use the leftJoin method and should instead construct your query 
+	 * 		manually using the join method.</strong>
 	 */	
-	public function leftJoin($table, $column, $operator, $value, $tableAlias=NULL){
-		$this->join('left', $table, $column, $operator, $value, $tableAlias);
+	public function leftJoin($finalTable, $throughTable = NULL){
+		$this->autoJoin('left', $finalTable, $throughTable);
 		return $this;
 	}
 
 	/**
+	 * @description A convenience method for creating right joins. Joins will be added to the join array and processed 
+	 * 		in their array order and use the ON syntax rather than USING. Optional for query build.
+	 * @param string $finalTable - The name of the table to be joined with the current table. For 2 table joins, this 
+	 * 		will simply be the second table. For 3 table joins, it will be the third table, which is joined to the 
+	 * 		current table through an intermediary table.
+	 * @param string $throughTable - optional - The name of the intermediary table in a 3 table join. Do not use for a
+	 * 		2 table join.
+	 * @return The object for chaining
+	 * @note In order to use the rightJoin method, your database must follow a strict naming pattern. 
+	 * 		Database tables must named using plural forms of whatever nouns they represent. Foreign keys refering to
+	 * 		the id of any table must be camel-cased and use the singular form of the noun. So, for a table named 
+	 * 		'users', any foreign key reffering to the users table must be named 'userId'. <strong>Because VM PHP
+	 * 		Framework does not contain a pluralization dictionary, if your noun has irregular pluralization, ie. 
+	 * 		'person/people', you will not be able to use the rightJoin method and should instead construct your query 
+	 * 		manually using the join method.</strong>
+	 */	
+	public function rightJoin($finalTable, $throughTable = NULL){
+		$this->autoJoin('right', $finalTable, $throughTable);
+		return $this;
+	}	
+
+	/**
 	 * @description A convenience method for creating inner joins. Joins will be added to the join array and processed
 	 * 		in their array order and use the ON syntax rather than USING. Optional for query build.
-	 * @param string $table - The name of the table to be joined with the current table
-	 * @param string $column - The column(s) to be compared to the value
-	 * @param string $operator - The operator to be used in the comparison
-	 * @param string $value - The value to which $column is compared
-	 * @param string $tableAlias - optional - The alias of the joined table. If not set, alias defaults to the table name
+	 * @param string $finalTable - The name of the table to be joined with the current table. For 2 table joins, this
+	 * 		will simply be the second table. For 3 table joins, it will be the third table, which is joined to the
+	 * 		current table through an intermediary table.
+	 * @param string $throughTable - optional - The name of the intermediary table in a 3 table join. Do not use for a
+	 * 		2 table join.
 	 * @return The object for chaining
+	 * @note In order to use the innerJoin method, your database must follow a strict naming pattern.
+	 * 		Database tables must named using plural forms of whatever nouns they represent. Foreign keys refering to
+	 * 		the id of any table must be camel-cased and use the singular form of the noun. So, for a table named
+	 * 		'users', any foreign key reffering to the users table must be named 'userId'. <strong>Because VM PHP
+	 * 		Framework does not contain a pluralization dictionary, if your noun has irregular pluralization, ie.
+	 * 		'person/people', you will not be able to use the innerJoin method and should instead construct your query
+	 * 		manually using the join method.</strong>
 	 */
-	public function innerJoin($table, $column, $operator, $value, $tableAlias=NULL){
-		$this->join('inner', $table, $column, $operator, $value, $tableAlias);
+	public function innerJoin($finalTable, $throughTable = NULL){
+		$this->autoJoin('inner', $finalTable, $throughTable);
 		return $this;
 	}	
 
 	/**
 	 * @description A convenience method for creating full joins. Joins will be added to the join array and processed
 	 * 		in their array order and use the ON syntax rather than USING. Optional for query build.
-	 * @param string $table - The name of the table to be joined with the current table
-	 * @param string $column - The column(s) to be compared to the value
-	 * @param string $operator - The operator to be used in the comparison
-	 * @param string $value - The value to which $column is compared
-	 * @param string $tableAlias - optional - The alias of the joined table. If not set, alias defaults to the table name
+	 * @param string $finalTable - The name of the table to be joined with the current table. For 2 table joins, this
+	 * 		will simply be the second table. For 3 table joins, it will be the third table, which is joined to the
+	 * 		current table through an intermediary table.
+	 * @param string $throughTable - optional - The name of the intermediary table in a 3 table join. Do not use for a
+	 * 		2 table join.
 	 * @return The object for chaining
+	 * @note In order to use the fullJoin method, your database must follow a strict naming pattern.
+	 * 		Database tables must named using plural forms of whatever nouns they represent. Foreign keys refering to
+	 * 		the id of any table must be camel-cased and use the singular form of the noun. So, for a table named
+	 * 		'users', any foreign key reffering to the users table must be named 'userId'. <strong>Because VM PHP
+	 * 		Framework does not contain a pluralization dictionary, if your noun has irregular pluralization, ie.
+	 * 		'person/people', you will not be able to use the fullJoin method and should instead construct your query
+	 * 		manually using the join method.</strong>
 	 */
-	public function fullJoin($table, $column, $operator, $value, $tableAlias=NULL){
-		$this->join('full', $table, $column, $operator, $value, $tableAlias);
-		return $this;
-	}
-	
-	/**
-	 * @description A convenience method for creating right joins. Joins will be added to the join array and processed
-	 * 		in their array order and use the ON syntax rather than USING. Optional for query build.
-	 * @param string $table - The name of the table to be joined with the current table
-	 * @param string $column - The column(s) to be compared to the value
-	 * @param string $operator - The operator to be used in the comparison
-	 * @param string $value - The value to which $column is compared
-	 * @param string $tableAlias - optional - The alias of the joined table. If not set, alias defaults to the table name
-	 * @return The object for chaining
-	 */
-	public function rightJoin($table, $column, $operator, $value, $tableAlias=NULL){
-		$this->join('right', $table, $column, $operator, $value, $tableAlias);
+	public function fullJoin($finalTable, $throughTable = NULL){
+		$this->autoJoin('full', $finalTable, $throughTable);
 		return $this;
 	}	
 	
@@ -434,14 +519,13 @@ class Dml {
 		}
 		return $this;		
 	}
-	
-	
+		
 	/**
 	 * @description Clears all class variables by setting them to NULL, allow class instance reuse
 	 * @param boolean $clearBound - optional - Whether or not the bound variables should be cleared, defaults TRUE
 	 */
 	public function clear($clearBound = TRUE) {
- 		$this->valueStorage = NULL;
+ 		$this->valueStorage = array();
 		$this->selectList = NULL;
 		$this->alias = NULL;
 		$this->joins = NULL;
@@ -474,6 +558,220 @@ class Dml {
 			return \PDO::PARAM_STR;
 		}		
 	}
+
+	/**
+	 * @description Gets the fields from joined tables and prepends them with the table name. Fields in the current 
+	 * 		table will not be prepended.
+	 * @param array $tables - The table names to be joined to the current table, either as keys or values or both
+	 * @return The object for chaining.
+	 * @note The autoSelectList method will automatically change the names of fields from joined tables in order to 
+	 * 		prevent overwriting the current table's fields. The name of the table will be made singular and prepended 
+	 * 		to the name of the field. The composite name will be camel-cased. For example, if <i>users</i> is the current 
+	 * 		table and it is joined to <i>pages</i> table, pages.id will aliased as pageId, pages.name will be pageName, 
+	 * 		and so on. Any fields in the users table will not be aliased, so users.id will simply be id, users.name will 
+	 * 		remain name, etc. 
+	 */
+	public function autoSelectList(array $tables){
+		if (!$this->selectList){
+			$throughTables = array_keys($tables);
+			$tables = array_values($tables);
+			foreach ($throughTables as $throughTable){
+				if (!is_numeric($throughTable)){
+					$tables[] = $throughTable;
+				}
+			}
+			
+			foreach ($this->fields as $field){
+				$this->selectList[] = $this->table.'.'.$field;
+			}
+			
+			foreach ($tables as $table){
+				$tableName = '\Db\\'.$table;
+				$tableDb = new $tableName($this->db);
+				$tableSingular = $tableDb->getSingularName();
+				$tableFields = $tableDb->getFields();
+				foreach ($tableFields as $field){
+					
+					$this->selectList[] = $table.'.'.$field.' AS '.$tableSingular.ucfirst($field);
+				}
+			}
+		}
+		return $this;
+	}
+	
+	/**
+	 * @description A shortcut method for quickly retrieving data from the table
+	 * @param mixed $values - Either a single value or an array of values to be found in the specified column.
+	 * @param string $column - optional - The name of the column for which data should be matched.  The column must be 
+	 * 		present in the table or else an exception will be thrown. Defaults to 'id'.
+	 * @param array $joins - optional - An array of table names that should be joined to the returned result. For 
+	 * 		simple 2 table joins, enter the joined table name as an array value. If you have a 3 table join with an 
+	 * 		intermediary table between the current table and the final table, enter the intermediary table as the array 
+	 * 		key and the final table as the array value. See the attached note for important information on naming 
+	 * 		conventions.
+	 * @return The object for chaining.
+	 * @note In order to use the joins parameter of the find method, your database must follow a strict naming pattern. 
+	 * 		Database tables must named using plural forms of whatever nouns they represent. Foreign keys refering to
+	 * 		the id of any table must be camel-cased and use the singular form of the noun. So, for a table named 
+	 * 		'users', any foreign key reffering to the users table must be named 'userId'. <strong>Because VM PHP
+	 * 		Framework does not contain a pluralization dictionary, if your noun has irregular pluralization, ie. 
+	 * 		'person/people', you will not be able to use the find method and should instead construct your query 
+	 * 		manually.</strong>
+	 * @note Because the find method is merely a shortcut method that dynamically creates where and join clauses for 
+	 * 		simple queries, you can use other methods for any of the other SQL clauses before using the find method to 
+	 * 		further refine your queries. The sole exception to this is that you will not be able to use the alias 
+	 * 		method or any alias parameters as find relies on full table names rather than aliases.
+	 * @note The joins parameter is only for use with the select method and will be ignored when using the find method 
+	 * 		in conjuction with delete or update methods.
+	 * @note When using the joins parameter, keep in mind that any field names from the joined tables will be altered 
+	 * 		in the result set returned from the query. find will automatically run autoSelectList if needed. See the 
+	 * 		note on the autoSelectList method for more details.
+	 */
+	public function find($values, $column = 'id', array $joins = array()){
+		if (!in_array($column, $this->fields)){
+			throw new Exception("The column '$column' does not exist in $this->table.");
+		}
+		
+		$values = (is_array($values)) ? $values : array($values);
+		$numValues = sizeof($values);
+		
+		if (sizeof($joins) > 0){
+			$this->autoSelectList($joins);
+		}
+		
+		foreach ($joins as $throughTable=>$finalTable){
+			if (is_numeric($throughTable)){
+				$this->autoJoin('left', $finalTable);
+			} else {
+				$this->autoJoin('left', $finalTable, $throughTable);
+			}
+		}
+		
+		for ($i=0; $i<$numValues; $i++){
+			if ($i == 0){
+				$this->where($this->table.'.'.$column, '=', $values[$i]);
+			} else {
+				$this->where($this->table.'.'.$column, '=', $values[$i], 'OR');
+			}
+		}
+		return $this;
+	}
+
+	/**
+	 * @description Retrieves the first row in the table when sorted by id.
+	 * @param string $mode - optional - Corresponds to the mode parameter in the select method. See that method for more
+	 * 		details. Defaults to 'single'.
+	 * @return mixed - The query result set as detailed in the select method.
+	 */
+	public function first($mode = 'single'){
+		$this->limit(1);
+		return $this->select($mode);
+	}
+
+	/**
+	 * @description Retrieves the last row in the table when sorted by id.
+	 * @param string $mode - optional - Corresponds to the mode parameter in the select method. See that method for more
+	 * 		details. Defaults to 'single'.
+	 * @return mixed - The query result set as detailed in the select method.
+	 */	
+	public function last($mode = 'single'){
+		$this->limit(1)->orderBy('id', 'DESC');
+		return $this->select($mode);
+	}	
+
+	/**
+	 * @description A convenience method for retrieving the number of records. Is equivalent to select('count').
+	 * @returns int - The number of records for the given query.
+	 */
+	public function count(){
+		return $this->select('count');
+	}
+
+	/**
+	 * @description Builds the select query string
+	 * @param string $selectType - optional - 'DISTINCT' or 'ALL'. Note: $selectType is ignored for the first select 
+	 * 		query in a set of unions
+	 * @return The select query string 
+	 */
+	protected function prepareQuery($selectType = NULL){
+		if ($selectType){
+			$type = ($selectType == 'ALL') ? ' ALL' : ' DISTINCT';
+		} else {
+			$type = NULL;
+		}
+		
+		$selectList = ($this->selectList) ? ' '.implode(', ', $this->selectList) : ' *';
+		$alias = ($this->alias) ? ' AS '.$this->alias : ' AS '.$this->table;
+		$joins = ($this->joins) ? implode('', $this->joins) : NULL;
+		$where = ($this->where) ? ' WHERE'.implode('', $this->where) : NULL;
+		
+		if (!$this->groupBy) {
+			$groupBy = NULL;
+			$having = NULL;
+		} else {
+			$groupBy = ' GROUP BY '.implode(', ', $this->groupBy);
+			$having = ($this->having) ? ' HAVING '.implode('', $this->having) : NULL;
+		}
+		
+		$orderBy = ($this->orderBy) ? ' ORDER BY '.implode(', ', $this->orderBy) : NULL;
+		
+		if ($this->limit) {
+			$limit = ($this->offset) ? ' LIMIT '.$this->offset.', '.$this->limit : ' LIMIT '.$this->limit;
+		} else {
+			$limit = NULL;
+		}
+		
+		if ((sizeof($this->unions) > 0)&&($mode != 'union')){
+			$query = implode(' ', $this->unions)."$orderBy$limit";
+		} else {
+			$query = "SELECT$type$selectList FROM ".$this->tablePrefix."$alias$joins$where$groupBy$having$orderBy$limit";
+		}
+		return $query;
+	}
+
+	/**
+	 * @description Executes the select statement based on the mode.
+	 * @param string $mode - The mode of the select results. 
+	 * @param PDOStatement $result - The prepared PDOStatement class
+	 * @return See the selectm method for more details.
+	 */
+	protected function executeSelect($mode, \PDOStatement $result){
+		$result->execute();
+		switch ($mode){
+			case "assoc":
+				return $result->fetchAll(PDO::FETCH_ASSOC);
+			case "count":
+				return count($result->fetchAll());
+			case "num":
+				return $result->fetchAll(PDO::FETCH_NUM);
+			case "lazy":
+				return $result->fetch(PDO::FETCH_LAZY);
+			case "obj":
+				return $result->fetchAll(PDO::FETCH_OBJ);
+			case "json":
+				return json_encode($result->fetchAll(PDO::FETCH_OBJ));
+			case "xml":
+				$results = $result->fetchAll(PDO::FETCH_ASSOC);
+				$xml = new \SimpleXMLElement('<'.$this->table.'/>');
+				foreach ($results as $result){
+					$table = $xml->addChild($this->tableSingular);
+					foreach ($result as $field=>$value){
+						$table->addChild($field, $value);
+					}
+				}
+				return $xml->asXML();
+			case "single":
+				$rows = $result->fetch(PDO::FETCH_ASSOC);
+				if (is_array($rows)){
+					foreach(array_keys($rows) as $key) {
+						$this->valueStorage[$key] = $rows[$key];
+					}
+				}
+				return $rows;
+			default:
+				return $result->fetchAll(PDO::FETCH_BOTH);
+		}		
+	}
 	
 	/**
 	 * @description Compiles the given data into a select query and returns a result set based on the query
@@ -498,6 +796,12 @@ class Dml {
 	 *
 	 * If set to 'lazy', will return a combination of 'both' and 'obj', creating the object variable names 
 	 * as they are accessed
+	 * 
+	 * If set to 'json', will return a JSON array of the results.
+	 * 
+	 * If set to 'xml', will return the results as XML, with the plural table name as the parent element and the 
+	 * table name in the singular as a child element for each row. Each singular table element will contain child nodes 
+	 * named after the table column with the data as the text node.
 	 *
 	 * If set to 'subquery', will wrap the query in parantheses and return it for use in a subquery without executing it.
 	 * 	WARNING: Bound parameters are not used for subqueries 
@@ -536,80 +840,27 @@ class Dml {
 	 * @return mixed - The query result set
 	 */
 	public function select($mode=NULL, $selectType=NULL) {
-		if ($selectType){
-			$type = ($selectType == 'ALL') ? ' ALL' : ' DISTINCT';
-		} else {
-			$type = NULL;
-		}
-		
-		$selectList = ($this->selectList) ? ' '.implode(', ', $this->selectList) : ' *';
-		$alias = ($this->alias) ? ' AS '.$this->alias : ' AS '.$this->table;	
-		$joins = ($this->joins) ? implode('', $this->joins) : NULL;
-		$where = ($this->where) ? ' WHERE'.implode('', $this->where) : NULL;
-
-		if (!$this->groupBy) {
-			$groupBy = NULL;
-			$having = NULL;	
-		} else {
-			$groupBy = ' GROUP BY '.implode(', ', $this->groupBy);
-			$having = ($this->having) ? ' HAVING '.implode('', $this->having) : NULL;
-		}
-
-		$orderBy = ($this->orderBy) ? ' ORDER BY '.implode(', ', $this->orderBy) : NULL;
-
-		if ($this->limit) {
-			$limit = ($this->offset) ? ' LIMIT '.$this->offset.', '.$this->limit : ' LIMIT '.$this->limit;
-		} else {
-			$limit = NULL;
-		}
-		
-		if ((sizeof($this->unions) > 0)&&($mode != 'union')){
-			$query = implode(' ', $this->unions)."$orderBy$limit";
-		} else {
-			$query = "SELECT$type$selectList FROM ".$this->tablePrefix."$alias$joins$where$groupBy$having$orderBy$limit";
-		}
-		$result = $this->db->prepare($query);
+		$mode = strtolower($mode);
+		$result = $this->db->prepare($this->prepareQuery($selectType));
 		
 		if ((is_array($this->boundValues))&&(!in_array($mode, array('subquery', 'union')))) {
 			foreach ($this->boundValues as $name=>$value) {
-				$result->bindValue($name, null, $this->getBoundType($value));
+				$result->bindValue($name, $value, $this->getBoundType($value));
 			}
 		}
 		
-		if (strtolower($mode) == "debug") {
+		if ($mode == "debug") {
 			return preg_replace($this->patterns, $this->getSpacedBoundValues(), $result->queryString, 1);
-		} else if (strtolower($mode) == "subquery") {
+		} else if ($mode == "subquery") {
 			$this->clear(FALSE);
 			return '('.$result->queryString.')';
-		} else if (strtolower($mode) == "union") {
+		} else if ($mode == "union") {
 			$this->clear(FALSE);
-			$this->unions[] = (sizeof($this->unions) >= 1) ? "UNION $selectType (".$result->queryString.')' : '('.$result->queryString.')';			
+			$this->unions[] = (sizeof($this->unions) >= 1) 
+				? "UNION $selectType (".$result->queryString.')' 
+				: '('.$result->queryString.')';			
 		} else {
-			$result->execute();
-			switch (strtolower($mode)) {
-				case "assoc":
-					return $result->fetchAll(PDO::FETCH_ASSOC);
-				case "count":
-					return count($result->fetchAll());
-				case "num":
-					return $result->fetchAll(PDO::FETCH_NUM);
-				case "lazy":
-					return $result->fetch(PDO::FETCH_LAZY);
-				case "obj":
-					return $result->fetchAll(PDO::FETCH_OBJ);
-				case "json":	
-					return json_encode($result->fetchAll(PDO::FETCH_OBJ));
-				case "single":
-					$rows = $result->fetch(PDO::FETCH_ASSOC);
-					if (is_array($rows)){
-						foreach(array_keys($rows) as $key) {
-							$this->valueStorage[$key] = $rows[$key];
-						}
-					}
-					return $rows;					
-				default:
-					return $result->fetchAll(PDO::FETCH_BOTH);	
-			}
+			return $this->executeSelect($mode, $result);
 		}
 	} 
 	
@@ -762,7 +1013,7 @@ class Dml {
 			return preg_replace($this->patterns, $this->getSpacedBoundValues(), $result->queryString, 1);
 		} else {
 			foreach ($this->boundValues as $name=>$value) {
-				$result->bindValue($name, null, $this->getBoundType($value));
+				$result->bindValue($name, $value, $this->getBoundType($value));
 			}
 			$result->execute();
 			return $result->rowCount();
