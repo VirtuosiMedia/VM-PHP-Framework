@@ -18,6 +18,7 @@ class Generator extends \Vm\Db\Factory\Ddl {
 	 * @param string $dir - The relative directory path, omitting the trailing forward slash '/'
 	 */
 	public function generate($dbType, $tableName, $dir){
+		$tableSingular = rtrim($tableName, 's');
 		$newtableName = str_replace('_', ' ', $tableName);
 		$newtableName = str_replace(' ', '', ucwords($newtableName));
 		$columns = $this->showColumns($tableName);
@@ -57,7 +58,7 @@ class $objectName extends \Vm\Db\Factory\Dml {
 	 * @return Returns the current object for chaining purposes
 	 */
 	function __construct(\PDO \$db, \$prefix = NULL) {
-		parent::__construct(\$db, '$dbType', '$tableName', array($fields), 'public', \$prefix);
+		parent::__construct(\$db, '$dbType', array('$tableName'=>'$tableSingular'), array($fields), 'public', \$prefix);
   	}
 }
 EOT;
