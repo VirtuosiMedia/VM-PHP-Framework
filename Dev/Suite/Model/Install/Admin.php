@@ -71,7 +71,7 @@ class Admin extends \Vm\Model {
 	
 	protected function processForm(){
 		if ($this->form->submitted() && (!$this->form->errorsExist())){
-			$config = \Suite\Config();
+			$config = new \Suite\Config();
 			$this->connectDb($config);
 			
 			$salt = md5($this->form->getValue('password').$config->salt.$this->form->getValue('email'));
@@ -87,7 +87,7 @@ class Admin extends \Vm\Model {
 			$groups->name = 'Admins';
 			$groups->insert();
 			
-			$userGroups = new \Db\Groups($this->db);
+			$userGroups = new \Db\UserGroups($this->db);
 			$userGroups->userId = 1;
 			$userGroups->groupId = 1;
 			$userGroups->insert();
@@ -106,6 +106,5 @@ class Admin extends \Vm\Model {
 			$config->dbHost
 		);
 		$this->db = $connect->getDb();	
-	}
-	
+	}	
 }
