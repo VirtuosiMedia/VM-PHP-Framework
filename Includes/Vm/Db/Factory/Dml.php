@@ -114,6 +114,14 @@ class Dml {
 	}
 
 	/**
+	 * @description Gets a list of tables that have been joined to the table for the current query.
+	 * @return An array of tables that have been joined to the query.
+	 */
+	public function getJoinedTables(){
+		return $this->driver->getJoinedTables();
+	}	
+	
+	/**
 	 * @description Joins will be added to the join array and processed in their array order and use the ON syntax 
 	 * 	rather than USING. Optional for query build.
 	 * @param string $joinType -The type of join to be performed. Acceptable values are 'left', 'right', 'inner', and 
