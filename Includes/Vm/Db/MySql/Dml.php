@@ -23,7 +23,8 @@ class Dml {
 	protected $fields = array();
 	protected $groupBy = NULL;
 	protected $having = NULL;
-	protected $joins = NULL;	
+	protected $joinedTables = array();
+	protected $joins = NULL;
 	protected $limit = NULL;
 	protected $numBoundValues = 0;
 	protected $offset = NULL;
@@ -172,6 +173,14 @@ class Dml {
 	}
 
 	/**
+	 * @description Gets a list of tables that have been joined to the table for the current query.
+	 * @return An array of tables that have been joined to the query.
+	 */
+	public function getJoinedTables(){
+		return $this->joinedTables;
+	}
+	
+	/**
 	 * @description Joins will be added to the join array and processed in their array order and use the ON syntax 
 	 * 	rather than USING. Optional for query build.
 	 * @param string $joinType -The type of join to be performed. Acceptable values are 'left', 'right', 'inner', and 'full'
@@ -183,6 +192,7 @@ class Dml {
 	 * @return The object for chaining
 	 */
 	public function join($joinType, $table, $column, $operator, $value, $tableAlias=NULL){
+		$this->joinedTables[] = $table;
 		$joinAlias = ($tableAlias) ? $tableAlias : $table;
 		$joinName = ($this->prefix) ? $this->prefix.$table : $table;
 		$expr = "$column $operator $value";	
@@ -223,10 +233,14 @@ class Dml {
 	 * 		manually using the join method.</strong>
 	 */	
 	protected function autoJoin($joinType, $finalTable, $throughTable = NULL){
-		$finalTableName = rtrim($finalTable, 's');
+		$tableName = '\Db\\'.$finalTable;
+		$tableDb = new $tableName($this->db);
+		$finalTableName = $tableDb->getSingularName();
 		
 		if ($throughTable){
-			$throughTableName = rtrim($throughTable, 's');
+			$tableName = '\Db\\'.$throughTable;
+			$tableDb = new $tableName($this->db);
+			$throughTableName = $tableDb->getSingularName();			
 			$this->join($joinType, $throughTable, $this->table.'.id', '=', $throughTable.'.'.$this->tableSingular.'Id');
 			$this->join($joinType, $finalTable, $throughTable.'.'.$finalTableName.'Id', '=', $finalTable.'.id');
 		} else {
@@ -528,6 +542,7 @@ class Dml {
  		$this->valueStorage = array();
 		$this->selectList = NULL;
 		$this->alias = NULL;
+		$this->joinedTables = array();
 		$this->joins = NULL;
 		$this->where = NULL;
 		$this->groupBy = NULL;	
