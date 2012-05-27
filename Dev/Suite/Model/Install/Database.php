@@ -80,7 +80,7 @@ class Database extends \Vm\Model {
 			),
 			'validators'=>array('Required'=>'A database host is required.')	
 		));
-		$this->form->submit(array('value'=>'Next Step', 'class'=>'submit'));
+		$this->form->submit(array('value'=>'Install Database', 'class'=>'submit'));
 		$this->setData('databaseForm', $this->form->render());
 	}
 	
