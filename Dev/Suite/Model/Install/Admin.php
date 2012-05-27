@@ -65,7 +65,7 @@ class Admin extends \Vm\Model {
 				'Matches'=>array('Oops, your passwords don\'t match.', $password)
 			)	
 		));
-		$this->form->submit(array('value'=>'Next Step', 'class'=>'submit'));
+		$this->form->submit(array('value'=>'Create Admin User', 'class'=>'submit'));
 		$this->setData('adminForm', $this->form->render());
 	}
 	
